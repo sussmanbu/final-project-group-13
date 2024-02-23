@@ -19,18 +19,33 @@ about:
 
 This comes from the file `about.qmd`.
 
-This is a website for the final project for MA[46]15 Data Science with R by Team TEAMNAME.
+This is a website for the final project for MA[46]15 Data Science with R by Team Group 13.
 The members of this team are below.
 
-## Chang Liu
+## Guanchen Li
 
-Luis is a Ph.D. student in Stats and is the Teaching Fellow for the course.
+I'm a junior at BU majoring in Pure and Applied Math with CS Minor. 
+https://github.com/Guanchenlileo
 
-## Dan Sussman
+## Yueyou Tao 
 
-Dan is a professor in the Math/Stat department and is the instructor for the course.
+junior, Stats major Anthropology minor
+https://github.com/yueyouTao
+
+## Jiajun Chen
+
+I am junior student major in Math & Econ.
+https://github.com/nora-cc
+
+## Yulin Chen
+
+I am a junior studying Econ & Maths
+https://github.com/ChristyKK
 
 ## Jessica Sherr
+
+I'm a senior at BU majoring in Economics and Mathematics with a CS Minor.
+https://github.com/jessicasherr
 
 <!-- Please leave in the information below -->
 
