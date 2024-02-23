@@ -24,27 +24,32 @@ The members of this team are below.
 
 ## Guanchen Li
 
-I'm a junior at BU majoring in Pure and Applied Math with CS Minor. 
+I'm a junior at BU majoring in Pure and Applied Math with CS Minor.
+
 https://github.com/Guanchenlileo
 
 ## Yueyou Tao 
 
 junior, Stats major Anthropology minor
+
 https://github.com/yueyouTao
 
 ## Jiajun Chen
 
 I am junior student major in Math & Econ.
+
 https://github.com/nora-cc
 
 ## Yulin Chen
 
 I am a junior studying Econ & Maths
+
 https://github.com/ChristyKK
 
 ## Jessica Sherr
 
 I'm a senior at BU majoring in Economics and Mathematics with a CS Minor.
+
 https://github.com/jessicasherr
 
 <!-- Please leave in the information below -->
