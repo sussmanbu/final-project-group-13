@@ -1,0 +1,8 @@
+---
+title: "First Blog Post"
+author: "Group 13"
+date: "2024-02-23"
+date-modified: "2024-02-23"
+draft: FALSE
+---
+
