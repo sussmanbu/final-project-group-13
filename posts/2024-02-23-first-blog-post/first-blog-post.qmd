@@ -6,7 +6,7 @@ date-modified: "2024-03-01"
 draft: FALSE
 ---
 
-Here are the three data sets we are considering for our analysis. Each data set enables us to study racial disparities in the United States. 
+Here are the three data sets we are considering for our analysis. Each data set enables us to study racial disparities in different sectors in the United States. 
 
 ## United States Maternal Mortality Ratio Estimates by Race and Ethnicity 1999-2019
 
