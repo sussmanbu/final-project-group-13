@@ -6,6 +6,8 @@ date-modified: "2024-03-01"
 draft: FALSE
 ---
 
+Here are the three data sets we are considering for our analysis.
+
 ## United States Maternal Mortality Ratio Estimates by Race and Ethnicity 1999-2019
 
 https://ghdx.healthdata.org/record/ihme-data/united-states-maternal-mortality-by-state-race-ethnicity-1999-2019
