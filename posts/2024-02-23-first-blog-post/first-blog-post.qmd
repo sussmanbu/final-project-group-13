@@ -2,7 +2,36 @@
 title: "First Blog Post"
 author: "Group 13"
 date: "2024-02-23"
-date-modified: "2024-02-23"
+date-modified: "2024-03-01"
 draft: FALSE
 ---
+
+United States Maternal Mortality Ratio Estimates by Race and Ethnicity 1999-2019
+
+https://ghdx.healthdata.org/record/ihme-data/united-states-maternal-mortality-by-state-race-ethnicity-1999-2019
+
+This data comes from the Institute for Health Metrics and Evaluation and is supported by the Global Health Data Exchange. This set of data contains multiple spreadsheets, however I will focus on the most detailed one. It presents maternal mortality ratios for women in the United States from the ages 10-54 for the years 1999-2019. It divides the data into each state with a national observation, as well as separating into five racial categories. The columns right as it is downloaded are measure_id, measure_name, location_id, location_name, race_group, sex_id, age_group_id, age_group_name, year_id, metric_id, val, lower, and upper. Some of the columns have the same value for every observation in its raw form and will likely not be relevant to our analysis, like measure_id, measure_name, and age_group_id. Columns like location_name (the name of the state), race_group (the race of the individual), year (the year of the observation), and val (the maternal mortality ratio) will likely be most relevant to our analysis. There are 5901 rows of observations in the data set.
+	The data is very accessible, simply requiring an account to download. It comes in CSV form. It is quite clean already, however, pivoting the data or making subtables would likely aid in our analysis given its current organization. Some questions we can look at with this data are: “How does maternal mortality change over time? How does maternal mortality vary across US states? How does maternal mortality vary across ethnic groups?” At a deeper level, we could investigate how maternal mortality varies across both state and race groups, and compare with additional data about healthcare for different racial groups to add on a new data set. A possible challenge comes in interpreting the value for the maternal mortality ratio. The value is given along with a lower and upper value, however it is not clear how this number should be interpreted for the analysis. More research is needed here. 
+	
+	
+
+Mental Health Care in the Last 4 Weeks 2020-2022
+
+https://catalog.data.gov/dataset/mental-health-care-in-the-last-4-weeks
+
+This dataset provides information on mental health care situations around the United States. The government wants to collect this data to gauge the impact of the pandemic on employment status, consumer spending, food security, housing, education disruptions, and dimensions of physical and mental wellness. This particular data focuses on the mental health situation during the pandemic. The survey was originally conducted by an internet questionnaire and the sample frame is the Census Bureau Master Address File Data. The columns of the data include Indicator, group, state, subgroups, phases of treatment, time period of treatment, in which the subgroups label specifies the race, age, and gender of the individuals. The dataset rows first divide the survey takers into separate groups according to the types of treatment and mental health counseling done during the pandemic season. 
+
+This data is pretty accessible in CSV form. It’s a bit messy with separate subgroups under the column indicator which refer to different types and level of mental health treatment. The main problem that comes across during the data cleaning process is to reevaluate the existing group and split the groups by race, county, and state. I do think the different criteria and the design of the questionnaire make the results messy and less ideal. Some questions we can look at with this data set are: Is there a racial difference across the States of mental health treatment performance during the pandemic? Which part of America is recorded to be the biggest state of mental health care during the quarantine period? A possible challenge we might face is to find a way to filter the data and regenerate an ideal form if data where the subgroups are divided in a logical way.
+
+
+
+
+US Ethnic group vs income Level
+
+https://usa.ipums.org/usa-action/variables/group
+
+The dataset is extracted from IPUMS which mainly explores the relationship between US ethnic group and their income level in 2022. There are 19 columns with over nine million rows. The data are collected mainly through the survey; it is composed of microdata. Each data row indicates a person, with all characteristics numerically coded. The data can be loaded in csv. format and has already been coded into numbers which is easily to be cleaned and the main focus might be the correction of the data record with missing values. 
+
+There are some questions we derived from this data: 1. What is the relationship between the ICTWAGE and race, does sex affect it? 2. Do you think PERWT will affect the outcome of question 1? 3. Which race increase their income most as they getting older. The challenges we have maybe hard to graph with multi variables such as age. We need to group them in a specific range first and then graph them. In addition, the missing value may affect the outcomes. What’s more, as we have 9 millions data, we are not sure it will need more time to process the data. We may need to filter out some of the useless data.
+
 
