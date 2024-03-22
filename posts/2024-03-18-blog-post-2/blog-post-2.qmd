@@ -13,8 +13,15 @@ draft: FALSE
 #### Are there any issues you can see with how the data was collected? What is the sample population? Are there reasons to think the sample is biased in some way?
 
 #### How is this data used? Has there been other research on the same data? Is this data being used for some policy decisions? What questions have others ask about this data?
+There are other researchers used this data to analyze the questions of the mortality rate across different ethnicity groups in Trends in state-level maternal mortality by racial and ethnic group in the United States (2023). Their question is: How does maternal mortality vary by state and race and ethnicity over time in the US?  
+There are a couple of policies in the US about maternal mortality rate such as: 
+1. The Maternal Mortality Review Committees (MMRCs) at the state level, which analyze maternal death cases and provide recommendations.
+2. The Preventing Maternal Deaths Act, which supports states in establishing and expanding MMRCs.
+3. State-specific initiatives like California's Maternal Quality Care Collaborative, which develops strategies to reduce maternal mortality and morbidity.
+4. Federal funding for rural maternal health initiatives and research on maternal health disparities.
+Maybe some of them would use this data.
 
-
+[https://jamanetwork.com/journals/jama/fullarticle/2806661]
 ## Data Loading and Cleaning
 
 
