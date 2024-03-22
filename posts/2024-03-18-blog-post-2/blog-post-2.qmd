@@ -1,16 +1,18 @@
 ---
-title: "Blog post 2"
+title: "Blog Post 2"
 description:  |
-  Second Blog post describe our data
+  Exploring the data background and describing our loading and cleaning process
 author: "Christy"
 date: "2024-03-18"
-date-modified: "2024-03-18"
+date-modified: "2024-03-22"
 draft: FALSE
 ---
 ## Data Background
 #### Where does the data come from? Who collected it? Why was it collected? Are you able to find the data from the original source?
+The Institute for Health Metrics and Evaluation (IHME), a global health research organization at the University of Washington, generated and released the dataset. The purpose of creating and collecting this dataset was to provide insights into maternal mortality trends within the United States, focusing on the disparities among different racial and ethnic groups. This effort aligns with the broader objectives of improving maternal health outcomes and addressing health disparities. As for accessing the original source of the data, there is a "Data input source list" included in the release files which could be part of the original source providing raw materials.
 
 #### Are there any issues you can see with how the data was collected? What is the sample population? Are there reasons to think the sample is biased in some way?
+This data is likely to rely on multiple sources including vital statistics systems, death certificates and also medical records. The discrepancies in reporting across the states and areas may introduce bias to the final dataset. The sample population for this dataset consists of maternal deaths occurring in the United States from 1999 to 2019. However, certain groups such as racial or ethnic minorities could be disproportionately affected by maternal mortality, but less likely to get high-quality healthcare. This situation might not be reflected directly in the final dataset.
 
 #### How is this data used? Has there been other research on the same data? Is this data being used for some policy decisions? What questions have others ask about this data?
 There are other researchers used this data to analyze the questions of the mortality rate across different ethnicity groups in Trends in state-level maternal mortality by racial and ethnic group in the United States (2023). Their question is: How does maternal mortality vary by state and race and ethnicity over time in the US?  
@@ -22,6 +24,8 @@ There are a couple of policies in the US about maternal mortality rate such as:
 Maybe some of them would use this data.
 
 [https://jamanetwork.com/journals/jama/fullarticle/2806661]
+
 ## Data Loading and Cleaning
+The data comes from the Institute for Health Metrics and Evaluation and is supported by the Global Health Data Exchange. The file we chose initially has columns measure_id, measure_name, location_id, location_name, race_group, sex_id, age_group_id, age_group_name, year_id, metric_id, val, lower, and upper. It has 5901 observations. This odd number indicates that there may be some missing observations for certain location/race/year combinations. To load the data, we made an account and downloaded the .csv file called IHME_USA_MMR_STATE_RACE_ETHN_1999_2019_ESTIMATES_Y2023M07D03. We then read it into a dataframe in R. Since the data is already very clean, we simply selected the columns location_id, location_name, race_group, year_id, val, lower, upper to keep in our cleaned dataset and discarded the rest. We chose to discard those columns because every observation had the same value. For example, every observation was Female in the age group 10 to 54. We then saved this cleaned dataframe as a .Rdata file in our repository. 
 
 
