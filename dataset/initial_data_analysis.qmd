@@ -12,9 +12,14 @@ mmr_data_clean |>
   ggplot(aes(x = val)) + 
     geom_histogram()
 
-mmr_data_clean |> 
-  ggplot(aes(x = year_id, y = val)) +
-  geom_point(aes(alpha = 0.01)) 
+
+# this isnt working idk 
+# mmr_data_clean |> 
+#   group_by(location_name, year_id) |> 
+#   summarize(mean = mean(val)) |> 
+#   ungroup() |> 
+#   ggplot(aes(x = mmr_data_clean$year_id, y = mean)) +
+#   geom_point(aes(alpha = 0.001)) 
 
 
 ```
