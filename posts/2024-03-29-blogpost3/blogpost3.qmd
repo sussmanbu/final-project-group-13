@@ -29,6 +29,7 @@ mmr_data_clean |>
     geom_histogram() + 
     xlim(0, 200)
 ```
+The graph visualizes the frequency distribution of value MMR.  From the histogram, we observe that the data is right-skewed, meaning that the majority of the data points fall on the lower end of the value range, and there are fewer observations as the value increases. This is indicated by the high bars on the left and the bars gradually decreasing in height as we move to the right, showing that high values are less common.
 
 
 ```{r figure 2}
@@ -38,6 +39,8 @@ mmr_data_clean |>
   ggplot(aes(x = year_id, y = mean)) +
   geom_line(aes(color = race_group))
 ```
+The line graph presented displays the trends of mean MMR across different racial and ethnic groups over a span of approximately two decades, starting from the year 2000. Each colored line on the graph represents a different racial or ethnic category, plotting the mean of 'val' for that group against the timeline of 'year_id'. Several key trends and patterns can be discerned from the graph: - The 'Non-Hispanic Black' group exhibits a notable upward trajectory, suggesting a consistent increase in the mean of 'val' over the years. Starting from a position close to other groups in the year 2000, there is a significant rise around the year 2010, and by 2020, this group has the highest mean value among all groups shown. - 'All racial and ethnic groups' combined show a gradual increase, hinting at an overall rising trend in the mean of 'val' across the population. - The 'Non-Hispanic Asian, Native Hawaiian, or Other Pacific Islander' group shows an increase, albeit with some fluctuations and a less steep incline compared to the 'Non-Hispanic Black' and 'Non-Hispanic White' groups.
+
 
 ```{r figure 3}
 mmr_data_clean |>
