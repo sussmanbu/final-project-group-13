@@ -41,8 +41,8 @@ mmr_data_clean |>
 
 ```{r figure 3}
 mmr_data_clean |>
-  filter(location_name == "Massachusetts"| location_name == "Alabama") |> 
   group_by(year_id, location_name) |>
+  filter(str_detect(location_name, "Census")) |> 
   summarize(mean = mean(val)) |>
   ggplot(aes(x = year_id, y = mean)) +
   geom_line(aes(color = location_name))
