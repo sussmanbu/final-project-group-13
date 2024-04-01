@@ -12,14 +12,14 @@ mmr_data_clean |>
   ggplot(aes(x = val)) + 
     geom_histogram()
 
+```
 
-# this isnt working idk 
-# mmr_data_clean |> 
-#   group_by(location_name, year_id) |> 
-#   summarize(mean = mean(val)) |> 
-#   ungroup() |> 
-#   ggplot(aes(x = mmr_data_clean$year_id, y = mean)) +
-#   geom_point(aes(alpha = 0.001)) 
+```{r}
+mmr_data_clean |>
+  group_by(year_id, race_group) |>
+  summarize(mean = mean(val)) |>
+  ggplot(aes(x = year_id, y = mean)) +
+  geom_line(aes(color = race_group))
 
 
 ```
