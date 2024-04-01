@@ -16,3 +16,34 @@ Good dataset require maximization of benefits and minimization of harm. For mate
 
 ### Justice
 Justice involves a fair distribution of benefits and burdens. These limitations can be structural barriers to the equitable implementation of interventions, such as systemic racism in the health care system and socioeconomic inequalities that affect health outcomes.
+
+
+### Initial Data Exploration
+
+```{r figure 1}
+suppressPackageStartupMessages(library(tidyverse))
+load("dataset/mmr.RData")
+
+mmr_data_clean |> 
+  ggplot(aes(x = val)) + 
+    geom_histogram() + 
+    xlim(0, 200)
+```
+
+
+```{r figure 2}
+mmr_data_clean |>
+  group_by(year_id, race_group) |>
+  summarize(mean = mean(val)) |>
+  ggplot(aes(x = year_id, y = mean)) +
+  geom_line(aes(color = race_group))
+```
+
+```{r figure 3}
+mmr_data_clean |>
+  filter(location_name == "Massachusetts"| location_name == "Alabama") |> 
+  group_by(year_id, location_name) |>
+  summarize(mean = mean(val)) |>
+  ggplot(aes(x = year_id, y = mean)) +
+  geom_line(aes(color = location_name))
+```
