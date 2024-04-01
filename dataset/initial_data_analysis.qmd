@@ -41,3 +41,14 @@ mmr_data_clean |>
   ggplot(aes(x = year_id, y = mean)) +
   geom_line(aes(color = location_name))
 ```
+
+
+```{r}
+mmr_data_clean |>
+  group_by(year_id, location_name, race_group) |>
+  filter(str_detect(location_name, "Census")) |> 
+  summarize(mean = mean(val))|>
+  ggplot(aes(x = year_id, y = mean)) +
+  geom_line(aes(color = location_name)) + 
+  facet_wrap(~race_group)
+```
