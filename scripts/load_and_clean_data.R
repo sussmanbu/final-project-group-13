@@ -1,5 +1,4 @@
-# This file is purely as an example. 
-# There are a few places
+## script to load and clean initial dataset
 
 suppressPackageStartupMessages(library(tidyverse))
 
