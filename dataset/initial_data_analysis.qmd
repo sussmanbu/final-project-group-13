@@ -10,7 +10,8 @@ load("dataset/mmr.RData")
 
 mmr_data_clean |> 
   ggplot(aes(x = val)) + 
-    geom_histogram()
+    geom_histogram() + 
+    xlim(0, 200)
 
 ```
 
@@ -20,6 +21,19 @@ mmr_data_clean |>
   summarize(mean = mean(val)) |>
   ggplot(aes(x = year_id, y = mean)) +
   geom_line(aes(color = race_group))
+
+
+```
+
+
+
+```{r}
+mmr_data_clean |>
+  filter(location_name == "Georgia"| location_name == "California") |> 
+  group_by(year_id, location_name) |>
+  summarize(mean = mean(val)) |>
+  ggplot(aes(x = year_id, y = mean)) +
+  geom_line(aes(color = location_name))
 
 
 ```
