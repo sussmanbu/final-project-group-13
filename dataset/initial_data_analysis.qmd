@@ -29,7 +29,7 @@ mmr_data_clean |>
 
 ```{r}
 mmr_data_clean |>
-  filter(location_name == "Georgia"| location_name == "California") |> 
+  filter(location_name == "Massachusetts"| location_name == "Alabama") |> 
   group_by(year_id, location_name) |>
   summarize(mean = mean(val)) |>
   ggplot(aes(x = year_id, y = mean)) +
