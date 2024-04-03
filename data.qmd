@@ -4,12 +4,9 @@ description: We describe the sources of our data and the cleaning process.
 toc: true
 draft: false
 ---
+#### Data Background
 
-# Data
-
-## Data Background
-
-## Data Loading and Cleaning
+#### Data Loading and Cleaning
 ```{r data loading and cleaning}
 mmr_data_clean <- mmr_data
 mmr_data_clean <-
@@ -21,6 +18,6 @@ save(mmr_data_clean, file = here::here("dataset/mmr.RData"))
 
 The file we chose initially has columns measure_id, measure_name, location_id, location_name, race_group, sex_id, age_group_id, age_group_name, year_id, metric_id, val, lower, and upper. It has 5901 observations. This odd number indicates that there may be some missing observations for certain location/race/year combinations. To load the data, we made an account and downloaded the .csv file called IHME_USA_MMR_STATE_RACE_ETHN_1999_2019_ESTIMATES_Y2023M07D03. We then read it into a dataframe in R. Since the data is already very clean, we simply selected the columns location_id, location_name, race_group, year_id, val, lower, upper to keep in our cleaned dataset and discarded the rest. We chose to discard those columns because every observation had the same value. For example, every observation was Female in the age group 10 to 54. We then saved this cleaned dataframe as a .Rdata file in our repository. 
 
-## Variable Descriptions
+#### Variable Descriptions
 
-## Exploratory Analysis
+#### Exploratory Analysis
