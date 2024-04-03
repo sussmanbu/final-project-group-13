@@ -89,4 +89,12 @@ mmr_data_clean |>
   facet_wrap(~race_group)
 ```
 
-Figure 4:
+Figure 4: The five graphs depict the trajectory of maternal mortality rates over a 20-year period, differentiated by racial categories and geographic regions in the United States.  These categories include Hispanic and any race, Non-Hispanic American Indian and Alaska Native, Non-Hispanic Asian and Native Hawaiian or Other Pacific Islander, Non-Hispanic Black, and Non-Hispanic White.  While there is an overarching increase in mortality rates across these racial demographics, the patterns of increase vary notably between them.
+
+For the categories of Hispanic and any race, Non-Hispanic Asian and Native Hawaiian or Other Pacific Islander, and Non-Hispanic White, the mortality rates appear to be relatively stable, with slight fluctuations over the two decades.  The lines on the graph for these groups are relatively flat, suggesting less volatility in their yearly rates and possibly better outcomes when compared to the other categories.
+
+Contrastingly, the Non-Hispanic Black category exhibits a pronounced upward trend in the Northeast and South regions, indicating a concerning rise in maternal mortality rates that surpasses the other racial groups in these areas.  This suggests that Non-Hispanic Black women in these regions are disproportionately affected by factors contributing to maternal mortality.
+
+The Non-Hispanic American Indian and Alaska Native category demonstrates a significant increase in maternal mortality rates, particularly in the Midwest and West regions.  The sharp rise could be indicative of systemic health disparities or regional deficiencies in healthcare access or quality that particularly impact this demographic.
+
+The observed regional differences, such as higher rates in the South and variations in the Midwest and West, might be influenced by a multitude of factors including healthcare infrastructure, socioeconomic status, accessibility of prenatal and postnatal care, and population density.  Regions with higher population densities might face different healthcare challenges than less densely populated areas, potentially affecting the availability and quality of care.
