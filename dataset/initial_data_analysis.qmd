@@ -5,7 +5,7 @@ editor: visual
 
 ```{r}
 suppressPackageStartupMessages(library(tidyverse))
-load("dataset/mmr.RData")
+load(here::here("dataset/mmr.RData"))
 
 mmr_data_clean |> 
   ggplot(aes(x = val)) + 
@@ -21,8 +21,6 @@ mmr_data_clean |>
   geom_line(aes(color = race_group))
 ```
 
-
-
 ```{r}
 mmr_data_clean |>
   filter(location_name == "Massachusetts"| location_name == "Alabama") |> 
@@ -32,7 +30,6 @@ mmr_data_clean |>
   geom_line(aes(color = location_name))
 ```
 
-
 ```{r}
 mmr_data_clean |>
   group_by(year_id, location_name) |>
@@ -41,7 +38,6 @@ mmr_data_clean |>
   ggplot(aes(x = year_id, y = mean)) +
   geom_line(aes(color = location_name))
 ```
-
 
 ```{r}
 mmr_data_clean |>
