@@ -7,6 +7,7 @@ draft: false
 
 ### Data Background
 This data comes from the Institute for Health Metrics and Evaluation and is supported by the Global Health Data Exchange.  It presents maternal mortality ratios for women in the United States from the ages 10-54 for the years 1999-2019. 
+
 Source: https://doi.org/10.6069/35ZC-FM02
 
 There was no clear information on the original way of collecting the data, but from the organization, it can be inferred that the data could be mostly from medical records across the country. The original guidebook directs to: https://ghdx.healthdata.org/record/ihme-data/united-states-maternal-mortality-by-state-race-ethnicity-1999-2019#:~:text=Data%20Release%20Information%20Sheet
@@ -15,7 +16,7 @@ The dataset includes MMR (maternal mortality ratio) estimates for Hispanic and a
 
 Although the data is quite accessible,  however, pivoting the data or making subtables would likely aid in our analysis given its current organization. Some questions we can look at with this data are: “How does maternal mortality change over time? How does maternal mortality vary across US states? How does maternal mortality vary across ethnic groups?” At a deeper level, we could investigate how maternal mortality varies across both state and race groups, and compare with additional data about healthcare for different racial groups to add on a new data set. A possible challenge comes in interpreting the value for the maternal mortality ratio.
 
-The data is often used to help in understanding the disparities in maternal health outcomes among different racial and ethnic groups. There are some publications related to this data already and they both highlights the points that 
+The data is often used to help in understanding the disparities in maternal health outcomes among different racial and ethnic groups. There are some publications related to this data already and they both highlight the points out the fact that maternal mortality rates are highest for the black population and the large increase trend across all groups especially in American India. One constantly asked question is how the huge increase in maternal mortality rate has happened with the development of medical technology over the past 20 years.
 
 ### Data Loading and Cleaning
 
