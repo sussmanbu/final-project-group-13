@@ -1,6 +1,6 @@
 ---
 title: "Blog Post 4"
-author: "Christy"
+author: "Group 13"
 date: "2024-04-08"
 date-modified: "2024-04-08"
 draft: FALSE
@@ -13,7 +13,7 @@ In addition to these quantitative techniques, we also consider data enrichment s
 
 ## Assuming 'data' is your dataset
 ```{r 1}
-library(dplyr)
+suppressPackageStartupMessages(library(dplyr))
 library(ggplot2)
 suppressPackageStartupMessages(library(tidyverse))
 data <- read.csv("dataset/mmr_clean.csv")
@@ -21,8 +21,8 @@ data <- read.csv("dataset/mmr_clean.csv")
 
 ## Calculating the average 'val' for each 'location_name'
 ```{r 2}
-avg_val_by_location <- data %>%
-  group_by(location_name) %>%
+avg_val_by_location <- data |> 
+  group_by(location_name) |> 
   summarise(average_val = mean(val, na.rm = TRUE))
 ```
 
@@ -34,11 +34,13 @@ ggplot(avg_val_by_location, aes(x = reorder(location_name, average_val), y = ave
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
   labs(x = "Location Name", y = "Average Maternal Mortality Rate (val)", title = "Average Maternal Mortality Rate by Location") +
-  scale_color_viridis_d()
+  scale_color_viridis_d() + 
+  theme(legend.position="none")
+
 
 ```
 
-#### The primary purpose of this graph is to compare the average maternal mortality rates across different locations. significant differences in mortality rates between locations might indicate areas requiring focused health interventions or policy changes
+#### The primary purpose of this graph is to compare the average maternal mortality rates across different locations. Significant differences in mortality rates between locations might indicate areas requiring focused health interventions or policy changes.
 
 
 ## Preparing the dataset by summarizing the min and max 'val' for each 'year_id'
@@ -60,4 +62,8 @@ ggplot(yearly_range, aes(x = year_id)) +
 
 
 #### This graph provides a macroscopic view of the variability in maternal mortality rates over time, highlighting years and trends that may require further investigation. By identifying periods of significant fluctuation or stability, policymakers, researchers, and public health officials can better allocate resources and tailor interventions to address maternal health challenges effectively.
+
+## Modeling
+
+#### Initial modeling we can perform includes a linear model predicting the effect of race and location on maternal mortality ratio. In order to perform such a linear model, we could create binary variables such as 0=not_white/1=white in order to capture the specific effect of a race observation or location observation. Once we combine our current data set with other data that includes other continuous variables like for economic data or more data about maternal mortality specifically, we can perform more detailed regressions. However, since we currently effectively only have one continuous variable, the modeling we can do at this time is somewhat limited. 
 
