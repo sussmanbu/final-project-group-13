@@ -42,11 +42,11 @@ west <- c("Arizona", "Colorado", "Idaho", "New Mexico", "Montana", "Utah",
           "Washington")
 
 
-for(i in 1:52){
-  if (us_phc_percap[i, 1] in northeast){
-    us_phc_percap[i, 23] = "Northeast"
-  } else if 
-}
+# for(i in 1:52){
+#   if (us_phc_percap[i, 1] in northeast){
+#     us_phc_percap[i, 23] = "Northeast"
+#   } else if 
+# }
 
 
 
