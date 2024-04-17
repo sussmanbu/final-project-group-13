@@ -7,7 +7,7 @@ us_per_capita20 <-
 
 # choose columns we want
 us_percap <- us_per_capita20 |> 
-  reframe(Code, Item, REGION_NAME, State_Name, 
+  reframe(Code, Item, Region_Name, State_Name, 
           Y1999, Y2000, Y2001, Y2002, Y2003, Y2004, Y2005, Y2006, Y2007, 
           Y2008, Y2009, Y2010, Y2011, Y2012, Y2013, Y2014, Y2015, Y2016, 
           Y2017, Y2018, Y2019)
@@ -27,26 +27,63 @@ us_phc_percap <- us_phc_percap |>
 
 us_phc_percap$region <- us_phc_percap$State_Name
 
+
+## add region modifier like original data set
+
 northeast <- c("Connecticut", "Massachusetts", "Maine", "Maine", 
                "New Hampshire", "Rhode Island", "Vermont", "New Jersey", 
                "New York", "Pennsylvania")
 midwest <- c("Indiana", "Illinois", "Michigan", "Ohio", "Wisconsin", "Iowa", 
              "Kansas", "Minnesota", "Missouri", "Nebraska", "North Dakota", 
              "South Dakota")
-south <- c("Delaware", "District of Columbia", "Floria", "Georgia", "Maryland", 
-          "North Carolina", "South Carolina", "Virginia", "West Virgina", 
+south <- c("Delaware", "District of Columbia", "Florida", "Georgia", "Maryland", 
+          "North Carolina", "South Carolina", "Virginia", "West Virginia", 
           "Alabama", "Kentucky", "Mississippi", "Tennessee", "Arkansas", 
-          "Louisiana", "Oaklahoma", "Texas")
+          "Louisiana", "Oklahoma", "Texas")
 west <- c("Arizona", "Colorado", "Idaho", "New Mexico", "Montana", "Utah", 
           "Nevada", "Wyoming", "Alaska", "California", "Hawaii", "Oregon", 
           "Washington")
 
 
-# for(i in 1:52){
-#   if (us_phc_percap[i, 1] in northeast){
-#     us_phc_percap[i, 23] = "Northeast"
-#   } else if 
-# }
+for(i in 1:52){
+  if (us_phc_percap[i, 1] %in% northeast){
+    us_phc_percap[i, 23] = "Northeast Census Region"
+  } else if (us_phc_percap[i, 1] %in% midwest){
+    us_phc_percap[i, 23] = "Midwest Census Region"
+  } else if (us_phc_percap[i, 1] %in% south){
+    us_phc_percap[i, 23] = "South Census Region"
+  } else if (us_phc_percap[i, 1] %in% west){
+    us_phc_percap[i, 23] = "West Census Region"
+  }
+}
+
+## load in original dataset to compare
+
+load("dataset/mmr.RData")
+mmr_combine <- mmr_data_clean |> 
+  group_by(location_name, year_id) |> 
+  summarize(mean_val = mean(val))
+
+## reshaping to have observation for each state for each year
+phc_percap_longer <- us_phc_percap |> 
+  pivot_longer(
+    cols = starts_with("Y"),
+    names_to = ("Year"), 
+    values_to = ("spending")
+  )
+
+
+# fix year variable
+phc_percap_longer$year_id <- sub("Y", "", phc_percap_longer$Year)
+
+
+# create summaries for census regions
+region_means <- phc_percap_longer |>
+  group_by(region, year) |> 
+  summarize(spending = mean(spending))
+
+
+
 
 
 
