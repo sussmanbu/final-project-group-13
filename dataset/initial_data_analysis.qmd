@@ -48,3 +48,19 @@ mmr_data_clean |>
   geom_line(aes(color = location_name)) + 
   facet_wrap(~race_group)
 ```
+
+
+```{r}
+load("dataset/phc_mmr.RData")
+
+combined_data |> 
+  ggplot(aes(x = spending, y = mean_val)) + 
+  geom_point(aes(alpha = 0.01))
+  
+### why is this positively correlated???? im so confused  
+
+
+
+```
+
+
