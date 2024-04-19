@@ -5,4 +5,17 @@ date: "2024-04-19"
 date-modified: "2024-04-19"
 draft: FALSE
 ---
+### Exploratory Data Analysis
+Our exploratory data contains detailed data on personal healthcare spending on a per capita basis by state and by service from 1991 to 2020. Here are some ideas related to maternal mortality ratio based on this information:
 
+  1. By examining the trend of per capita spending across years, one could identify which states have seen the most significant increases or decreases in spending and how the distribution of spending across services has changed.
+  2. Relation to Maternal Mortality Ratio (MMR):
+    i: Access to Care: Correlating per capita spending with MMR could reveal if higher spending correlates with lower maternal mortality rates, suggesting that access to care might be a significant factor.
+    ii: Funding for Maternal Health: Evaluating whether specific funding (like Medicaid expansions) is associated with improvements in maternal outcomes.
+    iii: Rate Idea: Efficiency of Spending: Analyzing if increased spending in certain healthcare services (such as prenatal and postnatal care) is more effective in reducing MMR compared to others.
+
+The rating of these ideas would depend on a detailed analysis of the CSV data against reliable maternal mortality statistics. One would need to perform statistical analysis, like regression models, to identify significant predictors of maternal mortality and to determine the strength of the relationship between healthcare spending and maternal health outcomes.
+
+### Thesis
+
+### Visulization
