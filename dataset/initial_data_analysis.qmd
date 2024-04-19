@@ -60,7 +60,13 @@ combined_data |>
 combined_data |> 
   ggplot(aes(x = spending, y = mean_val)) + 
   geom_point(aes(alpha = 0.01)) + 
-  facet_wrap(~year_id)
+  facet_wrap(~year_id) +  
+  theme(legend.position = "none") + 
+  labs(
+    title = "Maternal Mortality v.s. Healthcare Spending by Year",
+    x = "Spending",
+    y = "MMR"
+  )
   
 ### why is this positively correlated???? im so confused  
 
