@@ -55,6 +55,10 @@ load("dataset/phc_mmr.RData")
 
 combined_data |> 
   ggplot(aes(x = spending, y = mean_val)) + 
+  geom_point(aes(alpha = 0.01)) 
+
+combined_data |> 
+  ggplot(aes(x = spending, y = mean_val)) + 
   geom_point(aes(alpha = 0.01)) + 
   facet_wrap(~year_id)
   
@@ -64,4 +68,9 @@ combined_data |>
 
 ```
 
+``` {r}
 
+
+
+
+```
