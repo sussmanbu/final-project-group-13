@@ -83,12 +83,22 @@ print(std_combined)
 std_combined |> 
   ggplot(aes(x=year_id, y=mean_val)) + 
   geom_point(aes(alpha = 0.1)) +
-  theme(axis.text.x = element_text(angle = -25, hjust = 1))
+  theme(axis.text.x = element_text(angle = -25, hjust = 1), legend.position = "none") + 
+  labs(
+    title = "Standard Deviation of Maternal Mortality Ratios Over Time",
+    x = "Year",
+    y = "MMR"
+  )
 
 std_combined |> 
   ggplot(aes(x=year_id, y=spending)) + 
   geom_point(aes(alpha = 0.1)) +
-  theme(axis.text.x = element_text(angle = -25, hjust = 1))
+  theme(axis.text.x = element_text(angle = -25, hjust = 1), legend.position = "none") + 
+    labs(
+    title = "Standard Deviation of Healthcare Spending Over Time",
+    x = "Year",
+    y = "Spending"
+  )
 
 
 ```
