@@ -70,7 +70,25 @@ combined_data |>
 
 ``` {r}
 
+## make standard deviation for each variable of interest grouped by year
+std_dev_mmr <- aggregate(mean_val ~ year_id, data = combined_data, sd)
+std_dev_phc <- aggregate(spending ~ year_id, data = combined_data, sd)
 
+# combine them
+std_combined <- merge(std_dev_mmr, std_dev_phc, by = c("year_id"), all = TRUE)
+
+print(std_combined)
+
+## plot the standard deviations
+std_combined |> 
+  ggplot(aes(x=year_id, y=mean_val)) + 
+  geom_point(aes(alpha = 0.1)) +
+  theme(axis.text.x = element_text(angle = -25, hjust = 1))
+
+std_combined |> 
+  ggplot(aes(x=year_id, y=spending)) + 
+  geom_point(aes(alpha = 0.1)) +
+  theme(axis.text.x = element_text(angle = -25, hjust = 1))
 
 
 ```
