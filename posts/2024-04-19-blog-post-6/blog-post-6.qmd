@@ -22,3 +22,35 @@ The rating of these ideas would depend on a detailed analysis of the CSV data ag
 ### Thesis
 
 ### Visulization
+
+``` {r}
+load("dataset/phc_mmr.RData")
+
+combined_data |> 
+  ggplot(aes(x = spending, y = mean_val)) + 
+  geom_point(aes(alpha = 0.01))+  
+  theme(legend.position = "none") + 
+  labs(
+    title = "Maternal Mortality v.s. Healthcare Spending",
+    x = "Spending",
+    y = "MMR"
+  )
+```
+
+An initial plot of personal healthcare spending versus maternal mortality ratio shows a roughly positive correlation between the two variables which contradicts what we expected the relationship to be coming into this analysis. We would have expected a negative correlation, implying that as states spend more on healthcare overall, maternal mortality rates would be lower.
+
+```{r}
+combined_data |> 
+  ggplot(aes(x = spending, y = mean_val)) + 
+  geom_point(aes(alpha = 0.01)) + 
+  facet_wrap(~year_id) +  
+  theme(legend.position = "none") + 
+  labs(
+    title = "Maternal Mortality v.s. Healthcare Spending by Year",
+    x = "Spending",
+    y = "MMR"
+  )
+```
+
+We then faceted the initial graph by year to show the trend over time. This reveals a few things. Firstly, when faceted by year the relationship no longer appears to have a positive correlation. The trend is hard to see without a regression however it does appear to be negatively correlated now. Additionally, the points for each state are spreading out. In the first few years, all the points are clumped together with lower values. However, as the years go by the points not only overall increase in value but move farther apart. This prompted us to do a standard deviation analysis to quantify this obsserved trend. 
+
