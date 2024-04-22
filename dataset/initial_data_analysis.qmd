@@ -48,3 +48,63 @@ mmr_data_clean |>
   geom_line(aes(color = location_name)) + 
   facet_wrap(~race_group)
 ```
+
+
+```{r}
+load("dataset/phc_mmr.RData")
+
+combined_data |> 
+  ggplot(aes(x = spending, y = mean_val)) + 
+  geom_point(aes(alpha = 0.01)) 
+
+combined_data |> 
+  ggplot(aes(x = spending, y = mean_val)) + 
+  geom_point(aes(alpha = 0.01)) + 
+  facet_wrap(~year_id) +  
+  theme(legend.position = "none") + 
+  labs(
+    title = "Maternal Mortality v.s. Healthcare Spending by Year",
+    x = "Spending",
+    y = "MMR"
+  )
+  
+### why is this positively correlated???? im so confused  
+
+
+
+```
+
+``` {r}
+
+## make standard deviation for each variable of interest grouped by year
+std_dev_mmr <- aggregate(mean_val ~ year_id, data = combined_data, sd)
+std_dev_phc <- aggregate(spending ~ year_id, data = combined_data, sd)
+
+# combine them
+std_combined <- merge(std_dev_mmr, std_dev_phc, by = c("year_id"), all = TRUE)
+
+print(std_combined)
+
+## plot the standard deviations
+std_combined |> 
+  ggplot(aes(x=year_id, y=mean_val)) + 
+  geom_point(aes(alpha = 0.1)) +
+  theme(axis.text.x = element_text(angle = -25, hjust = 1), legend.position = "none") + 
+  labs(
+    title = "Standard Deviation of Maternal Mortality Ratios Over Time",
+    x = "Year",
+    y = "MMR"
+  )
+
+std_combined |> 
+  ggplot(aes(x=year_id, y=spending)) + 
+  geom_point(aes(alpha = 0.1)) +
+  theme(axis.text.x = element_text(angle = -25, hjust = 1), legend.position = "none") + 
+    labs(
+    title = "Standard Deviation of Healthcare Spending Over Time",
+    x = "Year",
+    y = "Spending"
+  )
+
+
+```

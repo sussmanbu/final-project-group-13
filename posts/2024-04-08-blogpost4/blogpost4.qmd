@@ -1,0 +1,69 @@
+---
+title: "Blog Post 4"
+author: "Group 13"
+date: "2024-04-08"
+date-modified: "2024-04-08"
+draft: FALSE
+---
+# Breadth & Depth
+To uncover the complex interactions between variables "location_id", "location_name", "race_group", "year_id", "val", "lower", and "upper", we have adopted a multi-step analysis approach. The combination of correlation analysis and regression analysis can clarify the relationship and influence of time and demographic categories on average estimates. Principal component analysis (PCA) or multidimensional scaling (MDS) can be performed to simplify data complexity and reveal inherent patterns in low-dimensional Spaces. Clustering can classify similar entities, while time series analysis can highlight time trends and make future predictions. Meanwhile, geospatial analysis can provide insight into regional differences, while sensitivity analysis can assess the reliability of average estimates within their confidence intervals.
+
+In addition to these quantitative techniques, we also consider data enrichment strategies including: introducing external socioeconomic variables to deepen the contextual understanding of the estimates. This breadth of exploration combining macro and micro analysis strategies will not only put current data into context, but will also provide a comprehensive framework for interpreting and leveraging data in meaningful ways.
+
+
+## Assuming 'data' is your dataset
+```{r 1}
+suppressPackageStartupMessages(library(dplyr))
+library(ggplot2)
+suppressPackageStartupMessages(library(tidyverse))
+data <- read.csv("dataset/mmr_clean.csv")
+```
+
+## Calculating the average 'val' for each 'location_name'
+```{r 2}
+avg_val_by_location <- data |> 
+  group_by(location_name) |> 
+  summarise(average_val = mean(val, na.rm = TRUE))
+```
+
+## Plotting
+```{r 3}
+ggplot(avg_val_by_location, aes(x = reorder(location_name, average_val), y = average_val, group = 1)) +
+  geom_line(aes(color = location_name)) +
+  geom_point(aes(color = location_name)) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  labs(x = "Location Name", y = "Average Maternal Mortality Rate (val)", title = "Average Maternal Mortality Rate by Location") +
+  scale_color_viridis_d() + 
+  theme(legend.position="none")
+
+
+```
+
+#### The primary purpose of this graph is to compare the average maternal mortality rates across different locations. Significant differences in mortality rates between locations might indicate areas requiring focused health interventions or policy changes.
+
+
+## Preparing the dataset by summarizing the min and max 'val' for each 'year_id'
+```{r 4}
+yearly_range <- data %>%
+  group_by(year_id) %>%
+  summarise(min_val = min(val, na.rm = TRUE), max_val = max(val, na.rm = TRUE))
+```
+
+## Plotting
+```{r 5}
+ggplot(yearly_range, aes(x = year_id)) +
+  geom_errorbar(aes(ymin = min_val, ymax = max_val), width = 0.2) +
+  theme_minimal() +
+  labs(x = "Year", y = "Maternal Mortality Rate (val)", title = "Range of Maternal Mortality Rates by Year") +
+  geom_point(aes(y = min_val), color = "blue", size = 2) +
+  geom_point(aes(y = max_val), color = "red", size = 2)
+```
+
+
+#### This graph provides a macroscopic view of the variability in maternal mortality rates over time, highlighting years and trends that may require further investigation. By identifying periods of significant fluctuation or stability, policymakers, researchers, and public health officials can better allocate resources and tailor interventions to address maternal health challenges effectively.
+
+## Modeling
+
+Initial modeling we can perform includes a linear model predicting the effect of race and location on maternal mortality ratio. In order to perform such a linear model, we could create binary variables such as 0=not_white/1=white in order to capture the specific effect of a race observation or location observation. Once we combine our current data set with other data that includes other continuous variables like for economic data or more data about maternal mortality specifically, we can perform more detailed regressions. However, since we currently effectively only have one continuous variable, the modeling we can do at this time is somewhat limited. 
+
