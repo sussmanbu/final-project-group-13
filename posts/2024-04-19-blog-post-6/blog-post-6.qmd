@@ -25,7 +25,7 @@ The rating of these ideas would depend on a detailed analysis of the CSV data ag
 
 ``` {r}
 suppressPackageStartupMessages(library(tidyverse))
-load(here:here("dataset/phc_mmr.RData"))
+load(here::here("dataset/phc_mmr.RData"))
 
 combined_data |> 
   ggplot(aes(x = spending, y = mean_val)) + 
