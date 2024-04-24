@@ -66,13 +66,62 @@ combined_data |>
     title = "Maternal Mortality v.s. Healthcare Spending by Year",
     x = "Spending",
     y = "MMR"
-  )
+  ) + 
+  geom_smooth(method = "lm", se = FALSE)
   
 ### why is this positively correlated???? im so confused  
 
 
 
 ```
+```{r}
+# regressing mmr vs spending over the years
+
+
+cd_1999 <- combined_data |> 
+  filter(year_id == "2018")
+
+lin_reg <-
+  lm(mean_val ~ spending, cd_1999)
+
+summary(lin_reg)
+
+```
+
+``` {r}
+## figuring out how to do this automated-ly
+
+summary_df <- tibble(
+  year = numeric(),
+  estimate = numeric(),
+  std.error = numeric(),
+  t.value = numeric(),
+  p.value = numeric()
+)
+
+lm(mean_val ~ spending*year_id, combined_data)
+
+for (year in seq(1999, 2019)){
+  
+  lm_model <- lm(mean_val~spending, data = combined_data |> filter(year_id == year))
+           
+  summary_lm <- as_tibble(summary(lm_model)$coefficients)[2,]
+  
+  colnames(summary_lm) <- c("estimate", "std.error", "t.value", "p.value")
+
+  
+  summary_lm$year <- year
+  
+  summary_df <- bind_rows(summary_df, summary_lm)
+}
+
+```
+
+
+
+
+
+
 
 ``` {r}
 
