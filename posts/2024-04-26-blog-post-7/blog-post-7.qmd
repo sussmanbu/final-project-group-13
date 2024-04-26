@@ -6,3 +6,67 @@ date-modified: "2024-04-26"
 draft: FALSE
 ---
 
+```{r}
+library(ggplot2)
+library(readr)
+library(dplyr)
+
+data <- read_csv("dataset/Cleaned_Pregnancy_Data.csv")
+
+average_data <- data %>%
+  group_by(year, region) %>%
+  summarize(MeanAge = mean(average_age_of_pregnancy, na.rm = TRUE), .groups = 'drop')
+
+ggplot(average_data, aes(x = year, y = MeanAge, color = region, group = region)) +
+  geom_line() +
+  labs(title = "Trend of Mean Age of Pregnancy Over Time by Region",
+       x = "year",
+       y = "Mean Age of Pregnancy") +
+  theme_minimal() +
+  scale_color_brewer(palette = "Set1")
+```
+```{r}
+library(ggplot2)
+library(readr)
+
+data <- read_csv("dataset/phc_mmr_with_age.csv")
+
+data$spending <- as.numeric(data$spending)
+data$AverageAge <- as.numeric(data$AverageAge)
+
+ggplot(data, aes(x = spending, y = AverageAge, color = Region)) +
+  geom_point(aes(size = 3), alpha = 0.6) +  
+  geom_smooth(method = "lm", se = FALSE, aes(group = Region)) +  
+  scale_size_identity() +  
+  labs(title = "Bubble Chart with Fitted Lines by Region",
+       x = "Healthcare Spending",
+       y = "Average Age of Pregnancy",
+       size = "Region") +
+  theme_minimal() +
+  facet_wrap(~Region)
+  guides(color = guide_legend(title = "Region"))
+
+# Print the plot
+print(ggplot(data, aes(x = spending, y = AverageAge, color = Region)) +
+  geom_point(aes(size = 3), alpha = 0.6) +  
+  geom_smooth(method = "lm", se = FALSE, aes(group = Region)) +  
+  scale_size_identity() +  
+  labs(title = "Healthcare Spending vs. Average Age of Pregnancy by Region",
+       x = "Healthcare Spending",
+       y = "Average Age of Pregnancy") +
+  theme_minimal() +
+  facet_wrap(~Region)) 
+  
+```
+
+```{r}
+ggplot(data, aes(x = AverageAge, y = mean_val, size = spending)) +
+  geom_point(alpha = 0.6) +
+  facet_wrap(~Region) +
+  labs(title = "Bubble Chart of Average Age, MMR, and Healthcare Spending",
+       x = "Average Age of Pregnancy",
+       y = "MMR (per 100,000 live births)",
+       size = "Healthcare Spending") +
+  theme_minimal()
+```
+
