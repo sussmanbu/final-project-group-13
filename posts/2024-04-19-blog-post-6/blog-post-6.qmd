@@ -21,7 +21,7 @@ The rating of these ideas would depend on a detailed analysis of the CSV data ag
 
 ### Thesis
 
-First of all, according to our regression graph of MMR vs. Health Care Spending by Years.As the government spending on Health Care increase, the MMR decrease.
+First of all, according to our regression graph of MMR vs. Health Care Spending by Years. As the government spending on Health Care increase, the MMR decrease.
 
 
 ### Visulization
