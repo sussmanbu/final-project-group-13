@@ -44,19 +44,26 @@ variable_info <- data.frame(
   stringsAsFactors = FALSE
 )
 
+
+
 print(variable_info)
 ```
 
-### Exploratory Analysis
+### Distribution Analysis
 
 ```{r figure 1}
 suppressPackageStartupMessages(library(tidyverse))
 load("dataset/mmr.RData")
 
-mmr_data_clean |> 
+mmr_data_clean |>
   ggplot(aes(x = val)) + 
     geom_histogram() + 
-    xlim(0, 200)
+    xlim(0, 200) + 
+    labs(
+      title = "Distribution of Maternal Mortality Ratio Variable",
+      x = "MMR",
+      y = "Count"
+    )
 ```
 
 Figure 1: The graph visualizes the frequency distribution of value MMR. From the histogram, we observe that the data is right-skewed, meaning that the majority of the data points fall on the lower end of the value range, and there are fewer observations as the value increases. This is indicated by the high bars on the left and the bars gradually decreasing in height as we move to the right, showing that high values are less common.

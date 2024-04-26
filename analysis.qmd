@@ -10,11 +10,11 @@ draft: false
 
 ```{r load in the data}
 suppressPackageStartupMessages(library(tidyverse))
-load("dataset/mmr.RData")
+load(here::here("dataset/mmr.RData"))
 ```
 
 ```{r figure 1}
-mmr_data_clean |>
+mmr_data_clean |> 
   group_by(year_id, race_group) |>
   summarize(mean = mean(val)) |>
   ggplot(aes(x = year_id, y = mean)) +
@@ -42,6 +42,7 @@ mmr_data_clean |>
   ggplot(aes(x = year_id, y = mean)) +
   geom_line(aes(color = location_name)) + 
   facet_wrap(~race_group)
+
 ```
 
 Figure 3: The five graphs depict the trajectory of maternal mortality rates over a 20-year period, differentiated by racial categories and geographic regions in the United States.  These categories include Hispanic and any race, Non-Hispanic American Indian and Alaska Native, Non-Hispanic Asian and Native Hawaiian or Other Pacific Islander, Non-Hispanic Black, and Non-Hispanic White.  While there is an overarching increase in mortality rates across these racial demographics, the patterns of increase vary notably between them.
