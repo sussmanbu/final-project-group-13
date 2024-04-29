@@ -198,3 +198,33 @@ server <- function(input, output) {
 shinyApp(ui = ui, server = server)
 
 ```
+
+``` {r}
+library(dplyr)
+suppressPackageStartupMessages(library(tidyverse))
+library(ggplot2)
+library(dplyr)
+library(ggmap)
+library(patchwork)
+
+mapp <- read_csv(here::here("dataset/phc_mmr_combined.csv"), col_types = cols(
+  location_name= col_character(),
+  year_id = col_double(),
+  spending = col_double(),
+  mean_val = col_double())) 
+
+states_map <- map_data("state")
+spending_1999 <- mapp %>% 
+   filter(year_id == 9) %>% 
+   mutate(state = tolower(location_name)) 
+ 
+ map_spending <- merge(states_map, spending_1999, by.x = "region", by.y = "state", all.x = TRUE)
+ 
+ # Create the plot
+ ggplot(map_spending, aes(x = long, y = lat, group = group, fill = spending)) +
+   geom_polygon(color = "white") +
+   scale_fill_viridis_c(option = "C", direction = -1) +
+   coord_fixed(1.3) +  
+   labs(fill = "spending") +
+   theme_void() 
+ ```
