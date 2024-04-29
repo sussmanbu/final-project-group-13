@@ -6,7 +6,16 @@ date-modified: "2024-04-26"
 draft: FALSE
 ---
 
-```{r}
+Thesis: 
+First of all, according to our regression graph of MMR vs. Health Care Spending by Years.As the government spending on Health Care increases, the MMR decreases.
+
+As time passes, the maternal mortality rate increases across the U.S., and increasing spending on healthcare will positively decrease the maternal mortality rate.
+
+To polish our visualization graphs, we are going to add more detail and annotation to the existing graph. We want to add a map of the US states with fill by MMR, with a slidey bar for changing the year. 
+
+First we can add clear, descriptive titles and captions to your graphs to convey their purpose and provide context. Annotations and highlights are crucial for pointing out key insights or significant data points, which can be achieved using `geom_text` or `geom_label` in ggplot2, supported by `ggpubr`. For interactive elements, consider using the `plotly` or `leaflet` packages for dynamic features like a sliding bar to explore changes over time. Ensure your color choices are accessible and consistent, and utilize `ggpubr` to adjust themes, scales, and legends to make the graphs visually appealing and easy to understand.
+
+```{r graph 1}
 library(ggplot2)
 library(readr)
 library(dplyr)
@@ -25,7 +34,18 @@ ggplot(average_data, aes(x = year, y = MeanAge, color = region, group = region))
   theme_minimal() +
   scale_color_brewer(palette = "Set1")
 ```
-```{r}
+
+
+Graph 1:
+This graph displays the trend of the mean age of pregnancy over time, categorized by region. From  the graph, we can figure out that:
+In every region, the mean age of pregnancy has increased over time. This suggests that, on average, women are having children at an older age than they did in the past.
+The 'West' region shows the highest mean age of pregnancy over the entire timeline, starting at around 24 years in the 1970s and rising to just below 30 by the 2010s.
+The 'Midwest' and 'South' regions appear to have a similar starting point in the 1970s but diverge slightly over time. The 'South' follows closely with the 'West', but it still has a lower mean age of pregnancy by the 2010s.
+The 'Northeast' region begins with the lowest mean age of pregnancy but increases at a rate similar to the 'Midwest', surpassing it around the mid-2000s.
+
+
+
+```{r graph 2}
 library(ggplot2)
 library(readr)
 
@@ -59,7 +79,14 @@ print(ggplot(data, aes(x = spending, y = AverageAge, color = Region)) +
   
 ```
 
-```{r}
+Graph 2:
+This scatter plot compares healthcare spending with the average age of pregnancy by region. Key observations include:
+There appears to be a positive correlation between healthcare spending and the average age of pregnancy in all regions. This implies that as healthcare spending increases, the average age of pregnancy tends to be higher.
+The data for the 'West' region, shown in purple, indicates a particularly strong positive correlation, suggesting that increased healthcare spending in this region might be closely associated with women having children at older ages.
+Overall, the graph suggests a trend where regions with higher healthcare spending are associated with older average ages of pregnancy, which could reflect a variety of factors such as access to reproductive health services, birth control, career opportunities, or other socioeconomic factors that allow or encourage women to delay pregnancy.
+
+
+```{r graph 3}
 ggplot(data, aes(x = AverageAge, y = mean_val, size = spending)) +
   geom_point(alpha = 0.6) +
   facet_wrap(~Region) +
@@ -70,3 +97,68 @@ ggplot(data, aes(x = AverageAge, y = mean_val, size = spending)) +
   theme_minimal()
 ```
 
+Graph 3:
+This bubble chart illustrates the relationship between the average age of pregnancy, maternal mortality ratio (MMR per 100,000 live births), and healthcare spending by region. The x-axis represents the average age of pregnancy, the y-axis represents the MMR, and the bubble size corresponds to healthcare spending, with larger bubbles indicating higher spending.
+
+Observations from the chart:
+- There appears to be a concentration of data points between the ages of 24 and 30, with varying MMR across the regions.
+- The Midwest, Northeast, and South regions have clusters with a wide range of MMR values but are generally centered around the same average age of pregnancy.
+- The West region shows a cluster with a lower MMR in comparison to other regions for a similar average age of pregnancy.
+
+The chart suggests complexity in the relationship between healthcare spending, the average age of pregnancy, and MMR, and it would likely require a deeper analysis to understand the underlying factors and dynamics.
+
+
+
+```{r}
+
+library(shiny)
+library(dplyr)
+library(ggplot2)
+library(ggmap)
+library(patchwork)
+library(readr)
+library(here)
+
+mapp <- read_csv(here::here("dataset/phc_mmr_combined.csv"), col_types = cols(
+  location_name = col_character(),
+  year_id = col_double(),
+  spending = col_double(),
+  mean_val = col_double()
+)) 
+
+states_map <- map_data("state")
+
+ui <- fluidPage(
+  titlePanel("MMR Map by Year"),
+  sidebarLayout(
+    sidebarPanel(
+      sliderInput("year", "Year", min = 1999, max = 2019, value = 1999, step = 1)
+    ),
+    mainPanel(
+      plotOutput("mapPlot")
+    )
+  )
+)
+
+server <- function(input, output) {
+  output$mapPlot <- renderPlot({
+    mmr_year <- mapp %>%
+      filter(year_id == input$year) %>%
+      mutate(state = tolower(location_name))
+      
+    map_mmr <- merge(states_map, mmr_year, by.x = "region", by.y = "state", all.x = TRUE)
+    
+
+    ggplot(map_mmr, aes(x = long, y = lat, group = group, fill = mean_val)) +
+      geom_polygon(color = "white") +
+      scale_fill_viridis_c(option = "C", direction = -1) +
+      coord_fixed(1.3) +
+      labs(fill = "MMR Value") +
+      theme_void()
+  })
+}
+
+
+shinyApp(ui = ui, server = server)
+
+```
