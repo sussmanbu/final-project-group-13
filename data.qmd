@@ -29,6 +29,7 @@ The file we chose initially has columns measure_id, measure_name, location_id, l
 ### Variable Descriptions
 
 ``` {r}
+
 variable_info <- data.frame(
   Variable = c("location_id", "location_name", "race_group", "year_id", "val", "lower", "upper"),
   Data_Types = c("number", "text", "text", "number", "number", "number", "number"),

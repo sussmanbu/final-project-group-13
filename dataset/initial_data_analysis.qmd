@@ -49,7 +49,6 @@ mmr_data_clean |>
   facet_wrap(~race_group)
 ```
 
-
 ```{r}
 load("dataset/phc_mmr.RData")
 
@@ -74,6 +73,7 @@ combined_data |>
 
 
 ```
+
 ```{r}
 # regressing mmr vs spending over the years
 
@@ -88,7 +88,7 @@ summary(lin_reg)
 
 ```
 
-``` {r}
+```{r}
 ## figuring out how to do this automated-ly
 
 summary_df <- tibble(
@@ -117,13 +117,7 @@ for (year in seq(1999, 2019)){
 
 ```
 
-
-
-
-
-
-
-``` {r}
+```{r}
 
 
 
