@@ -5,10 +5,10 @@ toc: true
 draft: false
 ---
 
-# Maternal Mortality Data
+## Maternal Mortality Data
 
 ### Data Background
-This data comes from the Institute for Health Metrics and Evaluation and is supported by the Global Health Data Exchange.  It presents maternal mortality ratios for women in the United States from the ages 10-54 for the years 1999-2019. 
+These data come from the Institute for Health Metrics and Evaluation and is supported by the Global Health Data Exchange.  It presents maternal mortality ratios for women in the United States from the ages 10-54 for the years 1999-2019. 
 
 Source: https://doi.org/10.6069/35ZC-FM02
 
@@ -68,3 +68,15 @@ mmr_data_clean |>
 ```
 
 Figure 1: The graph visualizes the frequency distribution of value MMR. From the histogram, we observe that the data is right-skewed, meaning that the majority of the data points fall on the lower end of the value range, and there are fewer observations as the value increases. This is indicated by the high bars on the left and the bars gradually decreasing in height as we move to the right, showing that high values are less common.
+
+
+## Healthcare Spending Data
+
+These data come from the Center for Medicare and Medicaid Services. It presents personal healthcare spending per-capita in the United States for each of the years covered in our initial data set.
+
+Source: https://www.cms.gov/data-research/statistics-trends-and-reports/national-health-expenditure-data/state-residence
+
+These data come with multiple data sets, however for our analysis we chose to work with the file US_PER_CAPITA20.CSV in order to view from a summary perspective. The file initially comes with variables Code, Item, Group, Region Number, Region Name, Years 1991-2020, and Average Annual Percent Growth. In the
+
+
+
