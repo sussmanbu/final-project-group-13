@@ -8,80 +8,84 @@ draft: false
 # Maternal Mortality Data
 
 ### Data Background
-The dataset comes from the Institute for Health Metrics and Evaluation and is supported by the Global Health Data Exchange. It presents maternal mortality ratios for women in the United States from the ages 10-54 for the years 1999-2019.
+  The dataset comes from the Institute for Health Metrics and Evaluation and is supported by the Global Health Data Exchange. It presents maternal mortality ratios for women in the United States from the ages 10-54 for the years 1999-2019.[Source](https://doi.org/10.6069/35ZC-FM02)
 
-[Source](https://doi.org/10.6069/35ZC-FM02)
+  There was no clear information on the original way of collecting the data, but from the organization, it can be inferred that the data could be mostly from medical records across the country. [The original guidebook](https://ghdx.healthdata.org/record/ihme-data/united-states-maternal-mortality-by-state-race-ethnicity-1999-2019#:~:text=Data%20Release%20Information%20Sheet)
 
-There was no clear information on the original way of collecting the data, but from the organization, it can be inferred that the data could be mostly from medical records across the country. [The original guidebook](https://ghdx.healthdata.org/record/ihme-data/united-states-maternal-mortality-by-state-race-ethnicity-1999-2019#:~:text=Data%20Release%20Information%20Sheet)
+  The dataset includes MMR (maternal mortality ratio) estimates for Hispanic and any race; non-Hispanic American Indian and Alaska Native; non-Hispanic Asian, Native Hawaiian, or other Pacific Islander; non-Hispanic Black; and non-Hispanic White females ages 10-54 for each year from 1999 through 2019.
 
-The dataset includes MMR (maternal mortality ratio) estimates for Hispanic and any race; non-Hispanic American Indian and Alaska Native; non-Hispanic Asian, Native Hawaiian, or other Pacific Islander; non-Hispanic Black; and non-Hispanic White females ages 10-54 for each year from 1999 through 2019.
+  Although the data is quite accessible,  however, pivoting the data or making sub tables would likely aid in our analysis given its current organization. Some questions we can look at with this data are: “How does maternal mortality change over time? How does maternal mortality vary across different states? How does maternal mortality vary across ethnic groups?” At a deeper level, we could investigate how maternal mortality varies across both state and race groups, and compare with additional data about healthcare for different racial groups to add on a new data set. A possible challenge comes in interpreting the value for the maternal mortality ratio.
 
-Although the data is quite accessible,  however, pivoting the data or making sub tables would likely aid in our analysis given its current organization. Some questions we can look at with this data are: “How does maternal mortality change over time? How does maternal mortality vary across different states? How does maternal mortality vary across ethnic groups?” At a deeper level, we could investigate how maternal mortality varies across both state and race groups, and compare with additional data about healthcare for different racial groups to add on a new data set. A possible challenge comes in interpreting the value for the maternal mortality ratio.
-
-The data is often used to help in understanding the disparities in maternal health outcomes among different racial and ethnic groups. There are some publications related to this data already and they both highlight the points out the fact that maternal mortality rates are highest for the black population and the large increase trend across all groups especially in American India. One constantly asked question is how the huge increase in maternal mortality rate has happened with the development of medical technology over the past 20 years.
+  The data is often used to help in understanding the disparities in maternal health outcomes among different racial and ethnic groups. There are some publications related to this data already and they both highlight the points out the fact that maternal mortality rates are highest for the black population and the large increase trend across all groups especially in American India. One constantly asked question is how the huge increase in maternal mortality rate has happened with the development of medical technology over the past 20 years.
 
 ### Data Loading and Cleaning
 
 [Data Loading and Cleaning Script](scripts/load_and_clean_data.R)
 
-The file we chose initially has columns measure_id, measure_name, location_id, location_name, race_group, sex_id, age_group_id, age_group_name, year_id, metric_id, val, lower, and upper. It has 5901 observations. This odd number indicates that there may be some missing observations for certain location/race/year combinations. To load the data, we made an account and downloaded the .csv file called **IHME_USA_MMR_STATE_RACE_ETHN_1999_2019_ESTIMATES_Y2023M07D03**. We then read it into a dataframe in R. Since the data is already very clean, we simply selected the columns location_id, location_name, race_group, year_id, val, lower, upper to keep in our cleaned dataset and discarded the rest. We chose to discard those columns because every observation had the same value. For example, every observation was Female in the age group 10 to 54. We then saved this cleaned dataframe as a .Rdata file in our repository.
+  The file we chose initially has columns measure_id, measure_name, location_id, location_name, race_group, sex_id, age_group_id, age_group_name, year_id, metric_id, val, lower, and upper. It has 5901 observations. This odd number indicates that there may be some missing observations for certain location/race/year combinations. To load the data, we made an account and downloaded the .csv file called **IHME_USA_MMR_STATE_RACE_ETHN_1999_2019_ESTIMATES_Y2023M07D03**. We then read it into a dataframe in R. Since the data is already very clean, we simply selected the columns location_id, location_name, race_group, year_id, val, lower, upper to keep in our cleaned dataset and discarded the rest. We chose to discard those columns because every observation had the same value. For example, every observation was Female in the age group 10 to 54. We then saved this cleaned dataframe as a .Rdata file in our repository.
 
 ### Variable Descriptions
-``` {r}
-variable_info <- data.frame(
+```{r}
+library(knitr)
+variables_df <- data.frame(
   Variable = c("location_id", "location_name", "race_group", "year_id", "val", "lower", "upper"),
   Data_Types = c("number", "text", "text", "number", "number", "number", "number"),
-  Description = c(
-    "A unique numeric identifier for the location generated and stored in an IHME database of data dimensions.",
+  Description = c( 
+                  "A unique numeric identifier for the location generated and stored in an IHME database of data dimensions.",
     "The location for the estimate.",
     "The racial and ethnic group for the estimate.",
     "The time period for the estimate.",
     "Mean estimate.",
     "97.5% percentile estimate.",
-    "2.5% percentile estimate."
-  ),
-  stringsAsFactors = FALSE
+    "2.5% percentile estimate.")
 )
-
-
-
-print(variable_info)
+kable(variables_df, format = "html")
 ```
 
 ### Distribution Analysis
-
 ```{r figure 1}
 suppressPackageStartupMessages(library(tidyverse))
 load("dataset/mmr.RData")
 
 mmr_data_clean |>
   ggplot(aes(x = val)) + 
-    geom_histogram() + 
+    geom_histogram(
+      fill = "#69b3a2", 
+      color = "white", 
+      binwidth = 10 
+    ) + 
     xlim(0, 200) + 
     labs(
       title = "Distribution of Maternal Mortality Ratio Variable",
-      x = "MMR",
+      subtitle = "Data from 1999 to 2019",
+      x = "MMR (Maternal Mortality Ratio)",
       y = "Count"
+    ) +
+    theme_minimal() +  # Cleaner theme
+    theme(
+      plot.title = element_text(size = 16, face = "bold"),
+      plot.subtitle = element_text(size = 12),
+      axis.title = element_text(size = 14),
+      axis.text = element_text(size = 12)
     )
+
 ```
+<p align="center">
+Figure 1: Distribution of Maternal Motality Ratio
+</p>
 
-Figure 1: The graph visualizes the frequency distribution of value MMR. From the histogram, we observe that the data is right-skewed, meaning that the majority of the data points fall on the lower end of the value range, and there are fewer observations as the value increases. This is indicated by the high bars on the left and the bars gradually decreasing in height as we move to the right, showing that high values are less common.
+The histogram provided illustrates the distribution of Maternal Mortality Ratio (MMR) in the United States from 1999 to 2019, showcasing a right-skewed distribution. Most of the observed MMR values fall between 0 and 50, indicating that lower maternal mortality rates are more prevalent across the dataset. The highest frequency is observed in the 0-10 MMR range, suggesting that very low MMR values are common. However, the presence of values up to 150, though less frequent, highlights areas where maternal health risks remain higher. This variability in MMR points to potential targets for healthcare improvements and interventions to address higher mortality rates in specific regions or demographics.
 
 
 
-## Healthcare Spending Data
 
+# Healthcare Spending Data
 ### Data Background
-
-These data come from the Center for Medicare and Medicaid Services. It presents personal healthcare spending per-capita in the United States for each of the years covered in our initial data set.
-
-Source: https://www.cms.gov/data-research/statistics-trends-and-reports/national-health-expenditure-data/state-residence
+These data come from the Center for Medicare and Medicaid Services. It presents personal healthcare spending per-capita in the United States for each of the years covered in our initial data set.[Source: National Health Expenditure Data by State of Residence](https://www.cms.gov/data-research/statistics-trends-and-reports/national-health-expenditure-data/state-residence)
 
 The data includes spending broken down by state of residence of the person receiving care, and into subcategories by the type of establishment delivering care (hospitals, physicians and clinics, nursing homes, etc.) and what medical product is being purchased (prescription drugs, over-the-counter medicines and sundries and durable medical products such as eyeglasses and hearing aids). The sources of the spending data are listed as the Centers for Medicare and Medicaid Services, the Office of the Actuary, and the National Health Statistics Group. The source of the population data in order to calculate per-capita spending is listed as the U.S. Bureau of the Census as of December 2020. 
 
-
 ### Data Loading and Cleaning
-
 [Data Loading and Cleaning Script](scripts/load_healthcare_spending_data.R)
 
 These data come with multiple data sets, however for our analysis we chose to work with the file US_PER_CAPITA20.CSV in order to view from a summary perspective. The file initially comes with variables Code, Item, Group, Region Number, Region Name, Years 1991-2020, and Average Annual Percent Growth. It has 600 observations, one for each of the states and region groups for ten different spending breakdowns. We chose to look at the spending item "Personal Healthcare" which represents a summary of all the other items. Since no item in particular connected with natal care, we chose to look at the summary as a overall indicator of spending in order to generally represent natal care. We also chose to only look at the years 1999-2019 in order to match our initial data set. 
@@ -91,8 +95,11 @@ This data set went through an extensive cleaning process because although it was
 ### Variable Descriptions
 
 ### Distribution Analysis
-# Average age of Pregnancy data
 
+
+
+
+# Average age of Pregnancy data
 ## Data Background
 ###data resource 
 These dataset is collected by the Guttmacher Institute. It provides a detailed compilation of statistics related to pregnancy outcomes across the U.S. The primary goal of collecting this data was to inform the public health policy and enhance the understanding of the reproduction health situation across the country. 
@@ -142,7 +149,7 @@ kable(variable_info, format = "html")
 ```
 
 ##Distribution Analysis
-```{r figure compare}
+```{r figure compare, echo=FALSE}
 suppressPackageStartupMessages(library(tidyverse))
 library(ggplot2)
 library(readr)
@@ -156,4 +163,3 @@ ggplot(data, aes(x = AverageAge)) +
        x = "Average Age of Pregnancy",
        y = "Region") +
   theme_minimal()
-```
