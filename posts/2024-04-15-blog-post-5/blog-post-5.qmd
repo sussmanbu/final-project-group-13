@@ -1,10 +1,6 @@
 ---
 title: "Blog Post 5"
-<<<<<<< HEAD
-author: "Christy"
-=======
 author: "Group 13"
->>>>>>> 5fdd2cb4f52c72bbb77dfb091b84322135abf9e9
 date: "2024-04-15"
 date-modified: "2024-04-15"
 draft: FALSE
