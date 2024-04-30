@@ -154,6 +154,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#data-loading-and-cleaning" id="toc-data-loading-and-cleaning" class="nav-link" data-scroll-target="#data-loading-and-cleaning">Data Loading and Cleaning</a></li>
   <li><a href="#variable-descriptions" id="toc-variable-descriptions" class="nav-link" data-scroll-target="#variable-descriptions">Variable Descriptions</a></li>
   <li><a href="#distribution-analysis" id="toc-distribution-analysis" class="nav-link" data-scroll-target="#distribution-analysis">Distribution Analysis</a></li>
+  <li><a href="#healthcare-spending-data" id="toc-healthcare-spending-data" class="nav-link" data-scroll-target="#healthcare-spending-data">Healthcare Spending Data</a>
+  <ul class="collapse">
+  <li><a href="#data-background-1" id="toc-data-background-1" class="nav-link" data-scroll-target="#data-background-1">Data Background</a></li>
+  <li><a href="#data-loading-and-cleaning-1" id="toc-data-loading-and-cleaning-1" class="nav-link" data-scroll-target="#data-loading-and-cleaning-1">Data Loading and Cleaning</a></li>
+  <li><a href="#variable-descriptions-1" id="toc-variable-descriptions-1" class="nav-link" data-scroll-target="#variable-descriptions-1">Variable Descriptions</a></li>
+  <li><a href="#distribution-analysis-1" id="toc-distribution-analysis-1" class="nav-link" data-scroll-target="#distribution-analysis-1">Distribution Analysis</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#average-age-of-pregnancy-data" id="toc-average-age-of-pregnancy-data" class="nav-link" data-scroll-target="#average-age-of-pregnancy-data">Average age of Pregnancy data</a>
+  <ul class="collapse">
+  <li><a href="#data-background-2" id="toc-data-background-2" class="nav-link" data-scroll-target="#data-background-2">Data Background</a></li>
+  <li><a href="#data-loading-and-cleaning-2" id="toc-data-loading-and-cleaning-2" class="nav-link" data-scroll-target="#data-loading-and-cleaning-2">Data Loading and Cleaning</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -269,6 +281,203 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Figure 1: The graph visualizes the frequency distribution of value MMR. From the histogram, we observe that the data is right-skewed, meaning that the majority of the data points fall on the lower end of the value range, and there are fewer observations as the value increases. This is indicated by the high bars on the left and the bars gradually decreasing in height as we move to the right, showing that high values are less common.</p>
+</section>
+<section id="healthcare-spending-data" class="level2">
+<h2 class="anchored" data-anchor-id="healthcare-spending-data">Healthcare Spending Data</h2>
+<section id="data-background-1" class="level3">
+<h3 class="anchored" data-anchor-id="data-background-1">Data Background</h3>
+<p>These data come from the Center for Medicare and Medicaid Services. It presents personal healthcare spending per-capita in the United States for each of the years covered in our initial data set.</p>
+<p>Source: https://www.cms.gov/data-research/statistics-trends-and-reports/national-health-expenditure-data/state-residence</p>
+<p>The data includes spending broken down by state of residence of the person receiving care, and into subcategories by the type of establishment delivering care (hospitals, physicians and clinics, nursing homes, etc.) and what medical product is being purchased (prescription drugs, over-the-counter medicines and sundries and durable medical products such as eyeglasses and hearing aids). The sources of the spending data are listed as the Centers for Medicare and Medicaid Services, the Office of the Actuary, and the National Health Statistics Group. The source of the population data in order to calculate per-capita spending is listed as the U.S. Bureau of the Census as of December 2020.</p>
+</section>
+<section id="data-loading-and-cleaning-1" class="level3">
+<h3 class="anchored" data-anchor-id="data-loading-and-cleaning-1">Data Loading and Cleaning</h3>
+<p><a href="scripts/load_healthcare_spending_data.R">Data Loading and Cleaning Script</a></p>
+<p>These data come with multiple data sets, however for our analysis we chose to work with the file US_PER_CAPITA20.CSV in order to view from a summary perspective. The file initially comes with variables Code, Item, Group, Region Number, Region Name, Years 1991-2020, and Average Annual Percent Growth. It has 600 observations, one for each of the states and region groups for ten different spending breakdowns. We chose to look at the spending item “Personal Healthcare” which represents a summary of all the other items. Since no item in particular connected with natal care, we chose to look at the summary as a overall indicator of spending in order to generally represent natal care. We also chose to only look at the years 1999-2019 in order to match our initial data set.</p>
+<p>This data set went through an extensive cleaning process because although it was very clean and easy to use upon initial loading, it’s format did not match our existing data. We had to reclassify the region to match official United States census regions and create new summaries for the new region breakdowns. We then pivoted the table longer to maintain only three columns (year, state, and spending) where previously the values for each year were in a new column. The dimensions now matched our maternal mortality data so we were able to merge them into one clean data frame.</p>
+</section>
+<section id="variable-descriptions-1" class="level3">
+<h3 class="anchored" data-anchor-id="variable-descriptions-1">Variable Descriptions</h3>
+</section>
+<section id="distribution-analysis-1" class="level3">
+<h3 class="anchored" data-anchor-id="distribution-analysis-1">Distribution Analysis</h3>
+</section>
+</section>
+</section>
+<section id="average-age-of-pregnancy-data" class="level1">
+<h1>Average age of Pregnancy data</h1>
+<section id="data-background-2" class="level2">
+<h2 class="anchored" data-anchor-id="data-background-2">Data Background</h2>
+<p>###data resource These dataset is collected by the Guttmacher Institute. It provides a detailed compilation of statistics related to pregnancy outcomes across the U.S. The primary goal of collecting this data was to inform the public health policy and enhance the understanding of the reproduction health situation across the country.</p>
+<p>source:https://osf.io/kthnf/</p>
+<p>This data is a combined data relied on the public resource, National Center for Health Statistics (NCHS) National Vital, Statistics System (NVSS), the original data also contains the abortion data and the population data. In consideration of the various original resources, we performed data cleaning to keep the reliability of the dataset. This data provides both regional and aggregate data that illustrate the potential problem of the uneven distribution of healthcare resources and other problems. This dataset comprises the statistics over 5 decades, which allows the researchers to perform the longitudinal studies.</p>
+<p>###issues on How the Data Was Collected</p>
+<p>This data relies on multiple sources, including state health departments, the CDC, and direct survey which creates inconsistencies in the format of the dataset. Some states might have more rigorous data collection than others. In response to this potential problem, we regenerate a category of region to group the adjacent states together. With this performance, we see a clearer distribution trend.</p>
+<p>###sample biases</p>
+<p>The data collected and reported might vary a lot between states due to different laws, health care coverage and reporting standards. And for years where data wasn’t collected, it might result in error in predictions if there are atypical fluctuation of the data in that year.</p>
+</section>
+<section id="data-loading-and-cleaning-2" class="level2">
+<h2 class="anchored" data-anchor-id="data-loading-and-cleaning-2">Data Loading and Cleaning</h2>
+<p>In our research, we first found an unexpected trend of increasing trend of the maternal mortality rate, we then want to take a further step to look at if the average age of pregnancy could give us a positive correlation in analysis.</p>
+<p>In order to minimize the influence of the reporting biases during the process of data collection, we add a new category called region using the same framework of the mmr data. We removes the abortions and birth data in purpose of minimizing the number of resource this data depends on. In order to generate a more efficient graph, we calculated the average age of pregnancy in a single year using age group data.</p>
+<p>As our first intention was to see if the increasing average age of pregnancy could give a reasonable explanation on the growing trend of maternal mortality rate, we combine the average age data to the previous one.</p>
+<p><a href="scriptcombine_pregnancy.R">Data Loading and Cleaning Script</a></p>
+<p>##Variables Description</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>variable_info <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Variable =</span> <span class="fu">c</span>(<span class="st">"state"</span>, <span class="st">"year"</span>, <span class="st">"spending"</span>, <span class="st">"mean_val"</span>, <span class="st">"AverageAge"</span>, <span class="st">"region"</span>),</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Data_Types =</span> <span class="fu">c</span>(<span class="st">"text"</span>, <span class="st">"number"</span>, <span class="st">"number"</span>, <span class="st">"number"</span>, <span class="st">"number"</span>, <span class="st">"text"</span>),</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Description =</span> <span class="fu">c</span>(</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"state name"</span>,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Year of the data collected."</span>,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"the average healthcare spending of each state each year."</span>,</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Mean estimate of the mmr"</span>,</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"the average age of pregnancy for each state each year"</span>,</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"The regional category for the state."</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(variable_info, <span class="at">format =</span> <span class="st">"html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Variable</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Data_Types</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">state</td>
+<td style="text-align: left;">text</td>
+<td style="text-align: left;">state name</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">year</td>
+<td style="text-align: left;">number</td>
+<td style="text-align: left;">Year of the data collected.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">spending</td>
+<td style="text-align: left;">number</td>
+<td style="text-align: left;">the average healthcare spending of each state each year.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">mean_val</td>
+<td style="text-align: left;">number</td>
+<td style="text-align: left;">Mean estimate of the mmr</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">AverageAge</td>
+<td style="text-align: left;">number</td>
+<td style="text-align: left;">the average age of pregnancy for each state each year</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">region</td>
+<td style="text-align: left;">text</td>
+<td style="text-align: left;">The regional category for the state.</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+<p>##Distribution Analysis</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(tidyverse))</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"scripts/combine_pregnancy.R"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 912 Columns: 30
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr  (4): state, notes, versiondate, region
+dbl (26): year, pregnancyratelt15, pregnancyrate1517, pregnancyrate1819, pre...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 1176 Columns: 4
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (1): location_name
+dbl (3): year_id, spending, mean_val
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "state"                    "year"                    
+ [3] "pregnancyratelt15"        "pregnancyrate1517"       
+ [5] "pregnancyrate1819"        "pregnancyrate1519"       
+ [7] "pregnancyratelt20"        "pregnancyrate2024"       
+ [9] "pregnancyrate2529"        "pregnancyrate3034"       
+[11] "pregnancyrate3539"        "pregnancyrate40plus"     
+[13] "pregnancieslt15"          "pregnancies1517"         
+[15] "pregnancies1819"          "pregnancies1519"         
+[17] "pregnancieslt20"          "pregnancies2024"         
+[19] "pregnancies2529"          "pregnancies3034"         
+[21] "pregnancies3539"          "pregnancies40plus"       
+[23] "pregnancyratetotal"       "pregnanciestotal"        
+[25] "notes"                    "versiondate"             
+[27] "total_weighted_age"       "total_rates"             
+[29] "average_age_of_pregnancy" "region"                  
+[1] "location_name" "year_id"       "spending"      "mean_val"     </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 1176 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): state, AverageAge
+dbl (3): year, spending, mean_val
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 6
+  state    year spending mean_val AverageAge       Region
+  &lt;chr&gt;   &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;            &lt;chr&gt; 
+1 Alabama  1999     3689     12.4 N/A              South 
+2 Alabama  2000     3921     10.5 24.4195917168454 South 
+3 Alabama  2001     4158     10.6 N/A              South 
+4 Alabama  2002     4513     11.9 N/A              South 
+5 Alabama  2003     4995     13.2 N/A              South 
+6 Alabama  2004     5238     13.9 N/A              South </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"dataset/phc_mmr_with_age.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 1176 Columns: 6
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (3): state, AverageAge, Region
+dbl (3): year, spending, mean_val
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>AverageAge <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">as.character</span>(data<span class="sc">$</span>AverageAge))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: NAs introduced by coercion</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> AverageAge)) <span class="sc">+</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>, <span class="at">fill =</span> <span class="st">"skyblue"</span>, <span class="at">color =</span> <span class="st">"coral"</span>) <span class="sc">+</span>  </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Histogram of Average Age of Pregnancy"</span>,</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Average Age of Pregnancy"</span>,</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Region"</span>) <span class="sc">+</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 462 rows containing non-finite values (`stat_bin()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="data_files/figure-html/figure compare-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 
 
 </section>
