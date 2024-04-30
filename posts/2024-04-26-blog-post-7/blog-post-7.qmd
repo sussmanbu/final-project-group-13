@@ -231,4 +231,4 @@ shinyApp(ui = ui, server = server)
 
 ```
 
- 
+[Click here to visit the MMR Map by Year!](https://ma415-group13.shinyapps.io/MMR_Map_by_year/)
