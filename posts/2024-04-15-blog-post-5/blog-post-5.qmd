@@ -1,17 +1,28 @@
 ---
 title: "Blog Post 5"
+<<<<<<< HEAD
+author: "Christy"
+=======
 author: "Group 13"
+>>>>>>> 5fdd2cb4f52c72bbb77dfb091b84322135abf9e9
 date: "2024-04-15"
 date-modified: "2024-04-15"
 draft: FALSE
 ---
+<<<<<<< HEAD
+For this week’s blog post, please describe the datasets you are combining, how you are combining them, and what your initial findings were. If you haven’t finished combining datasets, that is fine, just discuss where you are in the process and what your next steps are.
+=======
 
 ## Combining Existing Data with New Data
+>>>>>>> 5fdd2cb4f52c72bbb77dfb091b84322135abf9e9
 
 From the research and brainstorming on the possible explanations of the reasons for the increasing trend of MMR reflected in the graph of the mean value of MMR over time across four different U.S. Census regions, we determined that the economic reasons might be the most relevant explanation which regress to the specific terms like health care coverage/spending and the annual income. In addition, we also looked up the data on the pregnancy and abortion rate  and tried to tell if there could be some statistically significant variables in the dataset. We are planning to combine the US healthcare per capita dataset and the serial annual income across the states to the original dataset and try to see if there can be more insights into the possible growing trend of the maternal mortality rate with the development of the medical situation.
 
 We are planning to reclassify the location of the new data sets to fit the original dataset’s regional classification. With the time variables displayed in columns, we plan to reverse the display and match the original layout pattern. Furthermore, we performed the data-cleaning process on the pregnancy and abortion rate data to exclude the pure number variables. In the next step, we are going to use the cleaned data to create a line graph that shows the different trends in different regions and compare it with the original line graph we had in previous research. In addition, we are planning to look at the statistical significance of variables related to healthcare coverage/spending and annual income by conducting regression analysis. This will help us determine the extent to which these factors may be associated with the increasing trend of maternal mortality rates. Besides that, we will explore any potential correlations between pregnancy and abortion rates and maternal mortality rates across different regions.
+<<<<<<< HEAD
+=======
 
 Please find the new dataset at this link: https://www.cms.gov/data-research/statistics-trends-and-reports/national-health-expenditure-data/state-residence
 
 
+>>>>>>> 5fdd2cb4f52c72bbb77dfb091b84322135abf9e9

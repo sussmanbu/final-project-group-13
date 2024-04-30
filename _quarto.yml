@@ -1,4 +1,4 @@
-project:
+remotes::install_github("sussmanbu/quartopost") project:
   type: website
   execute-dir: project
   resources: scripts
