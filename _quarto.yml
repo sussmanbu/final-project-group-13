@@ -4,7 +4,7 @@ project:
   resources: scripts
 
 website:
-  title: "MA [46]15 Final Project -- Group 13"
+  title: 'MA [46]15 Final Project -- Group 13'
   navbar:
     right:
       - about.qmd
@@ -15,6 +15,3 @@ format:
   html:
     theme: cosmo
     css: styles.css
-
-
-

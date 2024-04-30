@@ -68,3 +68,28 @@ mmr_data_clean |>
 ```
 
 Figure 1: The graph visualizes the frequency distribution of value MMR. From the histogram, we observe that the data is right-skewed, meaning that the majority of the data points fall on the lower end of the value range, and there are fewer observations as the value increases. This is indicated by the high bars on the left and the bars gradually decreasing in height as we move to the right, showing that high values are less common.
+
+
+
+## Healthcare Spending Data
+
+### Data Background
+
+These data come from the Center for Medicare and Medicaid Services. It presents personal healthcare spending per-capita in the United States for each of the years covered in our initial data set.
+
+Source: https://www.cms.gov/data-research/statistics-trends-and-reports/national-health-expenditure-data/state-residence
+
+The data includes spending broken down by state of residence of the person receiving care, and into subcategories by the type of establishment delivering care (hospitals, physicians and clinics, nursing homes, etc.) and what medical product is being purchased (prescription drugs, over-the-counter medicines and sundries and durable medical products such as eyeglasses and hearing aids). The sources of the spending data are listed as the Centers for Medicare and Medicaid Services, the Office of the Actuary, and the National Health Statistics Group. The source of the population data in order to calculate per-capita spending is listed as the U.S. Bureau of the Census as of December 2020. 
+
+
+### Data Loading and Cleaning
+
+[Data Loading and Cleaning Script](scripts/load_healthcare_spending_data.R)
+
+These data come with multiple data sets, however for our analysis we chose to work with the file US_PER_CAPITA20.CSV in order to view from a summary perspective. The file initially comes with variables Code, Item, Group, Region Number, Region Name, Years 1991-2020, and Average Annual Percent Growth. It has 600 observations, one for each of the states and region groups for ten different spending breakdowns. We chose to look at the spending item "Personal Healthcare" which represents a summary of all the other items. Since no item in particular connected with natal care, we chose to look at the summary as a overall indicator of spending in order to generally represent natal care. We also chose to only look at the years 1999-2019 in order to match our initial data set. 
+
+This data set went through an extensive cleaning process because although it was very clean and easy to use upon initial loading, it's format did not match our existing data. We had to reclassify the region to match official United States census regions and create new summaries for the new region breakdowns. We then pivoted the table longer to maintain only three columns (year, state, and spending) where previously the values for each year were in a new column. The dimensions now matched our maternal mortality data so we were able to merge them into one clean data frame. 
+
+### Variable Descriptions
+
+### Distribution Analysis
