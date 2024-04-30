@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="We describe the sources of our data and the cleaning process.">
+<meta name="description" content="Describe the sources of our data and the cleaning process.">
 
 <title>MA [46]15 Final Project – Group 13 - Data</title>
 <style>
@@ -179,7 +179,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div>
   <div class="description">
-    We describe the sources of our data and the cleaning process.
+    Describe the sources of our data and the cleaning process.
   </div>
 </div>
 
@@ -198,17 +198,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>Maternal Mortality Data</h1>
 <section id="data-background" class="level3">
 <h3 class="anchored" data-anchor-id="data-background">Data Background</h3>
-<p>This data comes from the Institute for Health Metrics and Evaluation and is supported by the Global Health Data Exchange. It presents maternal mortality ratios for women in the United States from the ages 10-54 for the years 1999-2019.</p>
-<p>Source: https://doi.org/10.6069/35ZC-FM02</p>
-<p>There was no clear information on the original way of collecting the data, but from the organization, it can be inferred that the data could be mostly from medical records across the country. The original guidebook directs to: https://ghdx.healthdata.org/record/ihme-data/united-states-maternal-mortality-by-state-race-ethnicity-1999-2019#:~:text=Data%20Release%20Information%20Sheet</p>
-<p>The dataset includes MMR (maternal mortality ratio) estimates for Hispanic and any race; non-Hispanic American Indian and Alaska Native; non-Hispanic Asian, Native Hawaiian, or Other Pacific Islander; non-Hispanic Black; and non-Hispanic White females ages 10-54 for each year from 1999 through 2019.</p>
-<p>Although the data is quite accessible, however, pivoting the data or making subtables would likely aid in our analysis given its current organization. Some questions we can look at with this data are: “How does maternal mortality change over time? How does maternal mortality vary across US states? How does maternal mortality vary across ethnic groups?” At a deeper level, we could investigate how maternal mortality varies across both state and race groups, and compare with additional data about healthcare for different racial groups to add on a new data set. A possible challenge comes in interpreting the value for the maternal mortality ratio.</p>
+<p>The dataset comes from the Institute for Health Metrics and Evaluation and is supported by the Global Health Data Exchange. It presents maternal mortality ratios for women in the United States from the ages 10-54 for the years 1999-2019.</p>
+<p><a href="https://doi.org/10.6069/35ZC-FM02">Source</a></p>
+<p>There was no clear information on the original way of collecting the data, but from the organization, it can be inferred that the data could be mostly from medical records across the country. <a href="https://ghdx.healthdata.org/record/ihme-data/united-states-maternal-mortality-by-state-race-ethnicity-1999-2019#:~:text=Data%20Release%20Information%20Sheet">The original guidebook</a></p>
+<p>The dataset includes MMR (maternal mortality ratio) estimates for Hispanic and any race; non-Hispanic American Indian and Alaska Native; non-Hispanic Asian, Native Hawaiian, or other Pacific Islander; non-Hispanic Black; and non-Hispanic White females ages 10-54 for each year from 1999 through 2019.</p>
+<p>Although the data is quite accessible, however, pivoting the data or making sub tables would likely aid in our analysis given its current organization. Some questions we can look at with this data are: “How does maternal mortality change over time? How does maternal mortality vary across different states? How does maternal mortality vary across ethnic groups?” At a deeper level, we could investigate how maternal mortality varies across both state and race groups, and compare with additional data about healthcare for different racial groups to add on a new data set. A possible challenge comes in interpreting the value for the maternal mortality ratio.</p>
 <p>The data is often used to help in understanding the disparities in maternal health outcomes among different racial and ethnic groups. There are some publications related to this data already and they both highlight the points out the fact that maternal mortality rates are highest for the black population and the large increase trend across all groups especially in American India. One constantly asked question is how the huge increase in maternal mortality rate has happened with the development of medical technology over the past 20 years.</p>
 </section>
 <section id="data-loading-and-cleaning" class="level3">
 <h3 class="anchored" data-anchor-id="data-loading-and-cleaning">Data Loading and Cleaning</h3>
 <p><a href="scripts/load_and_clean_data.R">Data Loading and Cleaning Script</a></p>
-<p>The file we chose initially has columns measure_id, measure_name, location_id, location_name, race_group, sex_id, age_group_id, age_group_name, year_id, metric_id, val, lower, and upper. It has 5901 observations. This odd number indicates that there may be some missing observations for certain location/race/year combinations. To load the data, we made an account and downloaded the .csv file called IHME_USA_MMR_STATE_RACE_ETHN_1999_2019_ESTIMATES_Y2023M07D03. We then read it into a dataframe in R. Since the data is already very clean, we simply selected the columns location_id, location_name, race_group, year_id, val, lower, upper to keep in our cleaned dataset and discarded the rest. We chose to discard those columns because every observation had the same value. For example, every observation was Female in the age group 10 to 54. We then saved this cleaned dataframe as a .Rdata file in our repository.</p>
+<p>The file we chose initially has columns measure_id, measure_name, location_id, location_name, race_group, sex_id, age_group_id, age_group_name, year_id, metric_id, val, lower, and upper. It has 5901 observations. This odd number indicates that there may be some missing observations for certain location/race/year combinations. To load the data, we made an account and downloaded the .csv file called <strong>IHME_USA_MMR_STATE_RACE_ETHN_1999_2019_ESTIMATES_Y2023M07D03</strong>. We then read it into a dataframe in R. Since the data is already very clean, we simply selected the columns location_id, location_name, race_group, year_id, val, lower, upper to keep in our cleaned dataset and discarded the rest. We chose to discard those columns because every observation had the same value. For example, every observation was Female in the age group 10 to 54. We then saved this cleaned dataframe as a .Rdata file in our repository.</p>
 </section>
 <section id="variable-descriptions" class="level3">
 <h3 class="anchored" data-anchor-id="variable-descriptions">Variable Descriptions</h3>
