@@ -8,7 +8,7 @@ draft: false
 # Maternal Mortality Data
 
 ### Data Background
-The dataset comes from the Institute for Health Metrics and Evaluation and is supported by the Global Health Data Exchange. It presents maternal mortality ratios for women in the United States from the ages 10-54 for the years 1999-2019. 
+The dataset comes from the Institute for Health Metrics and Evaluation and is supported by the Global Health Data Exchange. It presents maternal mortality ratios for women in the United States from the ages 10-54 for the years 1999-2019.
 
 [Source](https://doi.org/10.6069/35ZC-FM02)
 
@@ -28,7 +28,6 @@ The file we chose initially has columns measure_id, measure_name, location_id, l
 
 ### Variable Descriptions
 ``` {r}
-
 variable_info <- data.frame(
   Variable = c("location_id", "location_name", "race_group", "year_id", "val", "lower", "upper"),
   Data_Types = c("number", "text", "text", "number", "number", "number", "number"),
