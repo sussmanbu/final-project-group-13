@@ -123,6 +123,32 @@ mmr_diff |>
   theme(axis.text.x = element_text(angle=70, hjust=1))
 ```
 
+```{r figure 3.75, echo = FALSE}
+
+load(here::here("dataset/phc_mmr.RData"))
+
+
+df <- read_csv(here::here("dataset/phc_mmr_combined.csv"), col_types = cols(
+  location_name= col_character(),
+  year_id = col_double(),
+  spending = col_double(),
+  mean_val = col_double())) 
+
+df |>
+  group_by(year_id, location_name) |>
+  filter(str_detect(location_name, "Census")) |>
+  summarize(mean = mean(spending)) |>
+  ggplot(aes(x = year_id, y = mean)) +
+  geom_line(aes(color = location_name)) +
+    labs(
+    title = "Spending by Census Region over Time",
+    y = "Mean Spending",
+    x = "Year",
+    color = "Census Region"
+  )
+
+
+```
 
 ``` {r figure 4, echo=FALSE}
 suppressPackageStartupMessages(library(tidyverse))
@@ -160,36 +186,41 @@ Figure 5: Faceted MMR vs Spending
 We then faceted the initial graph by year to show the trend over time. This reveals a few things. Firstly, when faceted by year the relationship no longer appears to have a positive correlation. The trend is hard to see without a regression however it does appear to be negatively correlated now. Additionally, the points for each state are spreading out. In the first few years, all the points are clumped together with lower values. However, as the years go by the points not only overall increase in value but move farther apart. This prompted us to do a standard deviation analysis to quantify this observed trend.
 
 ```{r standard deviation calculation, echo=FALSE}
-std_dev_mmr <- combined_data |> 
-  group_by(year_id) |> 
-  summarise(sd_mmr = sd(mean_val))
-std_dev_phc <- combined_data |> 
-  group_by(year_id) |> 
-  summarise(sd_phc = sd(spending))
-std_combined <- merge(std_dev_mmr, std_dev_phc, by = c("year_id"), all = TRUE)
+# 
+# ## cut!
+# std_dev_mmr <- combined_data |> 
+#   group_by(year_id) |> 
+#   summarise(sd_mmr = sd(mean_val))
+# std_dev_phc <- combined_data |> 
+#   group_by(year_id) |> 
+#   summarise(sd_phc = sd(spending))
+# std_combined <- merge(std_dev_mmr, std_dev_phc, by = c("year_id"), all = TRUE)
 ```
 
 ```{r figure 6, echo=FALSE}
-std_combined |> 
-  ggplot(aes(x=year_id, y=sd_mmr)) + 
-  geom_point(aes(alpha = 0.1)) +
-  theme(axis.text.x = element_text(angle = -25, hjust = 1), legend.position = "none") + 
-  labs(
-    title = "Standard Deviation of Maternal Mortality Ratios Over Time",
-    x = "Year",
-    y = "MMR")
+# ### cut!
+# 
+# std_combined |> 
+#   ggplot(aes(x=year_id, y=sd_mmr)) + 
+#   geom_point(aes(alpha = 0.1)) +
+#   theme(axis.text.x = element_text(angle = -25, hjust = 1), legend.position = "none") + 
+#   labs(
+#     title = "Standard Deviation of Maternal Mortality Ratios Over Time",
+#     x = "Year",
+#     y = "MMR")
 
 ```
 
 ```{r figure 7, echo=FALSE}
-std_combined |> 
-  ggplot(aes(x=year_id, y=sd_phc)) + 
-  geom_point(aes(alpha = 0.1)) +
-  theme(axis.text.x = element_text(angle = -25, hjust = 1), legend.position = "none") + 
-    labs(
-    title = "Standard Deviation of Healthcare Spending Over Time",
-    x = "Year",
-    y = "Spending")
+# ## cut!
+# std_combined |> 
+#   ggplot(aes(x=year_id, y=sd_phc)) + 
+#   geom_point(aes(alpha = 0.1)) +
+#   theme(axis.text.x = element_text(angle = -25, hjust = 1), legend.position = "none") + 
+#     labs(
+#     title = "Standard Deviation of Healthcare Spending Over Time",
+#     x = "Year",
+#     y = "Spending")
 ```
 
 Figures 6 and 7:
@@ -429,3 +460,11 @@ print(fit_statistics)
 
 ```
 
+
+
+
+
+
+
+Notes from presentation:
+cut: mmr by region not facetted since we also have facetted, STD graphs
