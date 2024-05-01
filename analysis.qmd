@@ -73,7 +73,7 @@ The Non-Hispanic American Indian and Alaska Native category demonstrates a signi
 The observed regional differences, such as higher rates in the South and variations in the Midwest and West, might be influenced by a multitude of factors including healthcare infrastructure, socioeconomic status, accessibility of prenatal and postnatal care, and population density.  Regions with higher population densities might face different healthcare challenges than less densely populated areas, potentially affecting the availability and quality of care.
 
 
-```{r figure 3.5}
+```{r figure 3.5, echo = FALSE}
 mmr_diff <- mmr_data_clean |> 
   group_by(location_name, year_id) |> 
   summarize(mean_mmr = mean(val)) |> 
@@ -290,7 +290,9 @@ dynamics.
 
 
 
-#Thesis???
+# Thesis???
+## also needs regressions
+
 
 
 
@@ -317,7 +319,7 @@ Avoid using "we" too frequently, for example "We also found that ...". Describe 
 The code below shows an example of loading the loan refusal data set (which you should delete at some point).
 
 ```{r, echo=FALSE}
-library(tidyverse , echo=FALSE)
+library(tidyverse)
 print(getwd())
 data <- read_csv(here::here("dataset/loan_refusal_clean.csv"))
 load(here::here("dataset/loan_refusal.RData"))
