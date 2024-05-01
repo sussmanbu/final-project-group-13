@@ -73,16 +73,54 @@ The Non-Hispanic American Indian and Alaska Native category demonstrates a signi
 The observed regional differences, such as higher rates in the South and variations in the Midwest and West, might be influenced by a multitude of factors including healthcare infrastructure, socioeconomic status, accessibility of prenatal and postnatal care, and population density.  Regions with higher population densities might face different healthcare challenges than less densely populated areas, potentially affecting the availability and quality of care.
 
 
-```{r figure 3.5, echo=FALSE}
+```{r figure 3.5}
+mmr_diff <- mmr_data_clean |> 
+  group_by(location_name, year_id) |> 
+  summarize(mean_mmr = mean(val)) |> 
+  filter(year_id %in% c(1999, 2019)) |> 
+  pivot_wider(names_from = year_id, values_from = mean_mmr) |> 
+  rename(y1999 = '1999') |> 
+  rename(y2019 = '2019') |> 
+  mutate(difference = y2019-y1999) |> 
+  arrange(difference)
 
-mmr_data_clean |> 
-  group_by(location_name) |> 
-  summarize(mean = mean(val))
-  
+mmr_diff$region_id = mmr_diff$location_name
 
-  
+northeast <- c("Connecticut", "Massachusetts", "Maine", "Maine", 
+               "New Hampshire", "Rhode Island", "Vermont", "New Jersey", 
+               "New York", "Pennsylvania")
+midwest <- c("Indiana", "Illinois", "Michigan", "Ohio", "Wisconsin", "Iowa", 
+             "Kansas", "Minnesota", "Missouri", "Nebraska", "North Dakota", 
+             "South Dakota")
+south <- c("Delaware", "District of Columbia", "Florida", "Georgia", "Maryland", 
+          "North Carolina", "South Carolina", "Virginia", "West Virginia", 
+          "Alabama", "Kentucky", "Mississippi", "Tennessee", "Arkansas", 
+          "Louisiana", "Oklahoma", "Texas")
+west <- c("Arizona", "Colorado", "Idaho", "New Mexico", "Montana", "Utah", 
+          "Nevada", "Wyoming", "Alaska", "California", "Hawaii", "Oregon", 
+          "Washington")
 
+for(i in 1:56){
+  if (mmr_diff[i, 1] %in% northeast){
+    mmr_diff[i, 5] = "Northeast Census Region"
+  } else if (mmr_diff[i, 1] %in% midwest){
+    mmr_diff[i, 5] = "Midwest Census Region"
+  } else if (mmr_diff[i, 1] %in% south){
+    mmr_diff[i, 5] = "South Census Region"
+  } else if (mmr_diff[i, 1] %in% west){
+    mmr_diff[i, 5] = "West Census Region"
+  }
+}
 
+mmr_diff |> 
+  ggplot(aes(x = reorder(location_name, difference), y = difference)) +
+  geom_point(aes(color = region_id)) + 
+  labs( 
+    title = "Change in Maternal Mortality 1999-2019",
+    x = "State",
+    y = "Difference",
+    color = "Region") + 
+  theme(axis.text.x = element_text(angle=70, hjust=1))
 ```
 
 
