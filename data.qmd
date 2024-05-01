@@ -154,11 +154,14 @@ kable(variable_info, format = "html")
 ```
 
 ##Distribution Analysis
-```{r figure compare, message=FALSE, echo=FALSE}
-suppressPackageStartupMessages(library(tidyverse))
-library(ggplot2)
-library(readr)
-source("scripts/combine_pregnancy.R")
+```{r, message=FALSE, echo=FALSE, warning = FALSE}
+suppressPackageStartupMessages({
+  library(tidyverse)
+  library(readr)
+  library(ggplot2)
+})
+
+
 data <- read_csv("dataset/phc_mmr_with_age.csv")
 
 data$AverageAge <- as.numeric(as.character(data$AverageAge))
