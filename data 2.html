@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -60,6 +94,8 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -162,7 +198,6 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="maternal-mortality-data" class="level1">
 <h1>Maternal Mortality Data</h1>
-<p><img src="images/MMRpics.jpeg" class="img-fluid"></p>
 <section id="data-background" class="level3">
 <h3 class="anchored" data-anchor-id="data-background">Data Background</h3>
 <p>The dataset comes from the Institute for Health Metrics and Evaluation and is supported by the Global Health Data Exchange. It presents maternal mortality ratios for women in the United States from the ages 10-54 for the years 1999-2019. <a href="https://doi.org/10.6069/35ZC-FM02">Source</a></p>
@@ -264,38 +299,6 @@ Figure 1: Distribution of Maternal Motality Ratio
 </section>
 <section id="variable-descriptions-1" class="level3">
 <h3 class="anchored" data-anchor-id="variable-descriptions-1">Variable Descriptions</h3>
-<div class="cell">
-<div class="cell-output-display">
-<table data-quarto-postprocess="true" class="table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th">Variable</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">Data_Types</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">location_name</td>
-<td style="text-align: left;">text</td>
-<td style="text-align: left;">Name of the location</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">year_id</td>
-<td style="text-align: left;">number</td>
-<td style="text-align: left;">ID representing the year of the data collected.</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">spending</td>
-<td style="text-align: left;">number</td>
-<td style="text-align: left;">The average healthcare spending of each location each year.</td>
-</tr>
-</tbody>
-</table>
-
-
-</div>
-</div>
 </section>
 <section id="distribution-analysis-1" class="level3">
 <h3 class="anchored" data-anchor-id="distribution-analysis-1">Distribution Analysis</h3>
@@ -303,19 +306,41 @@ Figure 1: Distribution of Maternal Motality Ratio
 </section>
 <section id="average-age-of-pregnancy-data" class="level1">
 <h1>Average age of Pregnancy data</h1>
-<section id="data-background-2" class="level3">
-<h3 class="anchored" data-anchor-id="data-background-2">Data Background</h3>
-<p>These dataset is collected by the Guttmacher Institute. It provides a detailed compilation of statistics related to pregnancy outcomes across the U.S. The primary goal of collecting this data was to inform the public health policy and enhance the understanding of the reproduction health situation across the country. <a href="https://osf.io/kthnf/">Source</a></p>
+<section id="data-background-2" class="level2">
+<h2 class="anchored" data-anchor-id="data-background-2">Data Background</h2>
+<p>###data resource These dataset is collected by the Guttmacher Institute. It provides a detailed compilation of statistics related to pregnancy outcomes across the U.S. The primary goal of collecting this data was to inform the public health policy and enhance the understanding of the reproduction health situation across the country.</p>
+<p>source:https://osf.io/kthnf/</p>
 <p>This data is a combined data relied on the public resource, National Center for Health Statistics (NCHS) National Vital, Statistics System (NVSS), the original data also contains the abortion data and the population data. In consideration of the various original resources, we performed data cleaning to keep the reliability of the dataset. This data provides both regional and aggregate data that illustrate the potential problem of the uneven distribution of healthcare resources and other problems. This dataset comprises the statistics over 5 decades, which allows the researchers to perform the longitudinal studies.</p>
-<p>However, As this data relies on multiple sources, including state health departments, the CDC, and direct survey which creates inconsistencies in the format of the dataset. Some states might have more rigorous data collection than others. In response to this potential problem, we regenerate a category of region to group the adjacent states together. With this performance, we see a clearer distribution trend.</p>
-<p>To be noticed, the data collected and reported might vary a lot between states due to different laws, health care coverage and reporting standards. And for years where data wasn’t collected, it might result in error in predictions if there are atypical fluctuation of the data in that year.</p>
+<p>###issues on How the Data Was Collected</p>
+<p>This data relies on multiple sources, including state health departments, the CDC, and direct survey which creates inconsistencies in the format of the dataset. Some states might have more rigorous data collection than others. In response to this potential problem, we regenerate a category of region to group the adjacent states together. With this performance, we see a clearer distribution trend.</p>
+<p>###sample biases</p>
+<p>The data collected and reported might vary a lot between states due to different laws, health care coverage and reporting standards. And for years where data wasn’t collected, it might result in error in predictions if there are atypical fluctuation of the data in that year.</p>
 </section>
-<section id="data-loading-and-cleaning-2" class="level3">
-<h3 class="anchored" data-anchor-id="data-loading-and-cleaning-2">Data Loading and Cleaning</h3>
+<section id="data-loading-and-cleaning-2" class="level2">
+<h2 class="anchored" data-anchor-id="data-loading-and-cleaning-2">Data Loading and Cleaning</h2>
+<p>In our research, we first found an unexpected trend of increasing trend of the maternal mortality rate, we then want to take a further step to look at if the average age of pregnancy could give us a positive correlation in analysis.</p>
+<p>In order to minimize the influence of the reporting biases during the process of data collection, we add a new category called region using the same framework of the mmr data. We removes the abortions and birth data in purpose of minimizing the number of resource this data depends on. In order to generate a more efficient graph, we calculated the average age of pregnancy in a single year using age group data.</p>
+<p>As our first intention was to see if the increasing average age of pregnancy could give a reasonable explanation on the growing trend of maternal mortality rate, we combine the average age data to the previous one.</p>
 <p><a href="scriptcombine_pregnancy.R">Data Loading and Cleaning Script</a></p>
-<p>In our research, we first found an unexpected trend of increasing trend of the maternal mortality rate, we then want to take a further step to look at if the average age of pregnancy could give us a positive correlation in analysis. In order to minimize the influence of the reporting biases during the process of data collection, we add a new category called region using the same framework of the mmr data. We removes the abortions and birth data in purpose of minimizing the number of resource this data depends on. In order to generate a more efficient graph, we calculated the average age of pregnancy in a single year using age group data. As our first intention was to see if the increasing average age of pregnancy could give a reasonable explanation on the growing trend of maternal mortality rate, we combine the average age data to the previous one.</p>
 <p>##Variables Description</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>variable_info <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Variable =</span> <span class="fu">c</span>(<span class="st">"state"</span>, <span class="st">"year"</span>, <span class="st">"spending"</span>, <span class="st">"mean_val"</span>, <span class="st">"AverageAge"</span>, <span class="st">"region"</span>),</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Data_Types =</span> <span class="fu">c</span>(<span class="st">"text"</span>, <span class="st">"number"</span>, <span class="st">"number"</span>, <span class="st">"number"</span>, <span class="st">"number"</span>, <span class="st">"text"</span>),</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Description =</span> <span class="fu">c</span>(</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"state name"</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Year of the data collected."</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"the average healthcare spending of each state each year."</span>,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Mean estimate of the mmr"</span>,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"the average age of pregnancy for each state each year"</span>,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"The regional category for the state."</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(variable_info, <span class="at">format =</span> <span class="st">"html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table data-quarto-postprocess="true" class="table table-sm table-striped small">
 <thead>
@@ -363,88 +388,9 @@ Figure 1: Distribution of Maternal Motality Ratio
 </div>
 </div>
 <p>##Distribution Analysis</p>
-<div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>Rows: 912 Columns: 30
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr  (4): state, notes, versiondate, region
-dbl (26): year, pregnancyratelt15, pregnancyrate1517, pregnancyrate1819, pre...
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
-Rows: 1176 Columns: 4
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr (1): location_name
-dbl (3): year_id, spending, mean_val
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code> [1] "state"                    "year"                    
- [3] "pregnancyratelt15"        "pregnancyrate1517"       
- [5] "pregnancyrate1819"        "pregnancyrate1519"       
- [7] "pregnancyratelt20"        "pregnancyrate2024"       
- [9] "pregnancyrate2529"        "pregnancyrate3034"       
-[11] "pregnancyrate3539"        "pregnancyrate40plus"     
-[13] "pregnancieslt15"          "pregnancies1517"         
-[15] "pregnancies1819"          "pregnancies1519"         
-[17] "pregnancieslt20"          "pregnancies2024"         
-[19] "pregnancies2529"          "pregnancies3034"         
-[21] "pregnancies3539"          "pregnancies40plus"       
-[23] "pregnancyratetotal"       "pregnanciestotal"        
-[25] "notes"                    "versiondate"             
-[27] "total_weighted_age"       "total_rates"             
-[29] "average_age_of_pregnancy" "region"                  
-[1] "location_name" "year_id"       "spending"      "mean_val"     </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Rows: 1176 Columns: 5
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr (2): state, AverageAge
-dbl (3): year, spending, mean_val
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 6
-  state    year spending mean_val AverageAge       Region
-  &lt;chr&gt;   &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;            &lt;chr&gt; 
-1 Alabama  1999     3689     12.4 N/A              South 
-2 Alabama  2000     3921     10.5 24.4195917168454 South 
-3 Alabama  2001     4158     10.6 N/A              South 
-4 Alabama  2002     4513     11.9 N/A              South 
-5 Alabama  2003     4995     13.2 N/A              South 
-6 Alabama  2004     5238     13.9 N/A              South </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Rows: 1176 Columns: 6
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr (3): state, AverageAge, Region
-dbl (3): year, spending, mean_val
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: NAs introduced by coercion</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 462 rows containing non-finite values (`stat_bin()`).</code></pre>
-</div>
-<div class="cell-output-display">
-<p><img src="data_files/figure-html/figure compare-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<p align="center">
-Figure 3: Distribution of Average Age of Pregnancy
-</p>
-<p>The histogram illustrates the distribution of the average age of pregnancy across various regions, with the most common age range being 25 to 27 years, as indicated by the tallest bar. This suggests that in most regions, the average age at which women are pregnant falls within this bracket. The histogram also shows that as the average age of pregnancy increases, fewer regions report these higher ages, with the 27 to 29 age range being less common and below 25 being the least common. This data can be valuable for designing region-specific healthcare policies and programs that address the reproductive health needs of women according to their predominant age groups.</p>
+<p>suppressPackageStartupMessages(library(tidyverse)) library(ggplot2) library(readr) source(“scripts/combine_pregnancy.R”) data &lt;- read_csv(“dataset/phc_mmr_with_age.csv”)</p>
+<p>data<span class="math inline">\(AverageAge &lt;- as.numeric(as.character(data\)</span>AverageAge)) ggplot(data, aes(x = AverageAge)) + geom_histogram(binwidth = 1, fill = “skyblue”, color = “coral”) +<br>
+labs(title = “Histogram of Average Age of Pregnancy”, x = “Average Age of Pregnancy”, y = “Region”) + theme_minimal()</p>
 
 
 </section>
