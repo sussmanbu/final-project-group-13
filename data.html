@@ -113,19 +113,23 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#data-loading-and-cleaning" id="toc-data-loading-and-cleaning" class="nav-link active" data-scroll-target="#data-loading-and-cleaning">Data Loading and Cleaning</a></li>
-  <li><a href="#variable-descriptions" id="toc-variable-descriptions" class="nav-link" data-scroll-target="#variable-descriptions">Variable Descriptions</a></li>
-  <li><a href="#distribution-analysis" id="toc-distribution-analysis" class="nav-link" data-scroll-target="#distribution-analysis">Distribution Analysis</a></li>
-  <li><a href="#healthcare-spending-data" id="toc-healthcare-spending-data" class="nav-link" data-scroll-target="#healthcare-spending-data">Healthcare Spending Data</a>
+  <li><a href="#maternal-mortality-data" id="toc-maternal-mortality-data" class="nav-link active" data-scroll-target="#maternal-mortality-data">Maternal Mortality Data</a>
   <ul class="collapse">
   <li><a href="#data-background" id="toc-data-background" class="nav-link" data-scroll-target="#data-background">Data Background</a></li>
+  <li><a href="#data-loading-and-cleaning" id="toc-data-loading-and-cleaning" class="nav-link" data-scroll-target="#data-loading-and-cleaning">Data Loading and Cleaning</a></li>
+  <li><a href="#variable-descriptions" id="toc-variable-descriptions" class="nav-link" data-scroll-target="#variable-descriptions">Variable Descriptions</a></li>
+  <li><a href="#distribution-analysis" id="toc-distribution-analysis" class="nav-link" data-scroll-target="#distribution-analysis">Distribution Analysis</a></li>
+  </ul></li>
+  <li><a href="#healthcare-spending-data" id="toc-healthcare-spending-data" class="nav-link" data-scroll-target="#healthcare-spending-data">Healthcare Spending Data</a>
+  <ul class="collapse">
+  <li><a href="#data-background-1" id="toc-data-background-1" class="nav-link" data-scroll-target="#data-background-1">Data Background</a></li>
   <li><a href="#data-loading-and-cleaning-1" id="toc-data-loading-and-cleaning-1" class="nav-link" data-scroll-target="#data-loading-and-cleaning-1">Data Loading and Cleaning</a></li>
   <li><a href="#variable-descriptions-1" id="toc-variable-descriptions-1" class="nav-link" data-scroll-target="#variable-descriptions-1">Variable Descriptions</a></li>
   <li><a href="#distribution-analysis-1" id="toc-distribution-analysis-1" class="nav-link" data-scroll-target="#distribution-analysis-1">Distribution Analysis</a></li>
   </ul></li>
   <li><a href="#average-age-of-pregnancy-data" id="toc-average-age-of-pregnancy-data" class="nav-link" data-scroll-target="#average-age-of-pregnancy-data">Average age of Pregnancy data</a>
   <ul class="collapse">
-  <li><a href="#data-background-1" id="toc-data-background-1" class="nav-link" data-scroll-target="#data-background-1">Data Background</a></li>
+  <li><a href="#data-background-2" id="toc-data-background-2" class="nav-link" data-scroll-target="#data-background-2">Data Background</a></li>
   <li><a href="#data-loading-and-cleaning-2" id="toc-data-loading-and-cleaning-2" class="nav-link" data-scroll-target="#data-loading-and-cleaning-2">Data Loading and Cleaning</a></li>
   <li><a href="#variables-description" id="toc-variables-description" class="nav-link" data-scroll-target="#variables-description">Variables Description</a></li>
   <li><a href="#distribution-analysis-2" id="toc-distribution-analysis-2" class="nav-link" data-scroll-target="#distribution-analysis-2">Distribution Analysis</a></li>
@@ -158,11 +162,17 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p><img src="images/dataimage.jpeg" class="img-fluid"> # Maternal Mortality Data ### Data Background The dataset comes from the Institute for Health Metrics and Evaluation and is supported by the Global Health Data Exchange. It presents maternal mortality ratios for women in the United States from the ages 10-54 for the years 1999-2019. <a href="https://doi.org/10.6069/35ZC-FM02">Source</a></p>
+<p><img src="images/dataimage.jpeg" class="img-fluid"></p>
+<section id="maternal-mortality-data" class="level1">
+<h1>Maternal Mortality Data</h1>
+<section id="data-background" class="level3">
+<h3 class="anchored" data-anchor-id="data-background">Data Background</h3>
+<p>The dataset comes from the Institute for Health Metrics and Evaluation and is supported by the Global Health Data Exchange. It presents maternal mortality ratios for women in the United States from the ages 10-54 for the years 1999-2019. <a href="https://doi.org/10.6069/35ZC-FM02">Source</a></p>
 <p>There was no clear information on the original way of collecting the data, but from the organization, it can be inferred that the data could be mostly from medical records across the country. <a href="https://ghdx.healthdata.org/record/ihme-data/united-states-maternal-mortality-by-state-race-ethnicity-1999-2019#:~:text=Data%20Release%20Information%20Sheet">The original guidebook</a></p>
 <p>The dataset includes MMR (maternal mortality ratio) estimates for Hispanic and any race; non-Hispanic American Indian and Alaska Native; non-Hispanic Asian, Native Hawaiian, or other Pacific Islander; non-Hispanic Black; and non-Hispanic White females ages 10-54 for each year from 1999 through 2019.</p>
 <p>Although the data is quite accessible, however, pivoting the data or making sub tables would likely aid in our analysis given its current organization. Some questions we can look at with this data are: “How does maternal mortality change over time? How does maternal mortality vary across different states? How does maternal mortality vary across ethnic groups?” At a deeper level, we could investigate how maternal mortality varies across both state and race groups, and compare with additional data about healthcare for different racial groups to add on a new data set. A possible challenge comes in interpreting the value for the maternal mortality ratio.</p>
 <p>The data is often used to help in understanding the disparities in maternal health outcomes among different racial and ethnic groups. There are some publications related to this data already and they both highlight the points out the fact that maternal mortality rates are highest for the black population and the large increase trend across all groups especially in American India. One constantly asked question is how the huge increase in maternal mortality rate has happened with the development of medical technology over the past 20 years.</p>
+</section>
 <section id="data-loading-and-cleaning" class="level3">
 <h3 class="anchored" data-anchor-id="data-loading-and-cleaning">Data Loading and Cleaning</h3>
 <p><a href="scripts/load_and_clean_data.R">Data Loading and Cleaning Script</a> The file we chose initially has columns measure_id, measure_name, location_id, location_name, race_group, sex_id, age_group_id, age_group_name, year_id, metric_id, val, lower, and upper. It has 5901 observations. This odd number indicates that there may be some missing observations for certain location/race/year combinations. To load the data, we made an account and downloaded the .csv file called <strong>IHME_USA_MMR_STATE_RACE_ETHN_1999_2019_ESTIMATES_Y2023M07D03</strong>. We then read it into a dataframe in R. Since the data is already very clean, we simply selected the columns location_id, location_name, race_group, year_id, val, lower, upper to keep in our cleaned dataset and discarded the rest. We chose to discard those columns because every observation had the same value. For example, every observation was Female in the age group 10 to 54. We then saved this cleaned dataframe as a .Rdata file in our repository.</p>
@@ -240,10 +250,11 @@ Figure 1: Distribution of Maternal Motality Ratio
 </p>
 <p>The histogram provided illustrates the distribution of Maternal Mortality Ratio (MMR) in the United States from 1999 to 2019, showcasing a right-skewed distribution. Most of the observed MMR values fall between 0 and 50, indicating that lower maternal mortality rates are more prevalent across the dataset. The highest frequency is observed in the 0-10 MMR range, suggesting that very low MMR values are common. However, the presence of values up to 150, though less frequent, highlights areas where maternal health risks remain higher. This variability in MMR points to potential targets for healthcare improvements and interventions to address higher mortality rates in specific regions or demographics.</p>
 </section>
+</section>
 <section id="healthcare-spending-data" class="level1">
 <h1>Healthcare Spending Data</h1>
-<section id="data-background" class="level3">
-<h3 class="anchored" data-anchor-id="data-background">Data Background</h3>
+<section id="data-background-1" class="level3">
+<h3 class="anchored" data-anchor-id="data-background-1">Data Background</h3>
 <p>These data come from the Center for Medicare and Medicaid Services. It presents personal healthcare spending per-capita in the United States for each of the years covered in our initial data set.<a href="https://www.cms.gov/data-research/statistics-trends-and-reports/national-health-expenditure-data/state-residence">Source: National Health Expenditure Data by State of Residence</a></p>
 <p>The data includes spending broken down by state of residence of the person receiving care, and into subcategories by the type of establishment delivering care (hospitals, physicians and clinics, nursing homes, etc.) and what medical product is being purchased (prescription drugs, over-the-counter medicines and sundries and durable medical products such as eyeglasses and hearing aids). The sources of the spending data are listed as the Centers for Medicare and Medicaid Services, the Office of the Actuary, and the National Health Statistics Group. The source of the population data in order to calculate per-capita spending is listed as the U.S. Bureau of the Census as of December 2020.</p>
 </section>
@@ -303,8 +314,8 @@ Figure 2: Distribution of Healthcare Spending
 </section>
 <section id="average-age-of-pregnancy-data" class="level1">
 <h1>Average age of Pregnancy data</h1>
-<section id="data-background-1" class="level3">
-<h3 class="anchored" data-anchor-id="data-background-1">Data Background</h3>
+<section id="data-background-2" class="level3">
+<h3 class="anchored" data-anchor-id="data-background-2">Data Background</h3>
 <p>These dataset is collected by the Guttmacher Institute. It provides a detailed compilation of statistics related to pregnancy outcomes across the U.S. The primary goal of collecting this data was to inform the public health policy and enhance the understanding of the reproduction health situation across the country. <a href="https://osf.io/kthnf/">Source</a></p>
 <p>This data is a combined data relied on the public resource, National Center for Health Statistics (NCHS) National Vital, Statistics System (NVSS), the original data also contains the abortion data and the population data. In consideration of the various original resources, we performed data cleaning to keep the reliability of the dataset. This data provides both regional and aggregate data that illustrate the potential problem of the uneven distribution of healthcare resources and other problems. This dataset comprises the statistics over 5 decades, which allows the researchers to perform the longitudinal studies.</p>
 <p>However, As this data relies on multiple sources, including state health departments, the CDC, and direct survey which creates inconsistencies in the format of the dataset. Some states might have more rigorous data collection than others. In response to this potential problem, we regenerate a category of region to group the adjacent states together. With this performance, we see a clearer distribution trend.</p>
