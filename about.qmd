@@ -16,41 +16,33 @@ about:
 
 ---
 
-
-This comes from the file `about.qmd`.
-
 This is a website for the final project for MA[46]15 Data Science with R by Team Group 13.
 The members of this team are below.
 
 ## Guanchen Li
 
 I'm a junior at BU majoring in Pure and Applied Math with CS Minor.
-
-https://github.com/Guanchenlileo
-
-## Yueyou Tao 
-
-junior, Stats major Anthropology minor
-
-https://github.com/yueyouTao
-
-## Jiajun Chen
-
-I am junior student major in Math & Econ.
-
-https://github.com/nora-cc
-
-## Yulin Chen
-
-I am a junior studying Econ & Maths
-
-https://github.com/ChristyKK
+[Guanchen Li's Github](https://github.com/Guanchenlileo)
 
 ## Jessica Sherr
 
 I'm a senior at BU majoring in Economics and Mathematics with a CS Minor.
+[Jessica Sherr's Github](https://github.com/jessicasherr)
 
-https://github.com/jessicasherr
+## Jiajun Chen
+
+I'm a junior at BU majoring in Economics and Mathematics with a DS Minor.
+[Jiajun Chen's Github](https://github.com/nora-cc)
+
+## Yulin Chen
+
+I'm a junior at BU majoring in Economics and Mathematics.
+[Yulin Chen's Github](https://github.com/ChristyKK)
+
+## Yueyou Tao 
+
+I'm a junior at BU majoring in Stats with Anthropology minor.
+[Yueyou Tao's Github](https://github.com/yueyouTao)
 
 <!-- Please leave in the information below -->
 
