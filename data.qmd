@@ -154,7 +154,7 @@ kable(variable_info, format = "html")
 ```
 
 ##Distribution Analysis
-```{r figure compare, echo=FALSE}
+```{r figure compare, message=FALSE, echo=FALSE}
 suppressPackageStartupMessages(library(tidyverse))
 library(ggplot2)
 library(readr)
