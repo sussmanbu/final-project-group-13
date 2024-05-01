@@ -364,81 +364,8 @@ Figure 1: Distribution of Maternal Motality Ratio
 </div>
 <p>##Distribution Analysis</p>
 <div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>Rows: 912 Columns: 30
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr  (4): state, notes, versiondate, region
-dbl (26): year, pregnancyratelt15, pregnancyrate1517, pregnancyrate1819, pre...
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
-Rows: 1176 Columns: 4
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr (1): location_name
-dbl (3): year_id, spending, mean_val
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code> [1] "state"                    "year"                    
- [3] "pregnancyratelt15"        "pregnancyrate1517"       
- [5] "pregnancyrate1819"        "pregnancyrate1519"       
- [7] "pregnancyratelt20"        "pregnancyrate2024"       
- [9] "pregnancyrate2529"        "pregnancyrate3034"       
-[11] "pregnancyrate3539"        "pregnancyrate40plus"     
-[13] "pregnancieslt15"          "pregnancies1517"         
-[15] "pregnancies1819"          "pregnancies1519"         
-[17] "pregnancieslt20"          "pregnancies2024"         
-[19] "pregnancies2529"          "pregnancies3034"         
-[21] "pregnancies3539"          "pregnancies40plus"       
-[23] "pregnancyratetotal"       "pregnanciestotal"        
-[25] "notes"                    "versiondate"             
-[27] "total_weighted_age"       "total_rates"             
-[29] "average_age_of_pregnancy" "region"                  
-[1] "location_name" "year_id"       "spending"      "mean_val"     </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Rows: 1176 Columns: 5
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr (2): state, AverageAge
-dbl (3): year, spending, mean_val
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 6
-  state    year spending mean_val AverageAge       Region
-  &lt;chr&gt;   &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;            &lt;chr&gt; 
-1 Alabama  1999     3689     12.4 N/A              South 
-2 Alabama  2000     3921     10.5 24.4195917168454 South 
-3 Alabama  2001     4158     10.6 N/A              South 
-4 Alabama  2002     4513     11.9 N/A              South 
-5 Alabama  2003     4995     13.2 N/A              South 
-6 Alabama  2004     5238     13.9 N/A              South </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Rows: 1176 Columns: 6
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr (3): state, AverageAge, Region
-dbl (3): year, spending, mean_val
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: NAs introduced by coercion</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 462 rows containing non-finite values (`stat_bin()`).</code></pre>
-</div>
 <div class="cell-output-display">
-<p><img src="data_files/figure-html/figure compare-1.png" class="img-fluid" width="672"></p>
+<p><img src="data_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p align="center">
