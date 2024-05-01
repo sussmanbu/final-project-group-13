@@ -6,7 +6,10 @@ draft: false
 ---
 
 ![](images/dataimage.jpeg)
+
+
 # Maternal Mortality Data
+
 ### Data Background
   The dataset comes from the Institute for Health Metrics and Evaluation and is supported by the Global Health Data Exchange. It presents maternal mortality ratios for women in the United States from the ages 10-54 for the years 1999-2019. [Source](https://doi.org/10.6069/35ZC-FM02)
 
