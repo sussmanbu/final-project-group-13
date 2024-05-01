@@ -6,8 +6,6 @@ draft: false
 ---
 
 # Maternal Mortality Data
-![](images/MMRpics.jpeg)
-
 ### Data Background
   The dataset comes from the Institute for Health Metrics and Evaluation and is supported by the Global Health Data Exchange. It presents maternal mortality ratios for women in the United States from the ages 10-54 for the years 1999-2019. [Source](https://doi.org/10.6069/35ZC-FM02)
 
@@ -109,8 +107,24 @@ kable(variable_info, format = "html")
 ```
 
 ### Distribution Analysis
+```{r, echo=FALSE}
+df <- read.csv("dataset/phc_mmr_combined.csv")  # Example of loading data into df instead of data
 
+# Then use df in the ggplot call
+ggplot(df, aes(x = spending)) +
+  geom_histogram(binwidth = 500,  # Adjust bin width as needed
+                 fill = "#69b3a2", 
+                 color = "white") +
+  labs(title = "Distribution of Healthcare Spending", 
+       x = "Spending", 
+       y = "Frequency") +
+  theme_minimal()
+```
+<p align="center">
+Figure 2: Distribution of Healthcare Spending
+</p>
 
+  The histogram reveals that the distribution of healthcare spending is right-skewed, with most data points clustered in the lower and middle ranges of spending. The distribution peaks around spending values of 5000 to 8000, indicating that this is the most frequent spending range. The data shows a gradual decline towards the higher spending values, reflecting the decreasing frequency of such values. Overall, healthcare spending predominantly occurs at the lower end of the spectrum, with a long tail extending towards higher values.
 
 
 # Average age of Pregnancy data
@@ -131,8 +145,7 @@ kable(variable_info, format = "html")
   As our first intention was to see if the increasing average age of pregnancy could give a reasonable explanation on the growing trend of maternal mortality rate, we combine the average age data to the previous one.
 
 
-##Variables Description
-
+## Variables Description
 ``` {r, echo=FALSE}
 library(knitr)
 variable_info <- data.frame(
@@ -153,7 +166,7 @@ variable_info <- data.frame(
 kable(variable_info, format = "html")
 ```
 
-##Distribution Analysis
+## Distribution Analysis
 ```{r, message=FALSE, echo=FALSE, warning = FALSE}
 suppressPackageStartupMessages({
   library(tidyverse)
@@ -166,7 +179,7 @@ data <- read_csv("dataset/phc_mmr_with_age.csv")
 
 data$AverageAge <- as.numeric(as.character(data$AverageAge))
 ggplot(data, aes(x = AverageAge)) +
-  geom_histogram(binwidth = 1, fill = "skyblue", color = "coral") +  
+  geom_histogram(binwidth = 1,fill = "#69b3a2", color = "white", ) +  
   labs(title = "Histogram of Average Age of Pregnancy",
        x = "Average Age of Pregnancy",
        y = "Region") +
