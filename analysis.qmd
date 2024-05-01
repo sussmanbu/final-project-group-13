@@ -74,6 +74,78 @@ The Non-Hispanic American Indian and Alaska Native category demonstrates a signi
 The observed regional differences, such as higher rates in the South and variations in the Midwest and West, might be influenced by a multitude of factors including healthcare infrastructure, socioeconomic status, accessibility of prenatal and postnatal care, and population density.  Regions with higher population densities might face different healthcare challenges than less densely populated areas, potentially affecting the availability and quality of care.
 
 
+``` {r figure 4}
+suppressPackageStartupMessages(library(tidyverse))
+load(here::here("dataset/phc_mmr.RData"))
+
+combined_data |> 
+  ggplot(aes(x = spending, y = mean_val)) + 
+  geom_point(aes(alpha = 0.01))+  
+  theme(legend.position = "none") + 
+  labs(
+    title = "Maternal Mortality v.s. Healthcare Spending",
+    x = "Spending",
+    y = "MMR"
+  )
+```
+
+Figure 4: MMR vs Spending 
+pos correlation???
+An initial plot of personal healthcare spending versus maternal mortality ratio shows a roughly positive correlation between the two variables which contradicts what we expected the relationship to be coming into this analysis. We would have expected a negative correlation, implying that as states spend more on healthcare overall, maternal mortality rates would be lower.
+
+
+```{r figure 5}
+combined_data |> 
+  ggplot(aes(x = spending, y = mean_val)) + 
+  geom_point(aes(alpha = 0.01)) + 
+  facet_wrap(~year_id) +  
+  theme(legend.position = "none") + 
+  labs(
+    title = "Maternal Mortality v.s. Healthcare Spending by Year",
+    x = "Spending",
+    y = "MMR"
+  )
+```
+Figure 5: Faceted MMR vs Spending
+We then faceted the initial graph by year to show the trend over time. This reveals a few things. Firstly, when faceted by year the relationship no longer appears to have a positive correlation. The trend is hard to see without a regression however it does appear to be negatively correlated now. Additionally, the points for each state are spreading out. In the first few years, all the points are clumped together with lower values. However, as the years go by the points not only overall increase in value but move farther apart. This prompted us to do a standard deviation analysis to quantify this observed trend.
+
+```{r standard deviation calculation}
+std_dev_mmr <- combined_data |> 
+  group_by(year_id) |> 
+  summarise(sd_mmr = sd(mean_val))
+std_dev_phc <- combined_data |> 
+  group_by(year_id) |> 
+  summarise(sd_phc = sd(spending))
+std_combined <- merge(std_dev_mmr, std_dev_phc, by = c("year_id"), all = TRUE)
+```
+
+```{r figure 6}
+std_combined |> 
+  ggplot(aes(x=year_id, y=sd_mmr)) + 
+  geom_point(aes(alpha = 0.1)) +
+  theme(axis.text.x = element_text(angle = -25, hjust = 1), legend.position = "none") + 
+  labs(
+    title = "Standard Deviation of Maternal Mortality Ratios Over Time",
+    x = "Year",
+    y = "MMR")
+
+```
+
+```{r figure 7}
+std_combined |> 
+  ggplot(aes(x=year_id, y=sd_phc)) + 
+  geom_point(aes(alpha = 0.1)) +
+  theme(axis.text.x = element_text(angle = -25, hjust = 1), legend.position = "none") + 
+    labs(
+    title = "Standard Deviation of Healthcare Spending Over Time",
+    x = "Year",
+    y = "Spending")
+```
+
+Figures 6 and 7:
+Both graphs show an increasing trend over time, supporting an initial visual analysis that the data is getting more spread out. The graph of healthcare spending deviation is particularly linear which drew our interest however we are unsure of how this would implicate our analysis. 
+
+
 
 
 
