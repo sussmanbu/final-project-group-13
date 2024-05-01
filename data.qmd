@@ -5,6 +5,7 @@ toc: true
 draft: false
 ---
 
+![](images/dataimage.jpeg)
 # Maternal Mortality Data
 ### Data Background
   The dataset comes from the Institute for Health Metrics and Evaluation and is supported by the Global Health Data Exchange. It presents maternal mortality ratios for women in the United States from the ages 10-54 for the years 1999-2019. [Source](https://doi.org/10.6069/35ZC-FM02)
@@ -108,11 +109,10 @@ kable(variable_info, format = "html")
 
 ### Distribution Analysis
 ```{r, echo=FALSE}
-df <- read.csv("dataset/phc_mmr_combined.csv")  # Example of loading data into df instead of data
+df <- read.csv("dataset/phc_mmr_combined.csv")  
 
-# Then use df in the ggplot call
 ggplot(df, aes(x = spending)) +
-  geom_histogram(binwidth = 500,  # Adjust bin width as needed
+  geom_histogram(binwidth = 500,  
                  fill = "#69b3a2", 
                  color = "white") +
   labs(title = "Distribution of Healthcare Spending", 
