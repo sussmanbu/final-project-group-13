@@ -367,3 +367,65 @@ You will
 
 
 [Click here to visit the MMR Map by Year!](https://ma415-group13.shinyapps.io/MMR_Map_by_year/)
+
+```{r}
+# Load the tidyverse package for data manipulation
+library(tidyverse)
+
+# Read the CSV file
+phc_mmr_combined <- read.csv("dataset/phc_mmr_combined.csv")
+
+# Fit a linear regression model
+model <- lm(spending ~ mean_val, data = phc_mmr_combined)
+
+# Print a summary of the regression model
+summary <- summary(model)
+coefficients_table <- summary$coefficients
+
+# Format the coefficients table
+coefficients_table <- round(coefficients_table, 4)
+rownames(coefficients_table) <- c("Intercept", "Spending")
+colnames(coefficients_table) <- c("Estimate", "Std. Error", "t value", "Pr(>|t|)")
+
+# Print the formatted coefficients table
+print(coefficients_table)
+
+```
+
+```{r}
+# Load necessary packages
+library(readr)
+library(broom)
+
+# Load your dataset (replace 'your_dataset.csv' with the actual file name)
+# Make sure the dataset has the correct column names such as 'spending' and 'mean_val'
+data <- read_csv("dataset/phc_mmr_combined.csv", show_col_types = FALSE)
+
+# Fit the regression model
+model <- lm(mean_val ~ spending, data = data)
+
+# Output the regression coefficients table
+coefficients_table <- tidy(model)
+print(coefficients_table)
+
+# Output the model fit statistics table
+model_summary <- summary(model)
+fit_statistics <- data.frame(
+  r.squared = model_summary$r.squared,
+  adj.r.squared = model_summary$adj.r.squared,
+  sigma = model_summary$sigma,
+  statistic = model_summary$fstatistic[1],
+  p.value = pf(model_summary$fstatistic[1], model_summary$fstatistic[2], model_summary$fstatistic[3], lower.tail = FALSE),
+  df = model_summary$fstatistic[2],
+  logLik = logLik(model),
+  AIC = AIC(model),
+  BIC = BIC(model),
+  deviance = deviance(model),
+  df.residual = df.residual(model),
+  nobs = nobs(model)
+)
+print(fit_statistics)
+
+
+```
+
