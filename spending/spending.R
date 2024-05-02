@@ -22,7 +22,7 @@ states_map <- map_data("state")
 
 # UI definition
 ui <- fluidPage(
-  titlePanel("MMR Map by Year"),
+  titlePanel("Spending Map by Year"),
   sidebarLayout(
     sidebarPanel(
       sliderInput("year", "Year", min = 1999, max = 2019, value = 1999, step = 1)
@@ -37,8 +37,8 @@ ui <- fluidPage(
 server <- function(input, output) {
   
   # Determine the fixed scale limits based on the entire dataset
-  min_val <- min(mapp$mean_val, na.rm = TRUE)
-  max_val <- max(mapp$mean_val, na.rm = TRUE)
+  min_val <- min(mapp$spending, na.rm = TRUE)
+  max_val <- max(mapp$spending, na.rm = TRUE)
   
   output$mapPlot <- renderPlot({
     mmr_year <- mapp %>%
@@ -47,11 +47,11 @@ server <- function(input, output) {
     
     map_mmr <- merge(states_map, mmr_year, by.x = "region", by.y = "state", all.x = TRUE)
     
-    ggplot(map_mmr, aes(x = long, y = lat, group = group, fill = mean_val)) +
+    ggplot(map_mmr, aes(x = long, y = lat, group = group, fill = spending)) +
       geom_polygon(color = "white") +
       scale_fill_viridis_c(option = "C", direction = -1, limits = c(min_val, max_val)) +
       coord_fixed(1.3) +
-      labs(fill = "MMR Value") +
+      labs(fill = "Spending Value ($)") +
       theme_void()
   })
 }
