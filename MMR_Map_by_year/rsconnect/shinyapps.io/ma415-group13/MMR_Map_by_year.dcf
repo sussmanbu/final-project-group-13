@@ -5,7 +5,7 @@ account: ma415-group13
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 11898213
-bundleId: 8557688
+bundleId: 8570396
 url: https://ma415-group13.shinyapps.io/MMR_Map_by_year/
 version: 1
 asMultiple: FALSE
