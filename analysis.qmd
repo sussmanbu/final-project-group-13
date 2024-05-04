@@ -80,14 +80,43 @@ df |>
 
 
 
+```{r figure 9, echo=FALSE}
+# Load the necessary packages
+library(readr)
+library(ggplot2)
+
+# Load the dataset (replace 'dataset/phc_mmr_with_age.csv' with the correct path)
+data <- read_csv("dataset/phc_mmr_with_age.csv", show_col_types = FALSE)
+
+# Convert AverageAge, spending, and mean_val (representing MMR) to numeric
+data$AverageAge <- as.numeric(as.character(data$AverageAge))
+data$spending <- as.numeric(as.character(data$spending))
+data$mean_val <- as.numeric(as.character(data$mean_val))
+
+# Remove rows with missing or NA values in spending, mean_val (MMR), or AverageAge
+data <- data[!is.na(data$spending) & !is.na(data$AverageAge) & !is.na(data$mean_val), ]
+
+# Create the faceted bubble chart with a fitted line
+ggplot(data, aes(x = spending, y =AverageAge,  color = factor(year))) +
+  geom_point(alpha = 0.6) +  # Bubble chart
+  geom_smooth(method = "lm", se = FALSE, color = "blue", linetype = "dashed") +  # Add the fit line
+  scale_size_continuous(range = c(2, 10)) +  # Adjust bubble sizes
+  labs(title = "AverageAge vs. Healthcare Spending by Year",
+       x = "Spending",
+       y = "AverageAge",
+       color = "Year") +
+  facet_wrap(~ year) +  # Facet by year
+  theme_minimal()
+```
+
 
 
 
 ```{r figure 5, echo=FALSE}
 combined_data |> 
   ggplot(aes(x = spending, y = mean_val)) + 
-  geom_point(aes(alpha = 0.01)) + 
-  facet_wrap(~year_id) +  
+  geom_point(aes(alpha = 0.01)) +
+  facet_wrap(~year_id) +
   theme(legend.position = "none") + 
   labs(
     title = "Maternal Mortality v.s. Healthcare Spending by Year",
@@ -95,6 +124,9 @@ combined_data |>
     y = "MMR"
   )
 ```
+
+
+
 Figure 5: Faceted MMR vs Spending
 We then faceted the initial graph by year to show the trend over time. This reveals a few things. Firstly, when faceted by year the relationship no longer appears to have a positive correlation. The trend is hard to see without a regression however it does appear to be negatively correlated now. Additionally, the points for each state are spreading out. In the first few years, all the points are clumped together with lower values. However, as the years go by the points not only overall increase in value but move farther apart. This prompted us to do a standard deviation analysis to quantify this observed trend.
 
@@ -183,15 +215,17 @@ Notes from presentation:
 cut: mmr by region not facetted since we also have facetted, STD graphs
 
 
-Model Findings:
-linear regression MMR-AGE
-```{r, echo=FALSE}
+# Model Findings
+
+### Simple Linear Regression for MMR-AGE
+```{r, echo=FALSE, warning = FALSE}
 # Load necessary packages
 library(broom)
 library(knitr)
 
 data <- read_csv("dataset/phc_mmr_with_age.csv", show_col_types = FALSE)
 data$AverageAge <- as.integer(data$AverageAge)
+
 data$mean_val <- data$mean_val / 100
 # Fit the simple linear regression model with AverageAge as the predictor
 model <- lm(mean_val ~ AverageAge, data = data)
@@ -220,6 +254,13 @@ kable(
   caption = "Regression Coefficients Table"
 )
 
+```
+1. **Coefficient for AverageAge**: The coefficient estimate for `AverageAge` is 0.0216. This indicates that for each additional year increase in the average age, the `mean_val` variable increases by approximately 0.0216 units on average, assuming a linear relationship.
+
+2. **Statistical Significance**: The p-value for `AverageAge` is extremely low (0.0000001), indicating strong statistical significance. This suggests that there is a very low probability that the observed association is due to random chance, implying that `AverageAge` is a significant predictor of `mean_val`.
+  
+```{r, echo=FALSE, warning = FALSE}
+
 # Output the model fit statistics table
 kable(
   fit_statistics,
@@ -228,35 +269,19 @@ kable(
 )
 
 ```
+1. **Model Fit (R-squared and Adjusted R-squared)**: The R-squared value of 0.0385 indicates that approximately 3.85% of the variability in the dependent variable is explained by the model. The adjusted R-squared value of 0.0372 provides a more accurate measure by adjusting for the number of predictors, which is still low, indicating the model does not capture much of the variability.
 
+2. **Model Accuracy (Sigma)**: The sigma value of 0.1225, representing the standard deviation of the residuals, suggests that predictions on average deviate from the actual values by 0.1225 units. This provides insight into the accuracy of the model's predictions.
 
-**Regression Coefficients Table**: 
-  - Estimate: The coefficient for "AverageAge" is approximately 0.0216, implying that for every one-unit increase in "AverageAge", the MMR increases by about 0.0216 units.
-  
-  - Standard Error: This measures the averege estimated coefficients vary from the actual average value of our response variable. The standard error for the intercept is around 0.1061 and for "AverageAge" it is about 0.0040. Smaller standard errors indicate more precise estimates.
-  
-  - t-Statistic: This is calculated how many standard errors the coefficient is away from zero. A high absolute value of the t-statistic indicates it is unlikely that the coefficient is zero by chance. Here, the t-statistics are -2.748 for the intercept and 5.340 for "AverageAge".
-  
-  - p-Value: The p-value for the intercept is 0.0061, suggesting that there is a statistically significant relationship at common significance levels. For "AverageAge", the p-value is extremely small (0.0000001), indicating very strong evidence against the null hypothesis and suggesting that "AverageAge" is a significant predictor of the MMR.
-  
-  - Conclusion: Both the intercept and the variable "AverageAge" are statistically significant predictors in this model. "AverageAge" particularly shows a strong positive association with the dependent variable, with very high statistical significance.
-  
-**Model Fit Statistics Table**:
-  - R-squared (0.0385): This metric indicates that approximately 3.85% of the variability in the dependent variable can be explained by the model. This is relatively low, suggesting that the model does not explain much of the variance in the MMR.
-  
-  - Adjusted R-squared (0.0372): Similar to the R-squared, but adjusted for the number of predictors in the model, this value is also low. It confirms that the model explains only a small portion of the variance in the dependent variable.
-  
-  - Sigma (0.1225): This represents the estimated standard deviation of the residuals in the model, indicating the average distance that the data points deviate from the regression line. A sigma of 0.1225 suggests moderate variability of residuals around the fitted values.
-  
-  - F-statistic (28.512): A relatively high F-statistic suggests the model is statistically significant overall, meaning that it performs better than a model with no independent variables at explaining the variability in the dependent variable.
-  
-  - p-value (<0.0000001): This extremely small p-value associated with the F-statistic indicates a very strong rejection of the null hypothesis that the model with no predictors fits the data as well as model. Thus, the predictors in the model provide significant explanatory power.
+3. **Model Significance (F-statistic and p-value)**: The F-statistic of 28.51 and the p-value of 0.0000001 indicate that the model is statistically significant, meaning that the relationship between the dependent and independent variables is unlikely due to chance. However, despite statistical significance, the low R-squared indicates that other factors might influence the dependent variable not captured by this model.
 
 
 
+### Multiplie Linear Regression for MMR-AGE with Healthcare Spending and Region
+To accurately understand maternal mortality rates (MMR) in relation to age, it's essential to consider other influential factors such as healthcare spending and regional differences. Multiple linear regression allows us to assess the combined impact of these factors, providing a more nuanced analysis of how each variable influences MMR while controlling for others.
 
-correlation matrix
-```{r, echo=FALSE}
+# Correlation Matrix
+```{r, echo=FALSE, warning = FALSE}
 
 # Load the dataset from the uploaded file
 data <- read_csv("dataset/phc_mmr_with_age.csv", show_col_types = FALSE)
@@ -283,21 +308,29 @@ correlation_matrix <- cor(numeric_data, use = "pairwise.complete.obs")
 # Create a formal table using kable
 kable(correlation_matrix, caption = "Correlation Matrix")
 ```
+· The correlation matrix shows a strong positive correlation between year and healthcare spending (0.855), suggesting that healthcare spending has generally increased over time. It also highlights a moderate positive correlation between `mean_val` (possibly MMR) and `year` (0.573), implying that the target variable might have increased over time, though other factors are also influencing it. 
 
-MLR
+· The regional dummy variables have low or negative correlations with most other variables, indicating that regional effects might be distinct and not directly correlated with the continuous variables in the matrix.
 
-```{r, echo=FALSE}
+# Regression 
+```{r, echo=FALSE, warning = FALSE, null = FALSE}
+# Load necessary libraries
+library(readr)
+library(knitr)
+
+# Load the dataset
 data <- read_csv("dataset/phc_mmr_with_age.csv", show_col_types = FALSE)
-print(levels(data$Region))
-data <- na.omit(data)
+
+# Remove rows with missing or non-numeric values in critical columns
+data <- data[complete.cases(data[c("AverageAge", "spending", "mean_val", "Region")]), ]
 
 # Convert AverageAge to integer
-data$AverageAge <- as.integer(data$AverageAge)
+data$AverageAge <- as.integer(as.numeric(data$AverageAge))
 
 # Convert Region to a factor and exclude one level to avoid singularities
 data$Region <- factor(data$Region)
 
-# Generate dummy variables for Region excluding one level
+# Generate dummy variables for Region, excluding the first level to avoid singularities
 region_dummies <- model.matrix(~ Region, data)[, -1]
 
 # Combine the numeric data with the dummy variables
@@ -312,9 +345,18 @@ coef_table <- as.data.frame(summary_model$coefficients)
 
 # Display the coefficients in a Kable table
 kable(coef_table, caption = "Multiple Linear Regression Coefficients")
-```
 
-```{r, echo=FALSE}
+```
+**Effect of Predictors**: 
+   - **AverageAge**: With a coefficient of 2.32 (p < 0.001), a unit increase in average age is associated with an estimated increase of 2.32 units in MMR, holding other factors constant. This implies that as the average age of mothers increases, MMR tends to increase.
+   - **Spending**: The spending coefficient is 0.00093 (p = 0.015), indicating that each unit increase in healthcare spending is associated with a slight increase in MMR, but the effect is very small. It is generally expected that increasing healthcare spending would reduce maternal mortality rates (MMR). However, since maternal mortality can also be linked to chronic diseases, increased healthcare expenditure does not always directly translate to improved outcomes. Additionally, as individuals are having children later in life compared to previous generations, the probability of maternal mortality may increase, which could contribute to higher healthcare costs without necessarily improving MMR.
+   - **Regions**: 
+     - **Northeast**: This region has a significant negative coefficient of -6.35 (p < 0.001), suggesting that, compared to the baseline region, the Northeast is associated with a decrease in MMR.
+     - **South**: The coefficient for the South is positive (1.64) but not statistically significant (p = 0.202).
+     - **West**: The coefficient for the West is 0.91, also not statistically significant (p = 0.483).
+
+# Performance Siginifcane
+```{r, echo=FALSE, warning = FALSE}
 # Load the data
 data <- read_csv("dataset/phc_mmr_with_age.csv", show_col_types = FALSE)
 
@@ -373,9 +415,14 @@ model_stats <- data.frame(
 kable(model_stats, caption = "Multiple Linear Regression Model Statistics")
 
 ```
+1. **Model Fit (R-squared and Adjusted R-squared)**: The R-squared value of 0.087 suggests that the model explains approximately 8.7% of the variability in maternal mortality rates (MMR). The adjusted R-squared, at 0.080, adjusts for the number of predictors in the model and shows a similar low explanatory power. This indicates that the predictors included in the model (such as AverageAge, spending, and region) explain only a small portion of the variation in MMR.
+
+2. **Model Significance (F-statistic and p-value)**: The F-statistic of 13.44 and the associated p-value of 0 show that the overall model is statistically significant, meaning that the relationship between the predictors and the dependent variable (MMR) is unlikely to have occurred by chance. Despite the statistical significance, the low R-squared values indicate that there are likely other important factors not captured in this model that influence MMR.
+
+3. **Model Diagnostics (Sigma and Log-Likelihood)**: The sigma (residual standard error) of 11.97 reflects the average deviation of the observed MMR values from the predicted values, indicating the model's predictive accuracy. The log-likelihood of -2782.799 provides a measure of the model's fit, with higher values indicating a better fit. The AIC (5579.599) and BIC (5611.595) values also offer measures of the model's goodness-of-fit, helping to compare it with other models.
 
 Residual Plot
-```{r, echo=FALSE}
+```{r, echo=FALSE, warning = FALSE}
 # Load the data
 data <- read_csv("dataset/phc_mmr_with_age.csv", show_col_types = FALSE)
 
@@ -403,8 +450,10 @@ par(mfrow = c(1, 1))  # Single plot layout
 plot(mlr_model, which = 1)  # Residuals vs Fitted
 
 ```
+The residual plot indicates that the multiple linear regression model generally fits the data well, as evidenced by the mostly random scatter of residuals around zero. However, the presence of slight curvature suggests potential non-linearity in the relationship, and the mild fan shape of the residuals suggests possible heteroscedasticity, meaning that the variability in MMR may increase with higher fitted values. The presence of outliers also suggests that further investigation is needed to ensure these points do not disproportionately influence the model's results.
+
 QQ-Plot
-```{r, echo=FALSE}
+```{r, echo=FALSE, warning = FALSE}
 # Load the data
 data <- read_csv("dataset/phc_mmr_with_age.csv", show_col_types = FALSE)
 
@@ -430,10 +479,12 @@ mlr_model <- lm(mean_val ~ ., data = mlr_data)
 qqnorm(resid(mlr_model))
 qqline(resid(mlr_model), col = "red")
 ```
+The normal Q-Q plot shows that the residuals of the model generally follow a normal distribution, as most data points align with the diagonal reference line. However, there are notable deviations at the tails, particularly at the upper end, indicating the presence of significant outliers and suggesting that the residuals are not perfectly normal. This lack of normality at the extremes suggests that certain extreme data points might be influencing the model, potentially affecting its assumptions and necessitating further investigation or alternative modeling approaches.
 
+### LOG-LOG Regression Model
+The multiple linear regression analysis and diagnostic plots suggest potential issues with outliers and deviations from normality in the data. The residuals show some non-linearity and heteroscedasticity, indicating that the standard linear model might not be fully capturing the relationships among maternal mortality rates (MMR), age, spending, and regional effects. By applying a log-log regression model, we can linearize the relationships among variables, handle skewed data more effectively, and interpret coefficients as elasticities, which measure the percentage change in MMR in response to a 1% change in predictors. This approach can improve the model's fit, stabilize variance, and provide more meaningful insights into the proportional changes affecting maternal mortality.
 
-LOG-LOG
-```{r, echo=FALSE}
+```{r, echo=FALSE, warning = FALSE}
 # Load necessary libraries
 library(readr)
 library(knitr)
@@ -472,8 +523,77 @@ log_coef_table <- as.data.frame(log_summary_model$coefficients)
 kable(log_coef_table, caption = "Log-Log Multiple Linear Regression Coefficients")
 
 ```
-QQ and residual
+
+1.  **Significant Predictors**: 
+   - **log_AverageAge**: With a coefficient of 1.74 and a p-value of 0.005, this predictor is statistically significant, indicating that a 1% increase in the average age is associated with an approximate 1.74% increase in MMR.
+   - **log_spending**: The coefficient of 0.52 (p < 0.001) indicates that a 1% increase in spending correlates with an approximate 0.52% increase in MMR, suggesting a positive relationship, possibly reflecting increased healthcare spending without directly reducing mortality rates.
+
+3. **Regional Effects**:
+   - **RegionNortheast**: This region has a significant negative coefficient of -0.35 (p < 0.001), suggesting that it is associated with approximately a 35% decrease in MMR compared to the baseline region.
+   - **RegionSouth and RegionWest**: Both regions have positive coefficients (0.04 and 0.05, respectively), but their p-values are not significant, indicating no statistically significant difference in MMR compared to the baseline region.
+   
+   
+   
 ```{r}
+# Load necessary libraries
+library(readr)
+library(knitr)
+
+# Load the dataset
+data <- read_csv("dataset/phc_mmr_with_age.csv", show_col_types = FALSE)
+
+# Remove rows with missing or invalid values in critical columns
+data <- data[data$AverageAge > 0 & data$spending > 0 & data$mean_val > 0 & !is.na(data$Region), ]
+
+# Convert AverageAge to numeric for log transformation
+data$AverageAge <- as.numeric(data$AverageAge)
+
+# Apply log transformation to the variables
+data$log_AverageAge <- log(data$AverageAge)
+data$log_spending <- log(data$spending)
+data$log_mean_val <- log(data$mean_val)
+
+# Convert Region to a factor
+data$Region <- factor(data$Region)
+
+# Generate dummy variables for Region, excluding the first level to avoid singularities
+region_dummies <- model.matrix(~ Region, data)[, -1]
+
+# Combine the log-transformed data with the dummy variables
+log_mlr_data <- cbind(data[, c("log_AverageAge", "log_spending", "log_mean_val")], region_dummies)
+
+# Fit the log-log regression model
+log_mlr_model <- lm(log_mean_val ~ ., data = log_mlr_data)
+
+# Extract model summary statistics
+log_summary_model <- summary(log_mlr_model)
+model_stats <- data.frame(
+  R_squared = log_summary_model$r.squared,
+  Adj_R_squared = log_summary_model$adj.r.squared,
+  Sigma = log_summary_model$sigma,
+  Statistic = log_summary_model$fstatistic[1],
+  P_value = pf(log_summary_model$fstatistic[1], log_summary_model$fstatistic[2], log_summary_model$fstatistic[3], lower.tail = FALSE),
+  DF = log_summary_model$df[1],
+  LogLik = as.numeric(logLik(log_mlr_model)),
+  AIC = AIC(log_mlr_model),
+  BIC = BIC(log_mlr_model),
+  Deviance = deviance(log_mlr_model),
+  DF_Residual = df.residual(log_mlr_model),
+  Nobs = nobs(log_mlr_model)
+)
+
+# Display the model statistics in a Kable table
+kable(model_stats, caption = "Log-Log Multiple Linear Regression Model Statistics")
+
+```
+1. **Model Fit (R-squared and Adjusted R-squared)**: The R-squared value of 0.16 indicates that the model explains approximately 16% of the variability in maternal mortality rates (MMR). The adjusted R-squared value of 0.15, which adjusts for the number of predictors in the model, suggests a slightly reduced explanatory power. This implies that while the model includes some significant predictors, a substantial portion of the variability in MMR remains unexplained, likely due to other factors not included in the model.
+
+2. **Model Significance (F-statistic and p-value)**: The F-statistic of 26.93 and its p-value of zero show that the overall model is statistically significant, meaning that the combined predictors significantly contribute to explaining variations in MMR. However, the relatively low R-squared values still suggest that there are additional important factors influencing MMR that are not captured by this model.
+
+3. **Model Diagnostics (Sigma, Log-Likelihood, AIC, and BIC)**: The sigma (residual standard error) of 0.42 reflects the average deviation of observed log-transformed MMR values from predicted values. The log-likelihood of -388.48 indicates the model's goodness-of-fit, with higher values implying a better fit. The AIC (790.96) and BIC (822.96) values provide comparative measures of fit, penalizing for model complexity. The deviance (124.11) and residual degrees of freedom (708) give additional insight into the model's residuals and flexibility, while the number of observations (714) reflects the sample size.
+
+## QQ and residual
+```{r, echo=FALSE, warning = FALSE}
 # Load necessary libraries
 library(readr)
 library(knitr)
@@ -512,9 +632,12 @@ ggplot(data.frame(fitted = fitted(log_mlr_model), residuals = resid(log_mlr_mode
   labs(title = "Residuals vs Fitted Plot", x = "Fitted values", y = "Residuals") +
   theme_minimal()
 
+```
+The residuals vs. fitted plot of the log-log regression model shows a more random and consistent distribution of residuals compared to the previous model, indicating a better fit to the data. The spread of residuals is more uniform, suggesting that the log-log model effectively addresses non-linearity and reduces heteroscedasticity, making the variance of residuals more constant. Additionally, there are fewer extreme outliers, which means that the log-log transformation mitigates the influence of extreme data points and provides a more accurate representation of the relationship between maternal mortality rates, age, spending, and regional factors. Despite this improvement, further refinement could enhance the model's overall fit and predictive accuracy.
+
+```{r}
 # QQ plot
 qqnorm(resid(log_mlr_model))
 qqline(resid(log_mlr_model), col = "red")
-
 ```
-
+The current normal Q-Q plot shows that the residuals from the log-log regression model generally follow a normal distribution, with most points aligning closely to the diagonal reference line. However, there are slight deviations at the extremes, which are indicative of some outliers affecting the tails. Compared to the previous Q-Q plot, which exhibited more extreme deviations from normality at the upper end, the log-log model demonstrates improved normality of residuals, suggesting that the log transformation helps to mitigate the influence of outliers and enhances the overall fit. Nonetheless, the presence of outliers in both models indicates potential factors influencing the data that are not fully captured in either model.
