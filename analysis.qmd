@@ -399,7 +399,7 @@ You will
 
 [Click here to visit the MMR Map by Year!](https://ma415-group13.shinyapps.io/MMR_Map_by_year/)
 
-```{r}
+```{r, echo=FALSE}
 # Load the tidyverse package for data manipulation
 library(tidyverse)
 
@@ -423,14 +423,14 @@ print(coefficients_table)
 
 ```
 
-```{r}
+```{r, echo=FALSE}
 # Load necessary packages
 library(readr)
 library(broom)
 
-# Load your dataset (replace 'your_dataset.csv' with the actual file name)
-# Make sure the dataset has the correct column names such as 'spending' and 'mean_val'
 data <- read_csv("dataset/phc_mmr_combined.csv", show_col_types = FALSE)
+
+
 
 # Fit the regression model
 model <- lm(mean_val ~ spending, data = data)
@@ -461,10 +461,51 @@ print(fit_statistics)
 ```
 
 
-
-
-
-
-
 Notes from presentation:
 cut: mmr by region not facetted since we also have facetted, STD graphs
+
+
+
+
+```{r}
+# Load necessary packages
+library(readr)
+library(broom)
+
+# Read in the data
+data <- read_csv("dataset/phc_mmr_combined.csv", show_col_types = FALSE)
+
+# Define the percentage reduction
+percentage_off <- 10
+
+# Apply the percentage reduction to the 'mean_val' column
+data <- data %>%
+  mutate(mean_val_reduced = mean_val * (1 - percentage_off / 100))
+
+# Fit the regression model using the adjusted 'mean_val_reduced' column
+model <- lm(mean_val_reduced ~ spending, data = data)
+
+# Output the regression coefficients table
+coefficients_table <- tidy(model)
+print(coefficients_table)
+
+# Output the model fit statistics table
+model_summary <- summary(model)
+fit_statistics <- data.frame(
+  r.squared = model_summary$r.squared,
+  adj.r.squared = model_summary$adj.r.squared,
+  sigma = model_summary$sigma,
+  statistic = model_summary$fstatistic[1],
+  p.value = pf(model_summary$fstatistic[1], model_summary$fstatistic[2], model_summary$fstatistic[3], lower.tail = FALSE),
+  df = model_summary$fstatistic[2],
+  logLik = logLik(model),
+  AIC = AIC(model),
+  BIC = BIC(model),
+  deviance = deviance(model),
+  df.residual = df.residual(model),
+  nobs = nobs(model)
+)
+print(fit_statistics)
+
+```
+
