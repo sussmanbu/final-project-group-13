@@ -1,15 +1,8 @@
-# Load necessary library
-library(dplyr)
+# Load the data
+data <- read.csv("dataset/new_phc_mmr_combine.csv")
 
-# Read the dataset
-# Replace 'dataset/new_phc_mmr_combine.csv' with the path to your actual CSV file
-data <- read.csv('dataset/new_phc_mmr_combine.csv')
-
-# Filter out rows where AverageAge is "N/A"
-data <- data %>% filter(AverageAge != "N/A")
-
-# Define race_mapping
-race_mapping <- list(
+# Convert race_group options into numeric values
+race_group_mapping <- c(
   "Hispanic and any race" = 1,
   "Non-Hispanic American Indian and Alaska Native" = 2,
   "Non-Hispanic Asian, Native Hawaiian, or Other Pacific Islander" = 3,
@@ -17,23 +10,32 @@ race_mapping <- list(
   "Non-Hispanic White" = 5
 )
 
-# Function to classify region
-assign_race <- function(race_group) {
-  if (race_group %in% c("Hispanic and any race")) {
-    return(1)  # 1 for Northeast
-  } else if (race_group %in% c("Non-Hispanic American Indian and Alaska Native")) {
-    return(2)  # 2 for Midwest
-  } else if (race_group %in% c("Non-Hispanic Asian, Native Hawaiian, or Other Pacific Islander")) {
-    return(3)  # 3 for South
-  } else if (race_group %in% c("Non-Hispanic Black")) {
-    return(4)  # 4 for West
-  } else {
-    return(5)  
-  }
-}
+# Replace race_group values using the mapping
+data$race_group <- race_group_mapping[data$race_group]
 
-data$Region <- sapply(data$state, assign_race)
+# Convert race_group to numeric
+data$race_group <- as.numeric(data$race_group)
 
-# Save the merged data to a new CSV file
-write_csv(merged_data, "dataset/final.csv")
+# Convert region options into numeric values
+region_mapping <- c(
+  "south" = 1,
+  "west" = 2,
+  "northeast" = 3,
+  "midwest" = 4
+)
 
+# Replace region values using the mapping
+data$region <- region_mapping[tolower(data$Region)] # tolower handles case sensitivity
+
+# Convert region to numeric
+data$region <- as.numeric(data$region)
+
+# Remove rows with NA in AverageAge and convert it to integer
+data <- data[!is.na(data$AverageAge), ]
+data$AverageAge <- as.integer(data$AverageAge)
+
+# View the first few rows to verify the changes
+head(data)
+
+# Save the cleaned data
+write.csv(data, "dataset/cleaned_phc_mmr_combine.csv", row.names = FALSE)

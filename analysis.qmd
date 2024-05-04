@@ -12,39 +12,6 @@ suppressPackageStartupMessages(library(tidyverse))
 load(here::here("dataset/mmr.RData"))
 ```
 
-```{r figure 1, echo=FALSE}
-mmr_data_clean |> 
-  group_by(year_id, race_group) |>
-  summarize(mean = mean(val)) |>
-  ggplot(aes(x = year_id, y = mean)) +
-  geom_line(aes(color = race_group)) + 
-  labs(
-    title = "Maternal Mortality by Race over Time", 
-    y = "Mean Maternal Mortality Ratio",
-    x = "Year", 
-    color = "Racial Groups"
-  )
-```
-
-Figure 1: The line graph presented displays the trends of mean MMR across different racial and ethnic groups over a span of approximately two decades, starting from the year 2000. Each colored line on the graph represents a different racial or ethnic category, plotting the mean of 'val' for that group against the timeline of 'year_id'. Several key trends and patterns can be discerned from the graph: - The 'Non-Hispanic Black' group exhibits a notable upward trajectory, suggesting a consistent increase in the mean of 'val' over the years. Starting from a position close to other groups in the year 2000, there is a significant rise around the year 2010, and by 2020, this group has the highest mean value among all groups shown. - 'All racial and ethnic groups' combined show a gradual increase, hinting at an overall rising trend in the mean of 'val' across the population. - The 'Non-Hispanic Asian, Native Hawaiian, or Other Pacific Islander' group shows an increase, albeit with some fluctuations and a less steep incline compared to the 'Non-Hispanic Black' and 'Non-Hispanic White' groups.
-
-```{r figure 2, echo=FALSE}
-mmr_data_clean |>
-  group_by(year_id, location_name) |>
-  filter(str_detect(location_name, "Census")) |> 
-  summarize(mean = mean(val)) |>
-  ggplot(aes(x = year_id, y = mean)) +
-  geom_line(aes(color = location_name)) + 
-    labs(
-    title = "Maternal Mortality by Census Region over Time",
-    y = "Mean Maternal Mortality Ratio",
-    x = "Year",
-    color = "Census Region"
-  )
-```
-
-Figure 2: The line graph displayed appears to represent the trends in the mean value of MMR over time across four different U.S. Census regions: Midwest, Northeast, South, and West, from the year 2000 to just before 2020. All regions show an initial increase in the mean value from 2000, with varying rates and fluctuations. Around 2005 to 2008, the Northeast region displays a sharper increase, while the Midwest shows a more gradual rise. Post-2010, all regions experience a significant increase in mean values, with the West and South regions peaking around 2015. The Northeast region exhibits a pronounced peak shortly after 2015, followed by a decline, indicating a possible reversal of the trend or a response to an event or policy change. The trends suggest regional variations in the variable measured, with each region experiencing unique patterns of change over the two decades.
-
 ```{r figure 3, echo=FALSE}
 mmr_data_clean |>
   group_by(year_id, location_name, race_group) |>
@@ -73,56 +40,6 @@ The Non-Hispanic American Indian and Alaska Native category demonstrates a signi
 The observed regional differences, such as higher rates in the South and variations in the Midwest and West, might be influenced by a multitude of factors including healthcare infrastructure, socioeconomic status, accessibility of prenatal and postnatal care, and population density.  Regions with higher population densities might face different healthcare challenges than less densely populated areas, potentially affecting the availability and quality of care.
 
 
-```{r figure 3.5, echo = FALSE}
-mmr_diff <- mmr_data_clean |> 
-  group_by(location_name, year_id) |> 
-  summarize(mean_mmr = mean(val)) |> 
-  filter(year_id %in% c(1999, 2019)) |> 
-  pivot_wider(names_from = year_id, values_from = mean_mmr) |> 
-  rename(y1999 = '1999') |> 
-  rename(y2019 = '2019') |> 
-  mutate(difference = y2019-y1999) |> 
-  arrange(difference)
-
-mmr_diff$region_id = mmr_diff$location_name
-
-northeast <- c("Connecticut", "Massachusetts", "Maine", "Maine", 
-               "New Hampshire", "Rhode Island", "Vermont", "New Jersey", 
-               "New York", "Pennsylvania")
-midwest <- c("Indiana", "Illinois", "Michigan", "Ohio", "Wisconsin", "Iowa", 
-             "Kansas", "Minnesota", "Missouri", "Nebraska", "North Dakota", 
-             "South Dakota")
-south <- c("Delaware", "District of Columbia", "Florida", "Georgia", "Maryland", 
-          "North Carolina", "South Carolina", "Virginia", "West Virginia", 
-          "Alabama", "Kentucky", "Mississippi", "Tennessee", "Arkansas", 
-          "Louisiana", "Oklahoma", "Texas")
-west <- c("Arizona", "Colorado", "Idaho", "New Mexico", "Montana", "Utah", 
-          "Nevada", "Wyoming", "Alaska", "California", "Hawaii", "Oregon", 
-          "Washington")
-
-for(i in 1:56){
-  if (mmr_diff[i, 1] %in% northeast){
-    mmr_diff[i, 5] = "Northeast Census Region"
-  } else if (mmr_diff[i, 1] %in% midwest){
-    mmr_diff[i, 5] = "Midwest Census Region"
-  } else if (mmr_diff[i, 1] %in% south){
-    mmr_diff[i, 5] = "South Census Region"
-  } else if (mmr_diff[i, 1] %in% west){
-    mmr_diff[i, 5] = "West Census Region"
-  }
-}
-
-mmr_diff |> 
-  ggplot(aes(x = reorder(location_name, difference), y = difference)) +
-  geom_point(aes(color = region_id)) + 
-  labs( 
-    title = "Change in Maternal Mortality 1999-2019",
-    x = "State",
-    y = "Difference",
-    color = "Region") + 
-  theme(axis.text.x = element_text(angle=70, hjust=1))
-```
-
 ```{r figure 3.75, echo = FALSE}
 
 load(here::here("dataset/phc_mmr.RData"))
@@ -150,24 +67,9 @@ df |>
 
 ```
 
-``` {r figure 4, echo=FALSE}
-suppressPackageStartupMessages(library(tidyverse))
-load(here::here("dataset/phc_mmr.RData"))
 
-combined_data |> 
-  ggplot(aes(x = spending, y = mean_val)) + 
-  geom_point(aes(alpha = 0.01))+  
-  theme(legend.position = "none") + 
-  labs(
-    title = "Maternal Mortality v.s. Healthcare Spending",
-    x = "Spending",
-    y = "MMR"
-  )
-```
 
-Figure 4: MMR vs Spending 
-pos correlation???
-An initial plot of personal healthcare spending versus maternal mortality ratio shows a roughly positive correlation between the two variables which contradicts what we expected the relationship to be coming into this analysis. We would have expected a negative correlation, implying that as states spend more on healthcare overall, maternal mortality rates would be lower.
+
 
 
 ```{r figure 5, echo=FALSE}
@@ -185,154 +87,11 @@ combined_data |>
 Figure 5: Faceted MMR vs Spending
 We then faceted the initial graph by year to show the trend over time. This reveals a few things. Firstly, when faceted by year the relationship no longer appears to have a positive correlation. The trend is hard to see without a regression however it does appear to be negatively correlated now. Additionally, the points for each state are spreading out. In the first few years, all the points are clumped together with lower values. However, as the years go by the points not only overall increase in value but move farther apart. This prompted us to do a standard deviation analysis to quantify this observed trend.
 
-```{r standard deviation calculation, echo=FALSE}
-# 
-# ## cut!
-# std_dev_mmr <- combined_data |> 
-#   group_by(year_id) |> 
-#   summarise(sd_mmr = sd(mean_val))
-# std_dev_phc <- combined_data |> 
-#   group_by(year_id) |> 
-#   summarise(sd_phc = sd(spending))
-# std_combined <- merge(std_dev_mmr, std_dev_phc, by = c("year_id"), all = TRUE)
-```
-
-```{r figure 6, echo=FALSE}
-# ### cut!
-# 
-# std_combined |> 
-#   ggplot(aes(x=year_id, y=sd_mmr)) + 
-#   geom_point(aes(alpha = 0.1)) +
-#   theme(axis.text.x = element_text(angle = -25, hjust = 1), legend.position = "none") + 
-#   labs(
-#     title = "Standard Deviation of Maternal Mortality Ratios Over Time",
-#     x = "Year",
-#     y = "MMR")
-
-```
-
-```{r figure 7, echo=FALSE}
-# ## cut!
-# std_combined |> 
-#   ggplot(aes(x=year_id, y=sd_phc)) + 
-#   geom_point(aes(alpha = 0.1)) +
-#   theme(axis.text.x = element_text(angle = -25, hjust = 1), legend.position = "none") + 
-#     labs(
-#     title = "Standard Deviation of Healthcare Spending Over Time",
-#     x = "Year",
-#     y = "Spending")
-```
-
-Figures 6 and 7:
-Both graphs show an increasing trend over time, supporting an initial visual analysis that the data is getting more spread out. The graph of healthcare spending deviation is particularly linear which drew our interest however we are unsure of how this would implicate our analysis. 
-
-
-```{r figure 8, echo=FALSE}
-library(ggplot2)
-library(readr)
-library(dplyr)
-
-data <- read_csv("dataset/Cleaned_Pregnancy_Data.csv")
-
-average_data <- data %>%
-  group_by(year, region) %>%
-  summarize(MeanAge = mean(average_age_of_pregnancy, na.rm = TRUE), .groups = 'drop')
-
-ggplot(average_data, aes(x = year, y = MeanAge, color = region, group = region)) +
-  geom_line() +
-  labs(title = "Trend of Mean Age of Pregnancy Over Time by Region",
-       x = "year",
-       y = "Mean Age of Pregnancy") +
-  theme_minimal() +
-  scale_color_brewer(palette = "Set1")
-```
-
-Figure 8:
-This graph displays the trend of the mean age of pregnancy over time, categorized by region. From the graph, we can figure out that: In every region, the mean age of pregnancy has increased over time. This suggests that, on average, women are having children at an older age than they did in the past. The 'West' region shows the highest mean age of pregnancy over the entire timeline, starting at around 24 years in the 1970s and rising to just below 30 by the 2010s. The 'Midwest' and 'South' regions appear to have a similar starting point in the 1970s but diverge slightly over time. The 'South' follows closely with the 'West', but it still has a lower mean age of pregnancy by the 2010s. The 'Northeast' region begins with the lowest mean age of pregnancy but increases at a rate similar to the 'Midwest', surpassing it around the mid-2000s.
-
-```{r figure 9, echo=FALSE}
-library(ggplot2)
-library(readr)
-
-data <- read_csv("dataset/phc_mmr_with_age.csv")
-
-data$spending <- as.numeric(data$spending)
-data$AverageAge <- as.numeric(data$AverageAge)
-
-ggplot(data, aes(x = spending, y = AverageAge, color = Region)) +
-  geom_point(aes(size = 3), alpha = 0.6) +  
-  geom_smooth(method = "lm", se = FALSE, aes(group = Region)) +  
-  scale_size_identity() +  
-  labs(title = "Bubble Chart with Fitted Lines by Region",
-       x = "Healthcare Spending",
-       y = "Average Age of Pregnancy",
-       size = "Region") +
-  theme_minimal() +
-  facet_wrap(~Region)
-  guides(color = guide_legend(title = "Region"))
-```
-Figure 9: This scatter plot compares healthcare spending with the average
-age of pregnancy by region. Key observations include: There appears to
-be a positive correlation between healthcare spending and the average
-age of pregnancy in all regions. This implies that as healthcare
-spending increases, the average age of pregnancy tends to be higher. The
-data for the 'West' region, shown in purple, indicates a particularly
-strong positive correlation, suggesting that increased healthcare
-spending in this region might be closely associated with women having
-children at older ages. Overall, the graph suggests a trend where
-regions with higher healthcare spending are associated with older
-average ages of pregnancy, which could reflect a variety of factors such
-as access to reproductive health services, birth control, career
-opportunities, or other socioeconomic factors that allow or encourage
-women to delay pregnancy.
-
-
-```{r figure 10, echo=FALSE}
-ggplot(data, aes(x = AverageAge, y = mean_val, size = spending)) +
-  geom_point(alpha = 0.6) +
-  facet_wrap(~Region) +
-  labs(title = "Bubble Chart of Average Age, MMR, and Healthcare Spending",
-       x = "Average Age of Pregnancy",
-       y = "MMR (per 100,000 live births)",
-       size = "Healthcare Spending") +
-  theme_minimal()
-```
-Figure 10: This bubble chart illustrates the relationship between the
-average age of pregnancy, maternal mortality ratio (MMR per 100,000 live
-births), and healthcare spending by region. The x-axis represents the
-average age of pregnancy, the y-axis represents the MMR, and the bubble
-size corresponds to healthcare spending, with larger bubbles indicating
-higher spending.
-
-Observations from the chart: - There appears to be a concentration of
-data points between the ages of 24 and 30, with varying MMR across the
-regions. - The Midwest, Northeast, and South regions have clusters with
-a wide range of MMR values but are generally centered around the same
-average age of pregnancy. - The West region shows a cluster with a lower
-MMR in comparison to other regions for a similar average age of
-pregnancy.
-
-The chart suggests complexity in the relationship between healthcare
-spending, the average age of pregnancy, and MMR, and it would likely
-require a deeper analysis to understand the underlying factors and
-dynamics.
 
 
 
 
 
-# Thesis???
-## also needs regressions
-
-
-
-
-
-
-
-
-
-This comes from the file `analysis.qmd`.
 
 We describe here our detailed data analysis. This page will provide an overview of what questions you addressed, illustrations of relevant aspects of the data with tables and figures, and a statistical model that attempts to answer part of the question. You'll also reflect on next steps and further analysis.
 
@@ -345,17 +104,7 @@ The style of this paper should aim to be that of an academic paper.
 I don't expect this to be of publication quality but you should keep that aim in mind.
 Avoid using "we" too frequently, for example "We also found that ...". Describe your methodology and your findings but don't describe your whole process.
 
-### Example of loading data
 
-The code below shows an example of loading the loan refusal data set (which you should delete at some point).
-
-```{r, echo=FALSE}
-library(tidyverse)
-print(getwd())
-data <- read_csv(here::here("dataset/loan_refusal_clean.csv"))
-load(here::here("dataset/loan_refusal.RData"))
-print(ls())
-```
 
 ## Note on Attribution
 
@@ -369,7 +118,6 @@ If you are directly quoting from a source, please make that clear. You can show 
 
 > To be or not to be.
 
-------------------------------------------------------------------------
 
 ## Rubric: On this page
 
@@ -402,82 +150,15 @@ cut: mmr by region not facetted since we also have facetted, STD graphs
 
 
 Model Findings:
-```{r, echo=FALSE}
-# Load necessary packages
-library(readr)
-library(broom)
-library(knitr)
-
-# Read in the data
-data <- read_csv("dataset/phc_mmr_combined.csv", show_col_types = FALSE)
-
-# Convert mean_val to values per 1,000,000
-data$mean_val <- data$mean_val / 100
-
-# Fit the regression model
-model <- lm(mean_val ~ spending, data = data)
-
-# Generate the coefficients table using broom
-coefficients_table <- tidy(model)
-
-# Format the coefficients table using knitr::kable
-kable(
-  coefficients_table,
-  col.names = c("Term", "Estimate", "Standard Error", "t-Statistic", "p-Value"),
-  caption = "Regression Coefficients Table"
-)
-
-```
-Statistical Performance:
-```{r, echo=FALSE}
-# Load necessary packages
-library(readr)
-library(broom)
-library(knitr)
-
-# Read in the data
-data <- read_csv("dataset/phc_mmr_combined.csv", show_col_types = FALSE)
-
-# Convert mean_val to values per 100000
-data$mean_val <- data$mean_val / 100
-
-# Fit the regression model
-model <- lm(mean_val ~ spending, data = data)
-
-# Generate the coefficients table using broom
-coefficients_table <- tidy(model)
-
-# Generate the model fit statistics table
-model_summary <- summary(model)
-fit_statistics <- data.frame(
-  Metric = c("R-squared", "Adjusted R-squared", "Sigma", "F-statistic", "p-value", "Degrees of Freedom"),
-  Value = c(
-    model_summary$r.squared,
-    model_summary$adj.r.squared,
-    model_summary$sigma,
-    model_summary$fstatistic[1],
-    pf(model_summary$fstatistic[1], model_summary$fstatistic[2], model_summary$fstatistic[3], lower.tail = FALSE),
-    model_summary$fstatistic[2]
-  )
-)
-
-# Output the model fit statistics table
-kable(
-  fit_statistics,
-  col.names = c("Metric", "Value"),
-  caption = "Model Fit Statistics Table"
-)
-
-```
-
 linear regression MMR-AGE
-```{r}
+```{r, echo=FALSE}
 # Load necessary packages
 library(broom)
 library(knitr)
 
-data <- read_csv("dataset/new_phc_mmr_combine.csv", show_col_types = FALSE)
+data <- read_csv("dataset/phc_mmr_with_age.csv", show_col_types = FALSE)
 data$AverageAge <- as.integer(data$AverageAge)
+data$mean_val <- data$mean_val / 100
 # Fit the simple linear regression model with AverageAge as the predictor
 model <- lm(mean_val ~ AverageAge, data = data)
 
@@ -515,38 +196,178 @@ kable(
 
 ```
 
+correlation matrix
+```{r, echo=FALSE}
 
+# Load the dataset from the uploaded file
+data <- read_csv("dataset/phc_mmr_with_age.csv", show_col_types = FALSE)
 
-```{r}
-# Load necessary library
-library(dplyr)
+# Remove rows with missing values in important columns
+data <- na.omit(data)
 
-# Read the dataset
-# Replace 'dataset/new_phc_mmr_combine.csv' with the path to your actual CSV file
-data <- read.csv('dataset/new_phc_mmr_combine.csv')
+# Convert AverageAge to integer
+data$AverageAge <- as.integer(data$AverageAge)
 
-# Filter out rows where AverageAge is "N/A"
-data <- data %>% filter(AverageAge != "N/A")
-
-# Ensure that Region and race_group are factors
+# Convert Region to a factor (if it's not already)
 data$Region <- as.factor(data$Region)
-data$race_group <- as.factor(data$race_group)
 
-# Convert categorical variables to dummy variables
-# This will create new columns with binary values (1 or 0)
-region_dummies <- model.matrix(~Region - 1, data = data)
-race_group_dummies <- model.matrix(~race_group - 1, data = data)
+# Generate dummy variables for Region
+region_dummies <- model.matrix(~ Region - 1, data)
 
-# Combine mean_val with the dummy variables
-# Keep only numeric variables
-data_clean <- cbind(data$mean_val, region_dummies, race_group_dummies)
+# Combine the numeric data with the dummy variables
+numeric_data <- cbind(data[, sapply(data, is.numeric)], region_dummies)
 
 # Compute the correlation matrix
-correlation_matrix <- cor(data_clean, use = "complete.obs")
+correlation_matrix <- cor(numeric_data, use = "pairwise.complete.obs")
 
-# Display the correlation matrix
-print(correlation_matrix)
+# Create a formal table using kable
+kable(correlation_matrix, caption = "Correlation Matrix")
+```
+
+MLR
+
+```{r, echo=FALSE}
+data <- read_csv("dataset/phc_mmr_with_age.csv", show_col_types = FALSE)
+print(levels(data$Region))
+data <- na.omit(data)
+
+# Convert AverageAge to integer
+data$AverageAge <- as.integer(data$AverageAge)
+
+# Convert Region to a factor and exclude one level to avoid singularities
+data$Region <- factor(data$Region)
+
+# Generate dummy variables for Region excluding one level
+region_dummies <- model.matrix(~ Region, data)[, -1]
+
+# Combine the numeric data with the dummy variables
+mlr_data <- cbind(data[, c("AverageAge", "spending", "mean_val")], region_dummies)
+
+# Fit the multiple linear regression model
+mlr_model <- lm(mean_val ~ ., data = mlr_data)
+
+# Get the summary and convert it to a data frame
+summary_model <- summary(mlr_model)
+coef_table <- as.data.frame(summary_model$coefficients)
+
+# Display the coefficients in a Kable table
+kable(coef_table, caption = "Multiple Linear Regression Coefficients")
+```
+
+```{r, echo=FALSE}
+# Load the data
+data <- read_csv("dataset/phc_mmr_with_age.csv", show_col_types = FALSE)
+
+# Remove rows with missing values in critical columns
+data <- na.omit(data)
+
+# Convert AverageAge to integer
+data$AverageAge <- as.integer(data$AverageAge)
+
+# Convert Region to a factor and exclude one level to avoid singularities
+data$Region <- factor(data$Region)
+
+# Generate dummy variables for Region excluding one level
+region_dummies <- model.matrix(~ Region, data)[, -1]
+
+# Combine the numeric data with the dummy variables
+mlr_data <- cbind(data[, c("AverageAge", "spending", "mean_val")], region_dummies)
+
+# Fit the multiple linear regression model
+mlr_model <- lm(mean_val ~ ., data = mlr_data)
+
+# Get the summary and coefficients table
+summary_model <- summary(mlr_model)
+coef_table <- as.data.frame(summary_model$coefficients)
+
+# Extract additional statistics
+r_squared <- summary_model$r.squared
+adj_r_squared <- summary_model$adj.r.squared
+sigma <- summary_model$sigma
+f_statistic <- summary_model$fstatistic[1]
+f_pvalue <- pf(summary_model$fstatistic[1], summary_model$fstatistic[2], summary_model$fstatistic[3], lower.tail = FALSE)
+df <- summary_model$df[1]
+log_lik <- logLik(mlr_model)
+aic <- AIC(mlr_model)
+bic <- BIC(mlr_model)
+deviance <- deviance(mlr_model)
+df_residual <- df.residual(mlr_model)
+nobs <- nobs(mlr_model)
+
+# Create a summary table
+model_stats <- data.frame(
+  r.squared = r_squared,
+  adj.r.squared = adj_r_squared,
+  sigma = sigma,
+  statistic = f_statistic,
+  p.value = f_pvalue,
+  df = df,
+  logLik = as.numeric(log_lik),
+  AIC = aic,
+  BIC = bic,
+  deviance = deviance,
+  df.residual = df_residual,
+  nobs = nobs
+)
+# Display the model statistics in a Kable table
+kable(model_stats, caption = "Multiple Linear Regression Model Statistics")
 
 ```
 
+Residual Plot
+```{r, echo=FALSE}
+# Load the data
+data <- read_csv("dataset/phc_mmr_with_age.csv", show_col_types = FALSE)
+
+# Remove rows with missing values in critical columns
+data <- na.omit(data)
+
+# Convert AverageAge to integer
+data$AverageAge <- as.integer(data$AverageAge)
+
+# Convert Region to a factor and exclude one level to avoid singularities
+data$Region <- factor(data$Region)
+
+# Generate dummy variables for Region excluding one level
+region_dummies <- model.matrix(~ Region, data)[, -1]
+
+# Combine the numeric data with the dummy variables
+mlr_data <- cbind(data[, c("AverageAge", "spending", "mean_val")], region_dummies)
+
+# Fit the multiple linear regression model
+mlr_model <- lm(mean_val ~ ., data = mlr_data)
+
+# Create residual plots
+# Plot Residuals vs Fitted Values
+par(mfrow = c(1, 1))  # Single plot layout
+plot(mlr_model, which = 1)  # Residuals vs Fitted
+
+```
+QQ-Plot
+```{r, echo=FALSE}
+# Load the data
+data <- read_csv("dataset/phc_mmr_with_age.csv", show_col_types = FALSE)
+
+# Remove rows with missing values in critical columns
+data <- data[complete.cases(data[c("AverageAge", "spending", "mean_val", "Region")]), ]
+
+# Convert AverageAge to numeric and handle missing or non-numeric values
+data$AverageAge <- as.numeric(data$AverageAge)
+
+# Convert Region to a factor, ensuring all values are present
+data$Region <- factor(data$Region)
+
+# Generate dummy variables for Region, excluding the first level to avoid singularities
+region_dummies <- model.matrix(~ Region, data)[, -1]
+
+# Combine the numeric data with the dummy variables
+mlr_data <- cbind(data[, c("AverageAge", "spending", "mean_val")], region_dummies)
+
+# Fit the multiple linear regression model
+mlr_model <- lm(mean_val ~ ., data = mlr_data)
+
+# Generate QQ plot
+qqnorm(resid(mlr_model))
+qqline(resid(mlr_model), col = "red")
+```
 
