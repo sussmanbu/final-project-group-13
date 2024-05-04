@@ -227,8 +227,20 @@ kable(
   caption = "Model Fit Statistics Table"
 )
 
-
 ```
+**Regression Coefficients Table**: 
+  Estimate: This represents the estimated coefficient for each term in the model. For the intercept, it is approximately -0.2916, suggesting that when the "AverageAge" is zero, the MMR would be around -0.2916, assuming that zero is a meaningful and valid value for "AverageAge". The coefficient for "AverageAge" is approximately 0.0216, implying that for every one-unit increase in "AverageAge", the MMR increases by about 0.0216 units.
+  
+  Standard Error: This measures the average amount that the estimated coefficients vary from the actual average value of our response variable. The standard error for the intercept is around 0.1061 and for "AverageAge" it is about 0.0040. Smaller standard errors indicate more precise estimates.
+  
+  t-Statistic: This is calculated as the estimate divided by the standard error, providing a measure of how many standard errors the coefficient is away from zero. A high absolute value of the t-statistic indicates it is unlikely that the coefficient is zero by chance (assuming the null hypothesis is that the coefficient is zero). Here, the t-statistics are -2.748 for the intercept and 5.340 for "AverageAge".
+  
+  p-Value: This shows the probability of observing any value equal to or more extreme than the observed one, under the null hypothesis. A smaller p-value indicates stronger evidence against the null hypothesis. The p-value for the intercept is 0.0061, suggesting that there is a statistically significant relationship at common significance levels (e.g., 0.05, 0.01). For "AverageAge", the p-value is extremely small (0.0000001), indicating very strong evidence against the null hypothesis and suggesting that "AverageAge" is a significant predictor of the outcome. 
+  
+  Conclusion: Both the intercept and the variable "AverageAge" are statistically significant predictors in this model. "AverageAge" particularly shows a strong positive association with the dependent variable, with very high statistical significance.
+
+
+
 
 correlation matrix
 ```{r, echo=FALSE}
