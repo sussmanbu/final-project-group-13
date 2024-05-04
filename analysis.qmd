@@ -397,115 +397,156 @@ You will
     -   This page should be self-contained, i.e. provide a description of the relevant data.
 
 
-[Click here to visit the MMR Map by Year!](https://ma415-group13.shinyapps.io/MMR_Map_by_year/)
-
-```{r, echo=FALSE}
-# Load the tidyverse package for data manipulation
-library(tidyverse)
-
-# Read the CSV file
-phc_mmr_combined <- read.csv("dataset/phc_mmr_combined.csv")
-
-# Fit a linear regression model
-model <- lm(spending ~ mean_val, data = phc_mmr_combined)
-
-# Print a summary of the regression model
-summary <- summary(model)
-coefficients_table <- summary$coefficients
-
-# Format the coefficients table
-coefficients_table <- round(coefficients_table, 4)
-rownames(coefficients_table) <- c("Intercept", "Spending")
-colnames(coefficients_table) <- c("Estimate", "Std. Error", "t value", "Pr(>|t|)")
-
-# Print the formatted coefficients table
-print(coefficients_table)
-
-```
-
-```{r, echo=FALSE}
-# Load necessary packages
-library(readr)
-library(broom)
-
-data <- read_csv("dataset/phc_mmr_combined.csv", show_col_types = FALSE)
-
-
-
-# Fit the regression model
-model <- lm(mean_val ~ spending, data = data)
-
-# Output the regression coefficients table
-coefficients_table <- tidy(model)
-print(coefficients_table)
-
-# Output the model fit statistics table
-model_summary <- summary(model)
-fit_statistics <- data.frame(
-  r.squared = model_summary$r.squared,
-  adj.r.squared = model_summary$adj.r.squared,
-  sigma = model_summary$sigma,
-  statistic = model_summary$fstatistic[1],
-  p.value = pf(model_summary$fstatistic[1], model_summary$fstatistic[2], model_summary$fstatistic[3], lower.tail = FALSE),
-  df = model_summary$fstatistic[2],
-  logLik = logLik(model),
-  AIC = AIC(model),
-  BIC = BIC(model),
-  deviance = deviance(model),
-  df.residual = df.residual(model),
-  nobs = nobs(model)
-)
-print(fit_statistics)
-
-
-```
-
-
 Notes from presentation:
 cut: mmr by region not facetted since we also have facetted, STD graphs
 
 
-
-
-```{r}
+Model Findings:
+```{r, echo=FALSE}
 # Load necessary packages
 library(readr)
 library(broom)
+library(knitr)
 
 # Read in the data
 data <- read_csv("dataset/phc_mmr_combined.csv", show_col_types = FALSE)
 
-# Define the percentage reduction
-percentage_off <- 10
+# Convert mean_val to values per 1,000,000
+data$mean_val <- data$mean_val / 100
 
-# Apply the percentage reduction to the 'mean_val' column
-data <- data %>%
-  mutate(mean_val_reduced = mean_val * (1 - percentage_off / 100))
+# Fit the regression model
+model <- lm(mean_val ~ spending, data = data)
 
-# Fit the regression model using the adjusted 'mean_val_reduced' column
-model <- lm(mean_val_reduced ~ spending, data = data)
-
-# Output the regression coefficients table
+# Generate the coefficients table using broom
 coefficients_table <- tidy(model)
-print(coefficients_table)
 
-# Output the model fit statistics table
-model_summary <- summary(model)
-fit_statistics <- data.frame(
-  r.squared = model_summary$r.squared,
-  adj.r.squared = model_summary$adj.r.squared,
-  sigma = model_summary$sigma,
-  statistic = model_summary$fstatistic[1],
-  p.value = pf(model_summary$fstatistic[1], model_summary$fstatistic[2], model_summary$fstatistic[3], lower.tail = FALSE),
-  df = model_summary$fstatistic[2],
-  logLik = logLik(model),
-  AIC = AIC(model),
-  BIC = BIC(model),
-  deviance = deviance(model),
-  df.residual = df.residual(model),
-  nobs = nobs(model)
+# Format the coefficients table using knitr::kable
+kable(
+  coefficients_table,
+  col.names = c("Term", "Estimate", "Standard Error", "t-Statistic", "p-Value"),
+  caption = "Regression Coefficients Table"
 )
-print(fit_statistics)
 
 ```
+Statistical Performance:
+```{r, echo=FALSE}
+# Load necessary packages
+library(readr)
+library(broom)
+library(knitr)
+
+# Read in the data
+data <- read_csv("dataset/phc_mmr_combined.csv", show_col_types = FALSE)
+
+# Convert mean_val to values per 100000
+data$mean_val <- data$mean_val / 100
+
+# Fit the regression model
+model <- lm(mean_val ~ spending, data = data)
+
+# Generate the coefficients table using broom
+coefficients_table <- tidy(model)
+
+# Generate the model fit statistics table
+model_summary <- summary(model)
+fit_statistics <- data.frame(
+  Metric = c("R-squared", "Adjusted R-squared", "Sigma", "F-statistic", "p-value", "Degrees of Freedom"),
+  Value = c(
+    model_summary$r.squared,
+    model_summary$adj.r.squared,
+    model_summary$sigma,
+    model_summary$fstatistic[1],
+    pf(model_summary$fstatistic[1], model_summary$fstatistic[2], model_summary$fstatistic[3], lower.tail = FALSE),
+    model_summary$fstatistic[2]
+  )
+)
+
+# Output the model fit statistics table
+kable(
+  fit_statistics,
+  col.names = c("Metric", "Value"),
+  caption = "Model Fit Statistics Table"
+)
+
+```
+
+linear regression MMR-AGE
+```{r}
+# Load necessary packages
+library(broom)
+library(knitr)
+
+data <- read_csv("dataset/new_phc_mmr_combine.csv", show_col_types = FALSE)
+data$AverageAge <- as.integer(data$AverageAge)
+# Fit the simple linear regression model with AverageAge as the predictor
+model <- lm(mean_val ~ AverageAge, data = data)
+
+# Tidy the regression coefficients
+coefficients_table <- tidy(model)
+
+# Gather model statistics
+model_summary <- summary(model)
+fit_statistics <- data.frame(
+  Metric = c("R-squared", "Adjusted R-squared", "Sigma", "F-statistic", "p-value", "Degrees of Freedom"),
+  Value = c(
+    model_summary$r.squared,
+    model_summary$adj.r.squared,
+    model_summary$sigma,
+    model_summary$fstatistic[1],
+    pf(model_summary$fstatistic[1], model_summary$fstatistic[2], model_summary$fstatistic[3], lower.tail = FALSE),
+    model_summary$fstatistic[2]
+  )
+)
+
+# Output the coefficients table
+kable(
+  coefficients_table,
+  col.names = c("Term", "Estimate", "Standard Error", "t-Statistic", "p-Value"),
+  caption = "Regression Coefficients Table"
+)
+
+# Output the model fit statistics table
+kable(
+  fit_statistics,
+  col.names = c("Metric", "Value"),
+  caption = "Model Fit Statistics Table"
+)
+
+
+```
+
+
+
+```{r}
+# Load necessary library
+library(dplyr)
+
+# Read the dataset
+# Replace 'dataset/new_phc_mmr_combine.csv' with the path to your actual CSV file
+data <- read.csv('dataset/new_phc_mmr_combine.csv')
+
+# Filter out rows where AverageAge is "N/A"
+data <- data %>% filter(AverageAge != "N/A")
+
+# Ensure that Region and race_group are factors
+data$Region <- as.factor(data$Region)
+data$race_group <- as.factor(data$race_group)
+
+# Convert categorical variables to dummy variables
+# This will create new columns with binary values (1 or 0)
+region_dummies <- model.matrix(~Region - 1, data = data)
+race_group_dummies <- model.matrix(~race_group - 1, data = data)
+
+# Combine mean_val with the dummy variables
+# Keep only numeric variables
+data_clean <- cbind(data$mean_val, region_dummies, race_group_dummies)
+
+# Compute the correlation matrix
+correlation_matrix <- cor(data_clean, use = "complete.obs")
+
+# Display the correlation matrix
+print(correlation_matrix)
+
+```
+
 
