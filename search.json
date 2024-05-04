@@ -224,13 +224,6 @@
     "text": "Yueyou Tao\nI’m a junior at BU majoring in Stats with Anthropology minor. Yueyou Tao’s Github\n\n\nAbout this Template.\nThis is based off of the standard Quarto website template from RStudio (2023.09.0 Build 463)."
   },
   {
-    "objectID": "analysis.html",
-    "href": "analysis.html",
-    "title": "Analysis",
-    "section": "",
-    "text": "As shown in the data page, we find out the unexpected positive growth of the maternal mortality rate over the States. In effort to figure out the possible reasons that has statistical significance causing this increasing trend, our group seek to explore if the annual spending on healthcare and the average age of pregnancy could contribute to the phenomenon.\nOur team focus on the following variables:\nWe collected and cleaned the average spending of healthcare data and the average pregnancy age data. During the analyzing process, we notice a clear increasing trend in both the line plot of spending vs mmr and avaergae age vs mmr. Thus, we predict that a linear regression may provide a fit model for the deduction."
-  },
-  {
     "objectID": "analysis.html#qq-and-residual",
     "href": "analysis.html#qq-and-residual",
     "title": "Analysis",
