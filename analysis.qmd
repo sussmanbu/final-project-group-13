@@ -228,16 +228,29 @@ kable(
 )
 
 ```
+
+
 **Regression Coefficients Table**: 
-  Estimate: This represents the estimated coefficient for each term in the model. For the intercept, it is approximately -0.2916, suggesting that when the "AverageAge" is zero, the MMR would be around -0.2916, assuming that zero is a meaningful and valid value for "AverageAge". The coefficient for "AverageAge" is approximately 0.0216, implying that for every one-unit increase in "AverageAge", the MMR increases by about 0.0216 units.
+  - Estimate: The coefficient for "AverageAge" is approximately 0.0216, implying that for every one-unit increase in "AverageAge", the MMR increases by about 0.0216 units.
   
-  Standard Error: This measures the average amount that the estimated coefficients vary from the actual average value of our response variable. The standard error for the intercept is around 0.1061 and for "AverageAge" it is about 0.0040. Smaller standard errors indicate more precise estimates.
+  - Standard Error: This measures the averege estimated coefficients vary from the actual average value of our response variable. The standard error for the intercept is around 0.1061 and for "AverageAge" it is about 0.0040. Smaller standard errors indicate more precise estimates.
   
-  t-Statistic: This is calculated as the estimate divided by the standard error, providing a measure of how many standard errors the coefficient is away from zero. A high absolute value of the t-statistic indicates it is unlikely that the coefficient is zero by chance (assuming the null hypothesis is that the coefficient is zero). Here, the t-statistics are -2.748 for the intercept and 5.340 for "AverageAge".
+  - t-Statistic: This is calculated how many standard errors the coefficient is away from zero. A high absolute value of the t-statistic indicates it is unlikely that the coefficient is zero by chance. Here, the t-statistics are -2.748 for the intercept and 5.340 for "AverageAge".
   
-  p-Value: This shows the probability of observing any value equal to or more extreme than the observed one, under the null hypothesis. A smaller p-value indicates stronger evidence against the null hypothesis. The p-value for the intercept is 0.0061, suggesting that there is a statistically significant relationship at common significance levels (e.g., 0.05, 0.01). For "AverageAge", the p-value is extremely small (0.0000001), indicating very strong evidence against the null hypothesis and suggesting that "AverageAge" is a significant predictor of the outcome. 
+  - p-Value: The p-value for the intercept is 0.0061, suggesting that there is a statistically significant relationship at common significance levels. For "AverageAge", the p-value is extremely small (0.0000001), indicating very strong evidence against the null hypothesis and suggesting that "AverageAge" is a significant predictor of the MMR.
   
-  Conclusion: Both the intercept and the variable "AverageAge" are statistically significant predictors in this model. "AverageAge" particularly shows a strong positive association with the dependent variable, with very high statistical significance.
+  - Conclusion: Both the intercept and the variable "AverageAge" are statistically significant predictors in this model. "AverageAge" particularly shows a strong positive association with the dependent variable, with very high statistical significance.
+  
+**Model Fit Statistics Table**:
+  - R-squared (0.0385): This metric indicates that approximately 3.85% of the variability in the dependent variable can be explained by the model. This is relatively low, suggesting that the model does not explain much of the variance in the MMR.
+  
+  - Adjusted R-squared (0.0372): Similar to the R-squared, but adjusted for the number of predictors in the model, this value is also low. It confirms that the model explains only a small portion of the variance in the dependent variable.
+  
+  - Sigma (0.1225): This represents the estimated standard deviation of the residuals in the model, indicating the average distance that the data points deviate from the regression line. A sigma of 0.1225 suggests moderate variability of residuals around the fitted values.
+  
+  - F-statistic (28.512): A relatively high F-statistic suggests the model is statistically significant overall, meaning that it performs better than a model with no independent variables at explaining the variability in the dependent variable.
+  
+  - p-value (<0.0000001): This extremely small p-value associated with the F-statistic indicates a very strong rejection of the null hypothesis that the model with no predictors fits the data as well as model. Thus, the predictors in the model provide significant explanatory power.
 
 
 
@@ -459,63 +472,6 @@ log_coef_table <- as.data.frame(log_summary_model$coefficients)
 kable(log_coef_table, caption = "Log-Log Multiple Linear Regression Coefficients")
 
 ```
-
-```{r}
-# Load necessary libraries
-library(readr)
-library(knitr)
-
-# Load the dataset
-data <- read_csv("dataset/phc_mmr_with_age.csv", show_col_types = FALSE)
-
-# Remove rows with missing or invalid values in critical columns
-data <- data[data$AverageAge > 0 & data$spending > 0 & data$mean_val > 0 & !is.na(data$Region), ]
-
-# Convert AverageAge to numeric for log transformation
-data$AverageAge <- as.numeric(data$AverageAge)
-
-# Apply log transformation to the variables
-data$log_AverageAge <- log(data$AverageAge)
-data$log_spending <- log(data$spending)
-data$log_mean_val <- log(data$mean_val)
-
-# Convert Region to a factor
-data$Region <- factor(data$Region)
-
-# Generate dummy variables for Region, excluding the first level to avoid singularities
-region_dummies <- model.matrix(~ Region, data)[, -1]
-
-# Combine the log-transformed data with the dummy variables
-log_mlr_data <- cbind(data[, c("log_AverageAge", "log_spending", "log_mean_val")], region_dummies)
-
-# Fit the log-log regression model
-log_mlr_model <- lm(log_mean_val ~ ., data = log_mlr_data)
-
-# Extract model summary statistics
-log_summary_model <- summary(log_mlr_model)
-model_stats <- data.frame(
-  R_squared = log_summary_model$r.squared,
-  Adj_R_squared = log_summary_model$adj.r.squared,
-  Sigma = log_summary_model$sigma,
-  Statistic = log_summary_model$fstatistic[1],
-  P_value = pf(log_summary_model$fstatistic[1], log_summary_model$fstatistic[2], log_summary_model$fstatistic[3], lower.tail = FALSE),
-  DF = log_summary_model$df[1],
-  LogLik = as.numeric(logLik(log_mlr_model)),
-  AIC = AIC(log_mlr_model),
-  BIC = BIC(log_mlr_model),
-  Deviance = deviance(log_mlr_model),
-  DF_Residual = df.residual(log_mlr_model),
-  Nobs = nobs(log_mlr_model)
-)
-
-# Display the model statistics in a Kable table
-kable(model_stats, caption = "Log-Log Regression Model Statistics")
-
-```
-
-
-
-
 QQ and residual
 ```{r}
 # Load necessary libraries
