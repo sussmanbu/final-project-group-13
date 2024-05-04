@@ -5,6 +5,22 @@ toc: true
 draft: false
 ---
 
+
+### Introduction
+# Motivation
+- Variable
+- Question to answer 
+- Objectives
+- Outline of models (This will include figures/tables that illustrate aspects of the data of your question.)
+
+# Explain the flaws and limitations of your analysis
+
+
+
+### Conclusion
+
+
+
 ![](images/MMRpics.jpeg)
 As shown in the data page, we find out the unexpected positive growth of the maternal mortality rate over the States. In effort to figure out the possible reasons that has statistical significance causing this increasing trend, our group seek to explore if the annual spending on healthcare and the average age of pregnancy could contribute to the phenomenon. 
 
