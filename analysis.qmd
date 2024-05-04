@@ -80,7 +80,7 @@ df |>
 
 
 
-```{r figure 9, echo=FALSE}
+```{r figure , echo=FALSE}
 # Load the necessary packages
 library(readr)
 library(ggplot2)
