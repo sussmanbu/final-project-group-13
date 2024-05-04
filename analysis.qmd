@@ -459,6 +459,63 @@ log_coef_table <- as.data.frame(log_summary_model$coefficients)
 kable(log_coef_table, caption = "Log-Log Multiple Linear Regression Coefficients")
 
 ```
+
+```{r}
+# Load necessary libraries
+library(readr)
+library(knitr)
+
+# Load the dataset
+data <- read_csv("dataset/phc_mmr_with_age.csv", show_col_types = FALSE)
+
+# Remove rows with missing or invalid values in critical columns
+data <- data[data$AverageAge > 0 & data$spending > 0 & data$mean_val > 0 & !is.na(data$Region), ]
+
+# Convert AverageAge to numeric for log transformation
+data$AverageAge <- as.numeric(data$AverageAge)
+
+# Apply log transformation to the variables
+data$log_AverageAge <- log(data$AverageAge)
+data$log_spending <- log(data$spending)
+data$log_mean_val <- log(data$mean_val)
+
+# Convert Region to a factor
+data$Region <- factor(data$Region)
+
+# Generate dummy variables for Region, excluding the first level to avoid singularities
+region_dummies <- model.matrix(~ Region, data)[, -1]
+
+# Combine the log-transformed data with the dummy variables
+log_mlr_data <- cbind(data[, c("log_AverageAge", "log_spending", "log_mean_val")], region_dummies)
+
+# Fit the log-log regression model
+log_mlr_model <- lm(log_mean_val ~ ., data = log_mlr_data)
+
+# Extract model summary statistics
+log_summary_model <- summary(log_mlr_model)
+model_stats <- data.frame(
+  R_squared = log_summary_model$r.squared,
+  Adj_R_squared = log_summary_model$adj.r.squared,
+  Sigma = log_summary_model$sigma,
+  Statistic = log_summary_model$fstatistic[1],
+  P_value = pf(log_summary_model$fstatistic[1], log_summary_model$fstatistic[2], log_summary_model$fstatistic[3], lower.tail = FALSE),
+  DF = log_summary_model$df[1],
+  LogLik = as.numeric(logLik(log_mlr_model)),
+  AIC = AIC(log_mlr_model),
+  BIC = BIC(log_mlr_model),
+  Deviance = deviance(log_mlr_model),
+  DF_Residual = df.residual(log_mlr_model),
+  Nobs = nobs(log_mlr_model)
+)
+
+# Display the model statistics in a Kable table
+kable(model_stats, caption = "Log-Log Regression Model Statistics")
+
+```
+
+
+
+
 QQ and residual
 ```{r}
 # Load necessary libraries
