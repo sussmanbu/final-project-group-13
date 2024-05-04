@@ -6,6 +6,17 @@ draft: false
 ---
 
 ![](images/MMRpics.jpeg)
+As shown in the data page, we find out the unexpected positive growth of the maternal mortality rate over the States. In effort to figure out the possible reasons that has statistical significance causing this increasing trend, our group seek to explore if the annual spending on healthcare and the average age of pregnancy could contribute to the phenomenon. 
+
+Our team focus on the following variables:
+
+  - Demographic factors : race group, year, location
+  - Other factors : spending on healthcare, average age of pregnancy.
+
+We collected and cleaned the average spending of healthcare data and the average pregnancy age data. During the analyzing process, we notice a clear increasing trend in both the line plot of spending vs mmr and avaergae age vs mmr. Thus, we predict that a linear regression may provide a fit model for the deduction.
+
+
+
 # Analysis
 ```{r load in the data, echo=FALSE}
 suppressPackageStartupMessages(library(tidyverse))
@@ -104,6 +115,29 @@ The style of this paper should aim to be that of an academic paper.
 I don't expect this to be of publication quality but you should keep that aim in mind.
 Avoid using "we" too frequently, for example "We also found that ...". Describe your methodology and your findings but don't describe your whole process.
 
+
+```{r figure 9, echo=FALSE}
+library(ggplot2)
+library(readr)
+
+data <- read_csv("dataset/phc_mmr_with_age.csv")
+
+data$spending <- as.numeric(data$spending)
+data$AverageAge <- as.numeric(data$AverageAge)
+
+ggplot(data, aes(x = spending, y = AverageAge, color = Region)) +
+  geom_point(aes(size = 3), alpha = 0.6) +  
+  geom_smooth(method = "lm", se = FALSE, aes(group = Region)) +  
+  scale_size_identity() +  
+  labs(title = "Bubble Chart with Fitted Lines by Region",
+       x = "Healthcare Spending",
+       y = "Average Age of Pregnancy",
+       size = "Region") +
+  theme_minimal() +
+  facet_wrap(~Region)
+  guides(color = guide_legend(title = "Region"))
+```
+```
 
 
 ## Note on Attribution
@@ -210,6 +244,7 @@ data$AverageAge <- as.integer(data$AverageAge)
 
 # Convert Region to a factor (if it's not already)
 data$Region <- as.factor(data$Region)
+data$race_group <- as.factor(data$Region)
 
 # Generate dummy variables for Region
 region_dummies <- model.matrix(~ Region - 1, data)
@@ -369,5 +404,92 @@ mlr_model <- lm(mean_val ~ ., data = mlr_data)
 # Generate QQ plot
 qqnorm(resid(mlr_model))
 qqline(resid(mlr_model), col = "red")
+```
+
+
+LOG-LOG
+```{r, echo=FALSE}
+# Load necessary libraries
+library(readr)
+library(knitr)
+
+# Load the dataset
+data <- read_csv("dataset/phc_mmr_with_age.csv", show_col_types = FALSE)
+
+# Remove rows with missing or invalid values in critical columns
+data <- data[data$AverageAge > 0 & data$spending > 0 & data$mean_val > 0 & !is.na(data$Region), ]
+
+# Convert AverageAge to numeric for log transformation
+data$AverageAge <- as.numeric(data$AverageAge)
+
+# Apply log transformation to the variables
+data$log_AverageAge <- log(data$AverageAge)
+data$log_spending <- log(data$spending)
+data$log_mean_val <- log(data$mean_val)
+
+# Convert Region to a factor
+data$Region <- factor(data$Region)
+
+# Generate dummy variables for Region, excluding the first level to avoid singularities
+region_dummies <- model.matrix(~ Region, data)[, -1]
+
+# Combine the log-transformed data with the dummy variables
+log_mlr_data <- cbind(data[, c("log_AverageAge", "log_spending", "log_mean_val")], region_dummies)
+
+# Fit the log-log regression model
+log_mlr_model <- lm(log_mean_val ~ ., data = log_mlr_data)
+
+# Get the summary and convert it to a data frame
+log_summary_model <- summary(log_mlr_model)
+log_coef_table <- as.data.frame(log_summary_model$coefficients)
+
+# Display the coefficients in a Kable table
+kable(log_coef_table, caption = "Log-Log Multiple Linear Regression Coefficients")
+
+```
+QQ and residual
+```{r}
+# Load necessary libraries
+library(readr)
+library(knitr)
+library(ggplot2)
+
+# Load the dataset
+data <- read_csv("dataset/phc_mmr_with_age.csv", show_col_types = FALSE)
+
+# Remove rows with missing or invalid values in critical columns
+data <- data[data$AverageAge > 0 & data$spending > 0 & data$mean_val > 0 & !is.na(data$Region), ]
+
+# Convert AverageAge to numeric for log transformation
+data$AverageAge <- as.numeric(data$AverageAge)
+
+# Apply log transformation to the variables
+data$log_AverageAge <- log(data$AverageAge)
+data$log_spending <- log(data$spending)
+data$log_mean_val <- log(data$mean_val)
+
+# Convert Region to a factor
+data$Region <- factor(data$Region)
+
+# Generate dummy variables for Region, excluding the first level to avoid singularities
+region_dummies <- model.matrix(~ Region, data)[, -1]
+
+# Combine the log-transformed data with the dummy variables
+log_mlr_data <- cbind(data[, c("log_AverageAge", "log_spending", "log_mean_val")], region_dummies)
+
+# Fit the log-log regression model
+log_mlr_model <- lm(log_mean_val ~ ., data = log_mlr_data)
+
+# Residuals vs Fitted plot
+ggplot(data.frame(fitted = fitted(log_mlr_model), residuals = resid(log_mlr_model)), aes(fitted, residuals)) +
+  geom_point() +
+  geom_hline(yintercept = 0, color = "red", linetype = "dashed") +
+  labs(title = "Residuals vs Fitted Plot", x = "Fitted values", y = "Residuals") +
+  theme_minimal()
+
+# QQ plot
+qqnorm(resid(log_mlr_model))
+qqline(resid(log_mlr_model), col = "red")
+
 ```
 
