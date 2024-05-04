@@ -147,14 +147,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#thesis" id="toc-thesis" class="nav-link active" data-scroll-target="#thesis">Thesis???</a>
+  <li><a href="#analysis" id="toc-analysis" class="nav-link active" data-scroll-target="#analysis">Analysis</a>
   <ul class="collapse">
-  <li><a href="#also-needs-regressions" id="toc-also-needs-regressions" class="nav-link" data-scroll-target="#also-needs-regressions">also needs regressions</a>
-  <ul class="collapse">
-  <li><a href="#example-of-loading-data" id="toc-example-of-loading-data" class="nav-link" data-scroll-target="#example-of-loading-data">Example of loading data</a></li>
-  </ul></li>
-  <li><a href="#note-on-attribution" id="toc-note-on-attribution" class="nav-link" data-scroll-target="#note-on-attribution">Note on Attribution</a></li>
-  <li><a href="#rubric-on-this-page" id="toc-rubric-on-this-page" class="nav-link" data-scroll-target="#rubric-on-this-page">Rubric: On this page</a></li>
+  <li><a href="#qq-and-residual" id="toc-qq-and-residual" class="nav-link" data-scroll-target="#qq-and-residual">QQ and residual</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -184,27 +179,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p><img src="images/MMRpics.jpeg" class="img-fluid"> # Analysis</p>
-<div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>`summarise()` has grouped output by 'year_id'. You can override using the
-`.groups` argument.</code></pre>
-</div>
-<div class="cell-output-display">
-<p><img src="analysis_files/figure-html/figure 1-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<p>Figure 1: The line graph presented displays the trends of mean MMR across different racial and ethnic groups over a span of approximately two decades, starting from the year 2000. Each colored line on the graph represents a different racial or ethnic category, plotting the mean of ‘val’ for that group against the timeline of ‘year_id’. Several key trends and patterns can be discerned from the graph: - The ‘Non-Hispanic Black’ group exhibits a notable upward trajectory, suggesting a consistent increase in the mean of ‘val’ over the years. Starting from a position close to other groups in the year 2000, there is a significant rise around the year 2010, and by 2020, this group has the highest mean value among all groups shown. - ‘All racial and ethnic groups’ combined show a gradual increase, hinting at an overall rising trend in the mean of ‘val’ across the population. - The ‘Non-Hispanic Asian, Native Hawaiian, or Other Pacific Islander’ group shows an increase, albeit with some fluctuations and a less steep incline compared to the ‘Non-Hispanic Black’ and ‘Non-Hispanic White’ groups.</p>
-<div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>`summarise()` has grouped output by 'year_id'. You can override using the
-`.groups` argument.</code></pre>
-</div>
-<div class="cell-output-display">
-<p><img src="analysis_files/figure-html/figure 2-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<p>Figure 2: The line graph displayed appears to represent the trends in the mean value of MMR over time across four different U.S. Census regions: Midwest, Northeast, South, and West, from the year 2000 to just before 2020. All regions show an initial increase in the mean value from 2000, with varying rates and fluctuations. Around 2005 to 2008, the Northeast region displays a sharper increase, while the Midwest shows a more gradual rise. Post-2010, all regions experience a significant increase in mean values, with the West and South regions peaking around 2015. The Northeast region exhibits a pronounced peak shortly after 2015, followed by a decline, indicating a possible reversal of the trend or a response to an event or policy change. The trends suggest regional variations in the variable measured, with each region experiencing unique patterns of change over the two decades.</p>
+<p><img src="images/MMRpics.jpeg" class="img-fluid"> As shown in the data page, we find out the unexpected positive growth of the maternal mortality rate over the States. In effort to figure out the possible reasons that has statistical significance causing this increasing trend, our group seek to explore if the annual spending on healthcare and the average age of pregnancy could contribute to the phenomenon.</p>
+<p>Our team focus on the following variables:</p>
+<ul>
+<li>Demographic factors : race group, year, location</li>
+<li>Other factors : spending on healthcare, average age of pregnancy.</li>
+</ul>
+<p>We collected and cleaned the average spending of healthcare data and the average pregnancy age data. During the analyzing process, we notice a clear increasing trend in both the line plot of spending vs mmr and avaergae age vs mmr. Thus, we predict that a linear regression may provide a fit model for the deduction.</p>
+<section id="analysis" class="level1">
+<h1>Analysis</h1>
 <div class="cell">
 <div class="cell-output cell-output-stderr">
 <pre><code>`summarise()` has grouped output by 'year_id', 'location_name'. You can
@@ -221,52 +204,34 @@ override using the `.groups` argument.</code></pre>
 <p>The observed regional differences, such as higher rates in the South and variations in the Midwest and West, might be influenced by a multitude of factors including healthcare infrastructure, socioeconomic status, accessibility of prenatal and postnatal care, and population density. Regions with higher population densities might face different healthcare challenges than less densely populated areas, potentially affecting the availability and quality of care.</p>
 <div class="cell">
 <div class="cell-output cell-output-stderr">
-<pre><code>`summarise()` has grouped output by 'location_name'. You can override using the
+<pre><code>`summarise()` has grouped output by 'year_id'. You can override using the
 `.groups` argument.</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="analysis_files/figure-html/figure 3.5-1.png" class="img-fluid" width="672"></p>
+<p><img src="analysis_files/figure-html/figure 3.75-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: NAs introduced by coercion</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
 <div class="cell-output-display">
-<p><img src="analysis_files/figure-html/figure 4-1.png" class="img-fluid" width="672"></p>
+<p><img src="analysis_files/figure-html/figure -1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Figure 4: MMR vs Spending pos correlation??? An initial plot of personal healthcare spending versus maternal mortality ratio shows a roughly positive correlation between the two variables which contradicts what we expected the relationship to be coming into this analysis. We would have expected a negative correlation, implying that as states spend more on healthcare overall, maternal mortality rates would be lower.</p>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="analysis_files/figure-html/figure 5-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Figure 5: Faceted MMR vs Spending We then faceted the initial graph by year to show the trend over time. This reveals a few things. Firstly, when faceted by year the relationship no longer appears to have a positive correlation. The trend is hard to see without a regression however it does appear to be negatively correlated now. Additionally, the points for each state are spreading out. In the first few years, all the points are clumped together with lower values. However, as the years go by the points not only overall increase in value but move farther apart. This prompted us to do a standard deviation analysis to quantify this observed trend.</p>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="analysis_files/figure-html/figure 6-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="analysis_files/figure-html/figure 7-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<p>Figures 6 and 7: Both graphs show an increasing trend over time, supporting an initial visual analysis that the data is getting more spread out. The graph of healthcare spending deviation is particularly linear which drew our interest however we are unsure of how this would implicate our analysis.</p>
-<div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>Rows: 912 Columns: 30
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr  (4): state, notes, versiondate, region
-dbl (26): year, pregnancyratelt15, pregnancyrate1517, pregnancyrate1819, pre...
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-</div>
-<div class="cell-output-display">
-<p><img src="analysis_files/figure-html/figure 8-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<p>Figure 8: This graph displays the trend of the mean age of pregnancy over time, categorized by region. From the graph, we can figure out that: In every region, the mean age of pregnancy has increased over time. This suggests that, on average, women are having children at an older age than they did in the past. The ‘West’ region shows the highest mean age of pregnancy over the entire timeline, starting at around 24 years in the 1970s and rising to just below 30 by the 2010s. The ‘Midwest’ and ‘South’ regions appear to have a similar starting point in the 1970s but diverge slightly over time. The ‘South’ follows closely with the ‘West’, but it still has a lower mean age of pregnancy by the 2010s. The ‘Northeast’ region begins with the lowest mean age of pregnancy but increases at a rate similar to the ‘Midwest’, surpassing it around the mid-2000s.</p>
+<p>We describe here our detailed data analysis. This page will provide an overview of what questions you addressed, illustrations of relevant aspects of the data with tables and figures, and a statistical model that attempts to answer part of the question. You’ll also reflect on next steps and further analysis.</p>
+<p>The audience for this page is someone like your class mates, so you can expect that they have some level of statistical and quantitative sophistication and understand ideas like linear and logistic regression, coefficients, confidence intervals, overfitting, etc.</p>
+<p>While the exact number of figures and tables will vary and depend on your analysis, you should target around 5 to 6. An overly long analysis could lead to losing points. If you want you can link back to your blog posts or create separate pages with more details.</p>
+<p>The style of this paper should aim to be that of an academic paper. I don’t expect this to be of publication quality but you should keep that aim in mind. Avoid using “we” too frequently, for example “We also found that …”. Describe your methodology and your findings but don’t describe your whole process.</p>
 <div class="cell">
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 1176 Columns: 6
@@ -365,174 +330,343 @@ attr(,"class")
 [1] "guides"</code></pre>
 </div>
 </div>
-<p>Figure 9: This scatter plot compares healthcare spending with the average age of pregnancy by region. Key observations include: There appears to be a positive correlation between healthcare spending and the average age of pregnancy in all regions. This implies that as healthcare spending increases, the average age of pregnancy tends to be higher. The data for the ‘West’ region, shown in purple, indicates a particularly strong positive correlation, suggesting that increased healthcare spending in this region might be closely associated with women having children at older ages. Overall, the graph suggests a trend where regions with higher healthcare spending are associated with older average ages of pregnancy, which could reflect a variety of factors such as access to reproductive health services, birth control, career opportunities, or other socioeconomic factors that allow or encourage women to delay pregnancy.</p>
-<div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 462 rows containing missing values (`geom_point()`).</code></pre>
-</div>
-<div class="cell-output-display">
-<p><img src="analysis_files/figure-html/figure 10-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<p>Figure 10: This bubble chart illustrates the relationship between the average age of pregnancy, maternal mortality ratio (MMR per 100,000 live births), and healthcare spending by region. The x-axis represents the average age of pregnancy, the y-axis represents the MMR, and the bubble size corresponds to healthcare spending, with larger bubbles indicating higher spending.</p>
-<p>Observations from the chart: - There appears to be a concentration of data points between the ages of 24 and 30, with varying MMR across the regions. - The Midwest, Northeast, and South regions have clusters with a wide range of MMR values but are generally centered around the same average age of pregnancy. - The West region shows a cluster with a lower MMR in comparison to other regions for a similar average age of pregnancy.</p>
-<p>The chart suggests complexity in the relationship between healthcare spending, the average age of pregnancy, and MMR, and it would likely require a deeper analysis to understand the underlying factors and dynamics.</p>
-<section id="thesis" class="level1">
-<h1>Thesis???</h1>
-<section id="also-needs-regressions" class="level2">
-<h2 class="anchored" data-anchor-id="also-needs-regressions">also needs regressions</h2>
-<p>This comes from the file <code>analysis.qmd</code>.</p>
-<p>We describe here our detailed data analysis. This page will provide an overview of what questions you addressed, illustrations of relevant aspects of the data with tables and figures, and a statistical model that attempts to answer part of the question. You’ll also reflect on next steps and further analysis.</p>
-<p>The audience for this page is someone like your class mates, so you can expect that they have some level of statistical and quantitative sophistication and understand ideas like linear and logistic regression, coefficients, confidence intervals, overfitting, etc.</p>
-<p>While the exact number of figures and tables will vary and depend on your analysis, you should target around 5 to 6. An overly long analysis could lead to losing points. If you want you can link back to your blog posts or create separate pages with more details.</p>
-<p>The style of this paper should aim to be that of an academic paper. I don’t expect this to be of publication quality but you should keep that aim in mind. Avoid using “we” too frequently, for example “We also found that …”. Describe your methodology and your findings but don’t describe your whole process.</p>
-<section id="example-of-loading-data" class="level3">
-<h3 class="anchored" data-anchor-id="example-of-loading-data">Example of loading data</h3>
-<p>The code below shows an example of loading the loan refusal data set (which you should delete at some point).</p>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "/Users/Nicole/Desktop/MA415/final-project-group-13"</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Rows: 20 Columns: 5
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr (1): bank
-dbl (4): min, white, himin, hiwhite
+<pre><code>
 
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code> [1] "average_data"    "combined_data"   "data"            "has_annotations"
- [5] "i"               "loan_data_clean" "midwest"         "mmr_data_clean" 
- [9] "mmr_diff"        "northeast"       "south"           "std_combined"   
-[13] "std_dev_mmr"     "std_dev_phc"     "west"           </code></pre>
-</div>
-</div>
-</section>
-</section>
-<section id="note-on-attribution" class="level2">
-<h2 class="anchored" data-anchor-id="note-on-attribution">Note on Attribution</h2>
-<p>In general, you should try to provide links to relevant resources, especially those that helped you. You don’t have to link to every StackOverflow post you used but if there are explainers on aspects of the data or specific models that you found helpful, try to link to those. Also, try to link to other sources that might support (or refute) your analysis. These can just be regular hyperlinks. You don’t need a formal citation.</p>
-<p>If you are directly quoting from a source, please make that clear. You can show quotes using <code>&gt;</code> like this</p>
-<pre><code>&gt; To be or not to be.</code></pre>
+## Note on Attribution
+
+In general, you should try to provide links to relevant resources, especially those that helped you. You don't have to link to every StackOverflow post you used but if there are explainers on aspects of the data or specific models that you found helpful, try to link to those. Also, try to link to other sources that might support (or refute) your analysis. These can just be regular hyperlinks. You don't need a formal citation.
+
+If you are directly quoting from a source, please make that clear. You can show quotes using `&gt;` like this
+</code></pre>
 <blockquote class="blockquote">
 <p>To be or not to be.</p>
 </blockquote>
-<hr>
-</section>
-<section id="rubric-on-this-page" class="level2">
-<h2 class="anchored" data-anchor-id="rubric-on-this-page">Rubric: On this page</h2>
-<p>You will</p>
-<ul>
-<li>Introduce what motivates your Data Analysis (DA)
-<ul>
-<li>Which variables and relationships are you most interested in?</li>
-<li>What questions are you interested in answering?</li>
-<li>Provide context for the rest of the page. This will include figures/tables that illustrate aspects of the data of your question.</li>
-</ul></li>
-<li>Modeling and Inference
-<ul>
-<li>The page will include some kind of formal statistical model. This could be a linear regression, logistic regression, or another modeling framework.</li>
-<li>Explain the ideas and techniques you used to choose the predictors for your model. (Think about including interaction terms and other transformations of your variables.)</li>
-<li>Describe the results of your modelling and make sure to give a sense of the uncertainty in your estimates and conclusions.</li>
-</ul></li>
-<li>Explain the flaws and limitations of your analysis
-<ul>
-<li>Are there some assumptions that you needed to make that might not hold? Is there other data that would help to answer your questions?</li>
-</ul></li>
-<li>Clarity Figures
-<ul>
-<li>Are your figures/tables/results easy to read, informative, without problems like overplotting, hard-to-read labels, etc?</li>
-<li>Each figure should provide a key insight. Too many figures or other data summaries can detract from this. (While not a hard limit, around 5 total figures is probably a good target.)</li>
-<li>Default <code>lm</code> output and plots are typically not acceptable.</li>
-</ul></li>
-<li>Clarity of Explanations
-<ul>
-<li>How well do you explain each figure/result?</li>
-<li>Do you provide interpretations that suggest further analysis or explanations for observed phenomenon?</li>
-</ul></li>
-<li>Organization and cleanliness.
-<ul>
-<li>Make sure to remove excessive warnings, hide most or all code, organize with sections or multiple pages, use bullets, etc.</li>
-<li>This page should be self-contained, i.e.&nbsp;provide a description of the relevant data.</li>
-</ul></li>
-</ul>
-<p><a href="https://ma415-group13.shinyapps.io/MMR_Map_by_year/">Click here to visit the MMR Map by Year!</a></p>
+<pre><code>
+&gt; To be or not to be.
+
+
+## Rubric: On this page
+
+You will
+
+-   Introduce what motivates your Data Analysis (DA)
+    -   Which variables and relationships are you most interested in?
+    -   What questions are you interested in answering?
+    -   Provide context for the rest of the page. This will include figures/tables that illustrate aspects of the data of your question.
+-   Modeling and Inference
+    -   The page will include some kind of formal statistical model. This could be a linear regression, logistic regression, or another modeling framework.
+    -   Explain the ideas and techniques you used to choose the predictors for your model. (Think about including interaction terms and other transformations of your variables.)
+    -   Describe the results of your modelling and make sure to give a sense of the uncertainty in your estimates and conclusions.
+-   Explain the flaws and limitations of your analysis
+    -   Are there some assumptions that you needed to make that might not hold? Is there other data that would help to answer your questions?
+-   Clarity Figures
+    -   Are your figures/tables/results easy to read, informative, without problems like overplotting, hard-to-read labels, etc?
+    -   Each figure should provide a key insight. Too many figures or other data summaries can detract from this. (While not a hard limit, around 5 total figures is probably a good target.)
+    -   Default `lm` output and plots are typically not acceptable.
+-   Clarity of Explanations
+    -   How well do you explain each figure/result?
+    -   Do you provide interpretations that suggest further analysis or explanations for observed phenomenon?
+-   Organization and cleanliness.
+    -   Make sure to remove excessive warnings, hide most or all code, organize with sections or multiple pages, use bullets, etc.
+    -   This page should be self-contained, i.e. provide a description of the relevant data.
+
+
+Notes from presentation:
+cut: mmr by region not facetted since we also have facetted, STD graphs
+
+
+# Model Findings
+
+### Simple Linear Regression for MMR-AGE
+::: {.cell}
+::: {.cell-output-display}
+Table: Regression Coefficients Table
+
+|Term        |   Estimate| Standard Error| t-Statistic|   p-Value|
+|:-----------|----------:|--------------:|-----------:|---------:|
+|(Intercept) | -0.2915658|      0.1060926|   -2.748219| 0.0061437|
+|AverageAge  |  0.0215854|      0.0040425|    5.339643| 0.0000001|
+:::
+:::
+1. **Coefficient for AverageAge**: The coefficient estimate for `AverageAge` is 0.0216. This indicates that for each additional year increase in the average age, the `mean_val` variable increases by approximately 0.0216 units on average, assuming a linear relationship.
+
+2. **Statistical Significance**: The p-value for `AverageAge` is extremely low (0.0000001), indicating strong statistical significance. This suggests that there is a very low probability that the observed association is due to random chance, implying that `AverageAge` is a significant predictor of `mean_val`.
+  
+
+::: {.cell}
+::: {.cell-output-display}
+Table: Model Fit Statistics Table
+
+|Metric             |      Value|
+|:------------------|----------:|
+|R-squared          |  0.0385028|
+|Adjusted R-squared |  0.0371524|
+|Sigma              |  0.1225132|
+|F-statistic        | 28.5117877|
+|p-value            |  0.0000001|
+|Degrees of Freedom |  1.0000000|
+:::
+:::
+
+1. **Model Fit (R-squared and Adjusted R-squared)**: The R-squared value of 0.0385 indicates that approximately 3.85% of the variability in the dependent variable is explained by the model. The adjusted R-squared value of 0.0372 provides a more accurate measure by adjusting for the number of predictors, which is still low, indicating the model does not capture much of the variability.
+
+2. **Model Accuracy (Sigma)**: The sigma value of 0.1225, representing the standard deviation of the residuals, suggests that predictions on average deviate from the actual values by 0.1225 units. This provides insight into the accuracy of the model's predictions.
+
+3. **Model Significance (F-statistic and p-value)**: The F-statistic of 28.51 and the p-value of 0.0000001 indicate that the model is statistically significant, meaning that the relationship between the dependent and independent variables is unlikely due to chance. However, despite statistical significance, the low R-squared indicates that other factors might influence the dependent variable not captured by this model.
+
+
+
+### Multiplie Linear Regression for MMR-AGE with Healthcare Spending and Region
+To accurately understand maternal mortality rates (MMR) in relation to age, it's essential to consider other influential factors such as healthcare spending and regional differences. Multiple linear regression allows us to assess the combined impact of these factors, providing a more nuanced analysis of how each variable influences MMR while controlling for others.
+
+# Correlation Matrix
+
+::: {.cell}
+::: {.cell-output-display}
+Table: Correlation Matrix
+
+|                |      year|   spending|   mean_val| AverageAge| RegionMidwest| RegionNortheast| RegionSouth| RegionWest|
+|:---------------|---------:|----------:|----------:|----------:|-------------:|---------------:|-----------:|----------:|
+|year            | 1.0000000|  0.8550099|  0.5733729|  0.6375395|     0.0000000|       0.0000000|   0.0000000|  0.0000000|
+|spending        | 0.8550099|  1.0000000|  0.3757901|  0.6721931|     0.0099172|       0.2648214|  -0.0468564| -0.1906206|
+|mean_val        | 0.5733729|  0.3757901|  1.0000000|  0.1962213|    -0.0083461|      -0.0849174|   0.0234427|  0.0570471|
+|AverageAge      | 0.6375395|  0.6721931|  0.1962213|  1.0000000|     0.0962390|       0.3896595|  -0.3807046| -0.0227236|
+|RegionMidwest   | 0.0000000|  0.0099172| -0.0083461|  0.0962390|     1.0000000|      -0.2567763|  -0.3922323| -0.3244428|
+|RegionNortheast | 0.0000000|  0.2648214| -0.0849174|  0.3896595|    -0.2567763|       1.0000000|  -0.3273268| -0.2707550|
+|RegionSouth     | 0.0000000| -0.0468564|  0.0234427| -0.3807046|    -0.3922323|      -0.3273268|   1.0000000| -0.4135851|
+|RegionWest      | 0.0000000| -0.1906206|  0.0570471| -0.0227236|    -0.3244428|      -0.2707550|  -0.4135851|  1.0000000|
+:::
+:::
+
+· The correlation matrix shows a strong positive correlation between year and healthcare spending (0.855), suggesting that healthcare spending has generally increased over time. It also highlights a moderate positive correlation between `mean_val` (possibly MMR) and `year` (0.573), implying that the target variable might have increased over time, though other factors are also influencing it. 
+
+· The regional dummy variables have low or negative correlations with most other variables, indicating that regional effects might be distinct and not directly correlated with the continuous variables in the matrix.
+
+# Regression 
+
+::: {.cell null='false'}
+::: {.cell-output-display}
+Table: Multiple Linear Regression Coefficients
+
+|                |    Estimate| Std. Error|    t value| Pr(&gt;&amp;#124;t&amp;#124;)|
+|:---------------|-----------:|----------:|----------:|------------------:|
+|(Intercept)     | -39.7275832| 14.2639471| -2.7851746|          0.0054929|
+|AverageAge      |   2.3156328|  0.6034342|  3.8374240|          0.0001354|
+|spending        |   0.0009328|  0.0003813|  2.4463432|          0.0146736|
+|RegionNortheast |  -6.3462137|  1.4607040| -4.3446268|          0.0000160|
+|RegionSouth     |   1.6394831|  1.2851124|  1.2757507|          0.2024621|
+|RegionWest      |   0.9127836|  1.2994790|  0.7024228|          0.4826464|
+:::
+:::
+
+**Effect of Predictors**: 
+   - **AverageAge**: With a coefficient of 2.32 (p &lt; 0.001), a unit increase in average age is associated with an estimated increase of 2.32 units in MMR, holding other factors constant. This implies that as the average age of mothers increases, MMR tends to increase.
+   - **Spending**: The spending coefficient is 0.00093 (p = 0.015), indicating that each unit increase in healthcare spending is associated with a slight increase in MMR, but the effect is very small. It is generally expected that increasing healthcare spending would reduce maternal mortality rates (MMR). However, since maternal mortality can also be linked to chronic diseases, increased healthcare expenditure does not always directly translate to improved outcomes. Additionally, as individuals are having children later in life compared to previous generations, the probability of maternal mortality may increase, which could contribute to higher healthcare costs without necessarily improving MMR.
+   - **Regions**: 
+     - **Northeast**: This region has a significant negative coefficient of -6.35 (p &lt; 0.001), suggesting that, compared to the baseline region, the Northeast is associated with a decrease in MMR.
+     - **South**: The coefficient for the South is positive (1.64) but not statistically significant (p = 0.202).
+     - **West**: The coefficient for the West is 0.91, also not statistically significant (p = 0.483).
+
+# Performance Siginifcane
+
+::: {.cell}
+::: {.cell-output-display}
+Table: Multiple Linear Regression Model Statistics
+
+|      | r.squared| adj.r.squared|    sigma| statistic| p.value| df|    logLik|      AIC|      BIC| deviance| df.residual| nobs|
+|:-----|---------:|-------------:|--------:|---------:|-------:|--:|---------:|--------:|--------:|--------:|-----------:|----:|
+|value | 0.0866594|     0.0802093| 11.97426|  13.43527|       0|  6| -2782.799| 5579.599| 5611.595|   101515|         708|  714|
+:::
+:::
+
+1. **Model Fit (R-squared and Adjusted R-squared)**: The R-squared value of 0.087 suggests that the model explains approximately 8.7% of the variability in maternal mortality rates (MMR). The adjusted R-squared, at 0.080, adjusts for the number of predictors in the model and shows a similar low explanatory power. This indicates that the predictors included in the model (such as AverageAge, spending, and region) explain only a small portion of the variation in MMR.
+
+2. **Model Significance (F-statistic and p-value)**: The F-statistic of 13.44 and the associated p-value of 0 show that the overall model is statistically significant, meaning that the relationship between the predictors and the dependent variable (MMR) is unlikely to have occurred by chance. Despite the statistical significance, the low R-squared values indicate that there are likely other important factors not captured in this model that influence MMR.
+
+3. **Model Diagnostics (Sigma and Log-Likelihood)**: The sigma (residual standard error) of 11.97 reflects the average deviation of the observed MMR values from the predicted values, indicating the model's predictive accuracy. The log-likelihood of -2782.799 provides a measure of the model's fit, with higher values indicating a better fit. The AIC (5579.599) and BIC (5611.595) values also offer measures of the model's goodness-of-fit, helping to compare it with other models.
+
+Residual Plot
+
+::: {.cell}
+::: {.cell-output-display}
+![](analysis_files/figure-html/unnamed-chunk-6-1.png){width=672}
+:::
+:::
+
+The residual plot indicates that the multiple linear regression model generally fits the data well, as evidenced by the mostly random scatter of residuals around zero. However, the presence of slight curvature suggests potential non-linearity in the relationship, and the mild fan shape of the residuals suggests possible heteroscedasticity, meaning that the variability in MMR may increase with higher fitted values. The presence of outliers also suggests that further investigation is needed to ensure these points do not disproportionately influence the model's results.
+
+QQ-Plot
+
+::: {.cell}
+::: {.cell-output-display}
+![](analysis_files/figure-html/unnamed-chunk-7-1.png){width=672}
+:::
+:::
+
+The normal Q-Q plot shows that the residuals of the model generally follow a normal distribution, as most data points align with the diagonal reference line. However, there are notable deviations at the tails, particularly at the upper end, indicating the presence of significant outliers and suggesting that the residuals are not perfectly normal. This lack of normality at the extremes suggests that certain extreme data points might be influencing the model, potentially affecting its assumptions and necessitating further investigation or alternative modeling approaches.
+
+### LOG-LOG Regression Model
+The multiple linear regression analysis and diagnostic plots suggest potential issues with outliers and deviations from normality in the data. The residuals show some non-linearity and heteroscedasticity, indicating that the standard linear model might not be fully capturing the relationships among maternal mortality rates (MMR), age, spending, and regional effects. By applying a log-log regression model, we can linearize the relationships among variables, handle skewed data more effectively, and interpret coefficients as elasticities, which measure the percentage change in MMR in response to a 1% change in predictors. This approach can improve the model's fit, stabilize variance, and provide more meaningful insights into the proportional changes affecting maternal mortality.
+
+
+::: {.cell}
+::: {.cell-output-display}
+Table: Log-Log Multiple Linear Regression Coefficients
+
+|                |   Estimate| Std. Error|    t value| Pr(&gt;&amp;#124;t&amp;#124;)|
+|:---------------|----------:|----------:|----------:|------------------:|
+|(Intercept)     | -7.0327490|  1.5617543| -4.5031085|          0.0000078|
+|log_AverageAge  |  1.7399064|  0.6121824|  2.8421372|          0.0046102|
+|log_spending    |  0.5150077|  0.0948862|  5.4276323|          0.0000001|
+|RegionNortheast | -0.3452760|  0.0509757| -6.7733414|          0.0000000|
+|RegionSouth     |  0.0424023|  0.0455753|  0.9303802|          0.3524914|
+|RegionWest      |  0.0475041|  0.0455662|  1.0425303|          0.2975217|
+:::
+:::
+
+
+1.  **Significant Predictors**: 
+   - **log_AverageAge**: With a coefficient of 1.74 and a p-value of 0.005, this predictor is statistically significant, indicating that a 1% increase in the average age is associated with an approximate 1.74% increase in MMR.
+   - **log_spending**: The coefficient of 0.52 (p &lt; 0.001) indicates that a 1% increase in spending correlates with an approximate 0.52% increase in MMR, suggesting a positive relationship, possibly reflecting increased healthcare spending without directly reducing mortality rates.
+
+3. **Regional Effects**:
+   - **RegionNortheast**: This region has a significant negative coefficient of -0.35 (p &lt; 0.001), suggesting that it is associated with approximately a 35% decrease in MMR compared to the baseline region.
+   - **RegionSouth and RegionWest**: Both regions have positive coefficients (0.04 and 0.05, respectively), but their p-values are not significant, indicating no statistically significant difference in MMR compared to the baseline region.
+   
+   
+   
+
+::: {.cell}
+
+```{.r .cell-code}
+# Load necessary libraries
+library(readr)
+library(knitr)
+
+# Load the dataset
+data &lt;- read_csv("dataset/phc_mmr_with_age.csv", show_col_types = FALSE)
+
+# Remove rows with missing or invalid values in critical columns
+data &lt;- data[data$AverageAge &gt; 0 &amp; data$spending &gt; 0 &amp; data$mean_val &gt; 0 &amp; !is.na(data$Region), ]
+
+# Convert AverageAge to numeric for log transformation
+data$AverageAge &lt;- as.numeric(data$AverageAge)</code></pre>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: NAs introduced by coercion</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply log transformation to the variables</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>log_AverageAge <span class="ot">&lt;-</span> <span class="fu">log</span>(data<span class="sc">$</span>AverageAge)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>log_spending <span class="ot">&lt;-</span> <span class="fu">log</span>(data<span class="sc">$</span>spending)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>log_mean_val <span class="ot">&lt;-</span> <span class="fu">log</span>(data<span class="sc">$</span>mean_val)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert Region to a factor</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>Region <span class="ot">&lt;-</span> <span class="fu">factor</span>(data<span class="sc">$</span>Region)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate dummy variables for Region, excluding the first level to avoid singularities</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>region_dummies <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(<span class="sc">~</span> Region, data)[, <span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine the log-transformed data with the dummy variables</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>log_mlr_data <span class="ot">&lt;-</span> <span class="fu">cbind</span>(data[, <span class="fu">c</span>(<span class="st">"log_AverageAge"</span>, <span class="st">"log_spending"</span>, <span class="st">"log_mean_val"</span>)], region_dummies)</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the log-log regression model</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>log_mlr_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(log_mean_val <span class="sc">~</span> ., <span class="at">data =</span> log_mlr_data)</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract model summary statistics</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>log_summary_model <span class="ot">&lt;-</span> <span class="fu">summary</span>(log_mlr_model)</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>model_stats <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">R_squared =</span> log_summary_model<span class="sc">$</span>r.squared,</span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">Adj_R_squared =</span> log_summary_model<span class="sc">$</span>adj.r.squared,</span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">Sigma =</span> log_summary_model<span class="sc">$</span>sigma,</span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">Statistic =</span> log_summary_model<span class="sc">$</span>fstatistic[<span class="dv">1</span>],</span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">P_value =</span> <span class="fu">pf</span>(log_summary_model<span class="sc">$</span>fstatistic[<span class="dv">1</span>], log_summary_model<span class="sc">$</span>fstatistic[<span class="dv">2</span>], log_summary_model<span class="sc">$</span>fstatistic[<span class="dv">3</span>], <span class="at">lower.tail =</span> <span class="cn">FALSE</span>),</span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">DF =</span> log_summary_model<span class="sc">$</span>df[<span class="dv">1</span>],</span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">LogLik =</span> <span class="fu">as.numeric</span>(<span class="fu">logLik</span>(log_mlr_model)),</span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">AIC =</span> <span class="fu">AIC</span>(log_mlr_model),</span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">BIC =</span> <span class="fu">BIC</span>(log_mlr_model),</span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">Deviance =</span> <span class="fu">deviance</span>(log_mlr_model),</span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">DF_Residual =</span> <span class="fu">df.residual</span>(log_mlr_model),</span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>  <span class="at">Nobs =</span> <span class="fu">nobs</span>(log_mlr_model)</span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the model statistics in a Kable table</span></span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(model_stats, <span class="at">caption =</span> <span class="st">"Log-Log Multiple Linear Regression Model Statistics"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table">
+<caption>Log-Log Multiple Linear Regression Model Statistics</caption>
+<colgroup>
+<col style="width: 5%">
+<col style="width: 8%">
+<col style="width: 12%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 7%">
+<col style="width: 2%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 10%">
+<col style="width: 4%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">R_squared</th>
+<th style="text-align: right;">Adj_R_squared</th>
+<th style="text-align: right;">Sigma</th>
+<th style="text-align: right;">Statistic</th>
+<th style="text-align: right;">P_value</th>
+<th style="text-align: right;">DF</th>
+<th style="text-align: right;">LogLik</th>
+<th style="text-align: right;">AIC</th>
+<th style="text-align: right;">BIC</th>
+<th style="text-align: right;">Deviance</th>
+<th style="text-align: right;">DF_Residual</th>
+<th style="text-align: right;">Nobs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">value</td>
+<td style="text-align: right;">0.1597701</td>
+<td style="text-align: right;">0.1538363</td>
+<td style="text-align: right;">0.4186879</td>
+<td style="text-align: right;">26.92531</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">-388.48</td>
+<td style="text-align: right;">790.9599</td>
+<td style="text-align: right;">822.9561</td>
+<td style="text-align: right;">124.1121</td>
+<td style="text-align: right;">708</td>
+<td style="text-align: right;">714</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>:::</p>
+<ol type="1">
+<li><p><strong>Model Fit (R-squared and Adjusted R-squared)</strong>: The R-squared value of 0.16 indicates that the model explains approximately 16% of the variability in maternal mortality rates (MMR). The adjusted R-squared value of 0.15, which adjusts for the number of predictors in the model, suggests a slightly reduced explanatory power. This implies that while the model includes some significant predictors, a substantial portion of the variability in MMR remains unexplained, likely due to other factors not included in the model.</p></li>
+<li><p><strong>Model Significance (F-statistic and p-value)</strong>: The F-statistic of 26.93 and its p-value of zero show that the overall model is statistically significant, meaning that the combined predictors significantly contribute to explaining variations in MMR. However, the relatively low R-squared values still suggest that there are additional important factors influencing MMR that are not captured by this model.</p></li>
+<li><p><strong>Model Diagnostics (Sigma, Log-Likelihood, AIC, and BIC)</strong>: The sigma (residual standard error) of 0.42 reflects the average deviation of observed log-transformed MMR values from predicted values. The log-likelihood of -388.48 indicates the model’s goodness-of-fit, with higher values implying a better fit. The AIC (790.96) and BIC (822.96) values provide comparative measures of fit, penalizing for model complexity. The deviance (124.11) and residual degrees of freedom (708) give additional insight into the model’s residuals and flexibility, while the number of observations (714) reflects the sample size.</p></li>
+</ol>
+<section id="qq-and-residual" class="level2">
+<h2 class="anchored" data-anchor-id="qq-and-residual">QQ and residual</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the tidyverse package for data manipulation</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Read the CSV file</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>phc_mmr_combined <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"dataset/phc_mmr_combined.csv"</span>)</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit a linear regression model</span></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(spending <span class="sc">~</span> mean_val, <span class="at">data =</span> phc_mmr_combined)</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Print a summary of the regression model</span></span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>summary <span class="ot">&lt;-</span> <span class="fu">summary</span>(model)</span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>coefficients_table <span class="ot">&lt;-</span> summary<span class="sc">$</span>coefficients</span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Format the coefficients table</span></span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>coefficients_table <span class="ot">&lt;-</span> <span class="fu">round</span>(coefficients_table, <span class="dv">4</span>)</span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(coefficients_table) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Intercept"</span>, <span class="st">"Spending"</span>)</span>
-<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(coefficients_table) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Estimate"</span>, <span class="st">"Std. Error"</span>, <span class="st">"t value"</span>, <span class="st">"Pr(&gt;|t|)"</span>)</span>
-<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the formatted coefficients table</span></span>
-<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(coefficients_table)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>           Estimate Std. Error t value Pr(&gt;|t|)
-Intercept 5261.9018   123.4650 42.6186        0
-Spending    64.1994     4.2751 15.0170        0</code></pre>
+<div class="cell-output-display">
+<p><img src="analysis_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<p>The residuals vs.&nbsp;fitted plot of the log-log regression model shows a more random and consistent distribution of residuals compared to the previous model, indicating a better fit to the data. The spread of residuals is more uniform, suggesting that the log-log model effectively addresses non-linearity and reduces heteroscedasticity, making the variance of residuals more constant. Additionally, there are fewer extreme outliers, which means that the log-log transformation mitigates the influence of extreme data points and provides a more accurate representation of the relationship between maternal mortality rates, age, spending, and regional factors. Despite this improvement, further refinement could enhance the model’s overall fit and predictive accuracy.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load necessary packages</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Load your dataset (replace 'your_dataset.csv' with the actual file name)</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Make sure the dataset has the correct column names such as 'spending' and 'mean_val'</span></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"dataset/phc_mmr_combined.csv"</span>, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the regression model</span></span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(mean_val <span class="sc">~</span> spending, <span class="at">data =</span> data)</span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Output the regression coefficients table</span></span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>coefficients_table <span class="ot">&lt;-</span> <span class="fu">tidy</span>(model)</span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(coefficients_table)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 5
-  term        estimate std.error statistic  p.value
-  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-1 (Intercept)  8.50     1.21          7.04 3.18e-12
-2 spending     0.00251  0.000167     15.0  9.31e-47</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Output the model fit statistics table</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>model_summary <span class="ot">&lt;-</span> <span class="fu">summary</span>(model)</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>fit_statistics <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">r.squared =</span> model_summary<span class="sc">$</span>r.squared,</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">adj.r.squared =</span> model_summary<span class="sc">$</span>adj.r.squared,</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">sigma =</span> model_summary<span class="sc">$</span>sigma,</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">statistic =</span> model_summary<span class="sc">$</span>fstatistic[<span class="dv">1</span>],</span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">p.value =</span> <span class="fu">pf</span>(model_summary<span class="sc">$</span>fstatistic[<span class="dv">1</span>], model_summary<span class="sc">$</span>fstatistic[<span class="dv">2</span>], model_summary<span class="sc">$</span>fstatistic[<span class="dv">3</span>], <span class="at">lower.tail =</span> <span class="cn">FALSE</span>),</span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">df =</span> model_summary<span class="sc">$</span>fstatistic[<span class="dv">2</span>],</span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">logLik =</span> <span class="fu">logLik</span>(model),</span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">AIC =</span> <span class="fu">AIC</span>(model),</span>
-<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">BIC =</span> <span class="fu">BIC</span>(model),</span>
-<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">deviance =</span> <span class="fu">deviance</span>(model),</span>
-<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">df.residual =</span> <span class="fu">df.residual</span>(model),</span>
-<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">nobs =</span> <span class="fu">nobs</span>(model)</span>
-<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(fit_statistics)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>      r.squared adj.r.squared    sigma statistic      p.value df    logLik
-value 0.1611345     0.1604199 11.75408  225.5091 9.309604e-47  1 -4565.571
-           AIC      BIC deviance df.residual nobs
-value 9137.141 9152.351   162198        1174 1176</code></pre>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># QQ plot</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(<span class="fu">resid</span>(log_mlr_model))</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(<span class="fu">resid</span>(log_mlr_model), <span class="at">col =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="analysis_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<p>The current normal Q-Q plot shows that the residuals from the log-log regression model generally follow a normal distribution, with most points aligning closely to the diagonal reference line. However, there are slight deviations at the extremes, which are indicative of some outliers affecting the tails. Compared to the previous Q-Q plot, which exhibited more extreme deviations from normality at the upper end, the log-log model demonstrates improved normality of residuals, suggesting that the log transformation helps to mitigate the influence of outliers and enhances the overall fit. Nonetheless, the presence of outliers in both models indicates potential factors influencing the data that are not fully captured in either model.</p>
 
 
 </section>
