@@ -1,53 +1,11 @@
 ---
 title: "Big Picture"
-description: "A 538/Upshot style article about the data."
+description: "Explore the Maternal Morality Ratio"
 toc: true
 draft: FALSE
 ---
 
-![](images/The_Big_Picture_2.jpeg)
-
-This comes from the file `big_picture.Rmd`.
-
-Think of this page as your 538/Upshot style article. This means that you should try to tell a story through the data and your analysis. Read articles from those sites and similar sites to get a feeling for what they are like. Try to write in the style of a news or popular article. Importantly, this pge should be geared towards the general public. You shouldn't assume the reader understands how to interpret a linear regression. Focus on interpretation and visualizations.
-
----
-
-## Rubric: On this page
-
-You will
-
-* Title
-  * Your big picture page should have a creative/click-bait-y title/headline that provides a hint about your thesis.
-* Clarity of Explanation
-  * You should have a clear thesis/goal for this page. What are you trying to show? Make sure that you explain your analysis in detail but don't go into top much mathematics or statistics. The audience for this page is the general public (to the extent possible). Your thesis should be a statement, not a question.
-  * Each figure should be very polished and also not too complicated. There should be a clear interpretation of the figure so the figure has a clear purpose. Even something like a histogram can be difficult to interpret for non-experts.
-* Creativity
-  * Do your best to make things interesting. Think of a story. Think of how each part of your analysis supports the previous part or provides a different perspective.
-* This page should be self-contained.
-  
-**Note**: This page should have no code visible, i.e. use `#| echo: FALSE`.  
-
----
-
-## Rubric: Other components
-
-### Interactive
-
-
-[Health Care Spending Map](https://ma415-group13.shinyapps.io/spending/)
-[Maternal Mortality Map](https://ma415-group13.shinyapps.io/MMR_Map_by_year/)
-
-You will also be required to make an interactive dashboard like [this one](/flex/flex.html).
-
-Your Big Data page should include a link to an interactive dashboard. The dashboard should be created either using Shiny or FlexDashboard (or another tool with professor's approval). This interactive component should in some way support your thesis from your big picture page. Good interactives often provide both high-level understanding of the data while allowing a user to investigate specific scenarios, observations, subgroups, etc.
-
-* Quality and ease of use of the interactive components.
-Is it clear what can be explored using your interactive components?
-Does it enhance and reinforce your conclusions from the Big Picture?
-Plotly with default hover text will get no credit. Be creative!
-
-
+![](images/bigpic.jpeg)
 ### Video Recording
 
 Make a video recording (probably using Zoom) demonstrating your interactive components.
@@ -57,40 +15,58 @@ Include a link to your video (and password if needed) in your README.md file on 
 This can be presented by any subset of the team members.
 
 
-### Rest of the Site
+# More people are dying giving birth over last few decades, even with better medical equipment…?
 
-Finally, here are important things to keep in mind for the rest of the site. 
+With the educational guess of having a decreasing trend in the maternal mortality rate in the past 20 years, the original purpose of the team was to see how the healthcare policy and the economic reasons can affect the MMR in each racial group. However, with the reveal of the unexpected increasing trend in the death rate, other environmental factors are worth to explore which could possibly give reasonable explanations for the growing trend of mortality rate. 
 
-The main title of your page is informative.
-Each post has an author/description/informative title.
-All lab required posts are present.
-Each page (including the home page) has a nice featured image associated with it.
-Your about page is up to date and clean.
-You have removed the generic posts from the initial site template.
+```{r, echo=FALSE}
+# Load necessary libraries
+library(ggplot2)
+library(dplyr)
+library(readr)
+
+# Load the dataset
+data_path <- "dataset/phc_mmr_combined.csv"
+data <- read_csv(data_path, show_col_types = FALSE)
+
+# Aggregate mean_val by year
+national_mmr <- data %>%
+  group_by(year_id) %>%
+  summarize(mean_mmr = sum(mean_val, na.rm = TRUE))  # Sum across states
+
+# Plot the trend of mean_val over the years
+ggplot(national_mmr, aes(x = year_id, y = mean_mmr)) +
+  geom_line(color = "blue", size = 1) +  # Line graph
+  geom_point(color = "red", size = 2) +  # Points on line graph
+  labs(title = "Trend of Mean MMR Over Years",
+       x = "Year",
+       y = "Mean MMR") +
+  theme_minimal()
 
 
-#More people are dying giving birth over last few decades, even with better medical equipment…?
+```
 
-With the educational guess of having a decreasing trend in the maternal mortality rate in the past 20 years, our team’s original purpose was to see how the healthcare policy and the economic reasons can affect the MMR in each racial group. However, with the reveal of the unexpected increasing trend in the death rate, we decided to look into other environmental factors that could possibly give reasonable explanations for the growing trend of mortality rate. 
 
-##Why does the investigation on MMR matter?
-
+### Why does the investigation on MMR matter?
 The maternal mortality rate is a comprehensive dataset that gives insight into the trends and disparities of public health resources, the guiding formulation of the related policy, and the overall societal welfare. This research matters not only because it reflects the effectiveness of the healthcare system, but the increasing tendency also highlight the broader socioeconomic causes behind the scenes. 
 
+Here is the trend of MMR and Healthcare Spending for each state from 1999 to 2019:
+[Maternal Mortality Map](https://ma415-group13.shinyapps.io/MMR_Map_by_year/)
+[Health Care Spending Map](https://ma415-group13.shinyapps.io/spending/)
 
-##Rich Girl Young Age?
+### Rich Girl Young Age?
 In the exploration of the possible environmental factors, the scholar articles give us the idea to take a close look at the healthcare spending and the average age of pregnancy. Both the datasets show the trend over time which offers us two solid facts: 1. People are having babies at an older age over time. 2. The spending on healthcare is increasing over time. We predict that the MMR will not be statistically noticeable in groups of the younger age of pregnancy and higher spending on healthcare. So, a rich girl at a young age should be a satisfying answer, but is it?
 
-##Thesis statement
+# Thesis statement
 The increase in the maternal mortality rate is significantly influenced by a combination of environmental factors —- spending on healthcare, and the average age of pregnancy. 
 
-##Younger Age is preferred, but
+### Younger Age is preferred, but
 Though as mentioned in a lot of bio medical research, there does not seem to exist such an age range as “the golden year of giving birth”, the statistical results show that the average age of pregnancy is a strong indicator of the MMR trend. This trend supports the idea that the growing average age is contributing to the increasing maternal mortality rate across the country. Considering that fact that the MMR can also linked to the chronic disease and other maternal diseases that leads to fatal situations, it is fair to consider the probability that the increasing age of pregnancy also link to these factors. 
 
-##Spending needs a second thought…
+### Spending needs a second thought…
 In the analysis of spending in healthcare however, the correlation coefficient does show a moderate correlation between the spending and the MMR. This contradicts the original hypothesis of “rich girl at young age”. With the support of the multiple linear regression analysis, the r squared value reveals the fact that the spending factor is correlated with many other variables that might influence the MMR result. For example, since people tend to have kids later in life, the spending on health care may increase according to the fact that the income level of the age group is different. From another perspective, this moderate increasing trend can also be owing to the fact that the spending does not always directly translate into the positive result in MMR. 
 
-##Conclusion
+# Conclusion
 Despite the advanced medical technology and healthcare practices, the Maternal Mortality Rate(MMR) unexpectedly grows in the recent decades. The sharp increase of MMR in all race groups and regional groups reveal the crucial fact that the resource allocation and socioeconomic factors are drastically influencing the data performance. The further investigation of our reasearch explore two key factors: the rising average age of pregnancy and healthcare spending. While the increasing maternal age is strongly linked to a higher MMR, healthcare spending alone does not consistently lead to better outcomes due to its complex relationships with other socioeconomic variables. 
 By understanding the complex potential causes, the research underscores the the need for comprehensive strategies addressing broader determinants of health, economic resources, and healthcare practices to reverse this troubling trend in maternal mortality.
 
