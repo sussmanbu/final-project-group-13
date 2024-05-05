@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.353">
+<meta name="generator" content="quarto-1.4.547">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -23,7 +23,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -80,7 +80,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -89,8 +95,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 
@@ -102,9 +110,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">MA [46]15 Final Project – Group 13</span>
     </a>
@@ -116,25 +124,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./about.html" rel="" target="">
- <span class="menu-text">About</span></a>
+    <a class="nav-link" href="./about.html"> 
+<span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./big_picture.html" rel="" target="">
- <span class="menu-text">Beyond Birth Rates:Prioritizing Maternal Mortality for Holistic Health Outcomes</span></a>
+    <a class="nav-link" href="./big_picture.html"> 
+<span class="menu-text">Beyond Birth Rates:Prioritizing Maternal Mortality for Holistic Health Outcomes</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./analysis.html" rel="" target="" aria-current="page">
- <span class="menu-text">Analysis</span></a>
+    <a class="nav-link active" href="./analysis.html" aria-current="page"> 
+<span class="menu-text">Analysis</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./data.html" rel="" target="">
- <span class="menu-text">Data</span></a>
+    <a class="nav-link" href="./data.html"> 
+<span class="menu-text">Data</span></a>
   </li>  
 </ul>
-            <div class="quarto-navbar-tools">
-</div>
           </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -147,24 +155,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#motivation" id="toc-motivation" class="nav-link" data-scroll-target="#motivation">Motivation</a></li>
-  <li><a href="#explain-the-flaws-and-limitations-of-your-analysis" id="toc-explain-the-flaws-and-limitations-of-your-analysis" class="nav-link" data-scroll-target="#explain-the-flaws-and-limitations-of-your-analysis">Explain the flaws and limitations of your analysis</a>
+  <li><a href="#motivation-and-research-question" id="toc-motivation-and-research-question" class="nav-link active" data-scroll-target="#motivation-and-research-question">Motivation and Research Question</a>
   <ul class="collapse">
-  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#motivation" id="toc-motivation" class="nav-link" data-scroll-target="#motivation">Motivation</a></li>
+  <li><a href="#outline" id="toc-outline" class="nav-link" data-scroll-target="#outline">Outline</a></li>
   </ul></li>
-  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a></li>
-  <li><a href="#model-findings" id="toc-model-findings" class="nav-link" data-scroll-target="#model-findings">Model Findings</a>
+  <li><a href="#general-information-analysis-1" id="toc-general-information-analysis-1" class="nav-link" data-scroll-target="#general-information-analysis-1">1.General Information Analysis</a></li>
+  <li><a href="#model-findings-1" id="toc-model-findings-1" class="nav-link" data-scroll-target="#model-findings-1">2.Model Findings</a>
   <ul class="collapse">
   <li><a href="#simple-linear-regression-for-mmr-age" id="toc-simple-linear-regression-for-mmr-age" class="nav-link" data-scroll-target="#simple-linear-regression-for-mmr-age">Simple Linear Regression for MMR-AGE</a></li>
-  <li><a href="#multiplie-linear-regression-for-mmr-age-with-healthcare-spending-and-region" id="toc-multiplie-linear-regression-for-mmr-age-with-healthcare-spending-and-region" class="nav-link" data-scroll-target="#multiplie-linear-regression-for-mmr-age-with-healthcare-spending-and-region">Multiplie Linear Regression for MMR-AGE with Healthcare Spending and Region</a></li>
   </ul></li>
+  <li><a href="#multiplie-linear-regression-for-mmr-age-with-healthcare-spending-and-region" id="toc-multiplie-linear-regression-for-mmr-age-with-healthcare-spending-and-region" class="nav-link" data-scroll-target="#multiplie-linear-regression-for-mmr-age-with-healthcare-spending-and-region">3.Multiplie Linear Regression for MMR-AGE with Healthcare Spending and Region</a>
+  <ul class="collapse">
   <li><a href="#correlation-matrix" id="toc-correlation-matrix" class="nav-link" data-scroll-target="#correlation-matrix">Correlation Matrix</a></li>
   <li><a href="#regression" id="toc-regression" class="nav-link" data-scroll-target="#regression">Regression</a></li>
-  <li><a href="#performance-siginifcane" id="toc-performance-siginifcane" class="nav-link" data-scroll-target="#performance-siginifcane">Performance Siginifcane</a>
+  <li><a href="#performance-siginifcane" id="toc-performance-siginifcane" class="nav-link" data-scroll-target="#performance-siginifcane">Performance Siginifcane</a></li>
+  </ul></li>
+  <li><a href="#log-log-regression-model-1" id="toc-log-log-regression-model-1" class="nav-link" data-scroll-target="#log-log-regression-model-1">4.Log-Log Regression Model</a></li>
+  <li><a href="#qq-plot-and-residual-plot-1" id="toc-qq-plot-and-residual-plot-1" class="nav-link" data-scroll-target="#qq-plot-and-residual-plot-1">5. QQ Plot and Residual Plot</a>
   <ul class="collapse">
-  <li><a href="#log-log-regression-model" id="toc-log-log-regression-model" class="nav-link" data-scroll-target="#log-log-regression-model">LOG-LOG Regression Model</a></li>
-  <li><a href="#qq-and-residual" id="toc-qq-and-residual" class="nav-link" data-scroll-target="#qq-and-residual">QQ and residual</a></li>
+  <li><a href="#flaws-and-limitations" id="toc-flaws-and-limitations" class="nav-link" data-scroll-target="#flaws-and-limitations">Flaws and Limitations</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -192,43 +203,50 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
+
 </header>
 
+
 <p><img src="images/MMRpics.jpeg" class="img-fluid"></p>
-<section id="introduction" class="level3">
-<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<section id="motivation-and-research-question" class="level1">
+<h1>Motivation and Research Question</h1>
+<section id="motivation" class="level2">
+<h2 class="anchored" data-anchor-id="motivation">Motivation</h2>
+<p>The main purpose of our study is to explore the differences in maternal mortality rates(mmr) among different ethnic groups from 1999 to 2019 across the U.S., and the impact of healthcare spending and average age of pregnancy on maternal mortality rates. By comparing the average maternal mortality rate in each state with other variables, we can identify the factors that affect maternal mortality rates, thereby enhancing the understanding and protection of women.</p>
+<p>We collected and cleaned the average spending of healthcare data and the average pregnancy age data. During the analyzing process, we notice a clear increasing trend in both the line plot of spending vs mmr and avergae age vs mmr. Thus, we predict that a linear regression may provide a fit model for the deduction.</p>
 </section>
-<section id="motivation" class="level1">
-<h1>Motivation</h1>
-<ul>
-<li>Variable</li>
-<li>Question to answer</li>
-<li>Objectives</li>
-<li>Outline of models (This will include figures/tables that illustrate aspects of the data of your question.)</li>
-</ul>
+<section id="outline" class="level2">
+<h2 class="anchored" data-anchor-id="outline">Outline</h2>
+<section id="general-information-analysis" class="level4">
+<h4 class="anchored" data-anchor-id="general-information-analysis">1.General Information Analysis</h4>
 </section>
-<section id="explain-the-flaws-and-limitations-of-your-analysis" class="level1">
-<h1>Explain the flaws and limitations of your analysis</h1>
-<section id="conclusion" class="level3">
-<h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
-<p>As shown in the data page, we find out the unexpected positive growth of the maternal mortality rate over the States. In effort to figure out the possible reasons that has statistical significance causing this increasing trend, our group seek to explore if the annual spending on healthcare and the average age of pregnancy could contribute to the phenomenon.</p>
-<p>Our team focus on the following variables:</p>
-<ul>
-<li>Demographic factors : race group, year, location</li>
-<li>Other factors : spending on healthcare, average age of pregnancy.</li>
-</ul>
-<p>We collected and cleaned the average spending of healthcare data and the average pregnancy age data. During the analyzing process, we notice a clear increasing trend in both the line plot of spending vs mmr and avaergae age vs mmr. Thus, we predict that a linear regression may provide a fit model for the deduction.</p>
+<section id="model-findings" class="level4">
+<h4 class="anchored" data-anchor-id="model-findings">2.Model Findings</h4>
+</section>
+<section id="multiplie-linear-regression-model" class="level4">
+<h4 class="anchored" data-anchor-id="multiplie-linear-regression-model">3.Multiplie Linear Regression Model</h4>
+</section>
+<section id="log-log-regression-model" class="level4">
+<h4 class="anchored" data-anchor-id="log-log-regression-model">4.Log-Log Regression Model</h4>
+</section>
+<section id="qq-plot-and-residual-plot" class="level4">
+<h4 class="anchored" data-anchor-id="qq-plot-and-residual-plot">5.QQ Plot and Residual Plot</h4>
 </section>
 </section>
-<section id="analysis" class="level1">
-<h1>Analysis</h1>
+</section>
+<section id="general-information-analysis-1" class="level1">
+<h1>1.General Information Analysis</h1>
 <div class="cell">
 <div class="cell-output cell-output-stderr">
 <pre><code>`summarise()` has grouped output by 'year_id', 'location_name'. You can
 override using the `.groups` argument.</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="analysis_files/figure-html/figure 3-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="analysis_files/figure-html/figure 3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Figure 3: The five graphs depict the trajectory of maternal mortality rates over a 20-year period, differentiated by racial categories and geographic regions in the United States. These categories include Hispanic and any race, Non-Hispanic American Indian and Alaska Native, Non-Hispanic Asian and Native Hawaiian or Other Pacific Islander, Non-Hispanic Black, and Non-Hispanic White. While there is an overarching increase in mortality rates across these racial demographics, the patterns of increase vary notably between them.</p>
@@ -238,7 +256,11 @@ override using the `.groups` argument.</code></pre>
 <p>The observed regional differences, such as higher rates in the South and variations in the Midwest and West, might be influenced by a multitude of factors including healthcare infrastructure, socioeconomic status, accessibility of prenatal and postnatal care, and population density. Regions with higher population densities might face different healthcare challenges than less densely populated areas, potentially affecting the availability and quality of care.</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="analysis_files/figure-html/figure 5-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="analysis_files/figure-html/figure 5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <div class="cell" data-null="false">
@@ -246,12 +268,16 @@ override using the `.groups` argument.</code></pre>
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="analysis_files/figure-html/figure 9-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="analysis_files/figure-html/figure 9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
-<section id="model-findings" class="level1">
-<h1>Model Findings</h1>
+<section id="model-findings-1" class="level1">
+<h1>2.Model Findings</h1>
 <section id="simple-linear-regression-for-mmr-age" class="level3">
 <h3 class="anchored" data-anchor-id="simple-linear-regression-for-mmr-age">Simple Linear Regression for MMR-AGE</h3>
 <div class="cell">
@@ -335,13 +361,12 @@ override using the `.groups` argument.</code></pre>
 <li><p><strong>Model Significance (F-statistic and p-value)</strong>: The F-statistic of 28.51 and the p-value of 0.0000001 indicate that the model is statistically significant, meaning that the relationship between the dependent and independent variables is unlikely due to chance. However, despite statistical significance, the low R-squared indicates that other factors might influence the dependent variable not captured by this model.</p></li>
 </ol>
 </section>
-<section id="multiplie-linear-regression-for-mmr-age-with-healthcare-spending-and-region" class="level3">
-<h3 class="anchored" data-anchor-id="multiplie-linear-regression-for-mmr-age-with-healthcare-spending-and-region">Multiplie Linear Regression for MMR-AGE with Healthcare Spending and Region</h3>
+</section>
+<section id="multiplie-linear-regression-for-mmr-age-with-healthcare-spending-and-region" class="level1">
+<h1>3.Multiplie Linear Regression for MMR-AGE with Healthcare Spending and Region</h1>
 <p>To accurately understand maternal mortality rates (MMR) in relation to age, it’s essential to consider other influential factors such as healthcare spending and regional differences. Multiple linear regression allows us to assess the combined impact of these factors, providing a more nuanced analysis of how each variable influences MMR while controlling for others.</p>
-</section>
-</section>
-<section id="correlation-matrix" class="level1">
-<h1>Correlation Matrix</h1>
+<section id="correlation-matrix" class="level2">
+<h2 class="anchored" data-anchor-id="correlation-matrix">Correlation Matrix</h2>
 <div class="cell">
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
@@ -466,8 +491,8 @@ override using the `.groups` argument.</code></pre>
 <p>· The correlation matrix shows a strong positive correlation between year and healthcare spending (0.855), suggesting that healthcare spending has generally increased over time. It also highlights a moderate positive correlation between <code>mean_val</code> (possibly MMR) and <code>year</code> (0.573), implying that the target variable might have increased over time, though other factors are also influencing it.</p>
 <p>· The regional dummy variables have low or negative correlations with most other variables, indicating that regional effects might be distinct and not directly correlated with the continuous variables in the matrix.</p>
 </section>
-<section id="regression" class="level1">
-<h1>Regression</h1>
+<section id="regression" class="level2">
+<h2 class="anchored" data-anchor-id="regression">Regression</h2>
 <div class="cell" data-null="false">
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
@@ -537,8 +562,8 @@ override using the `.groups` argument.</code></pre>
 </div>
 <p><strong>Effect of Predictors</strong>: - <strong>AverageAge</strong>: With a coefficient of 2.32 (p &lt; 0.001), a unit increase in average age is associated with an estimated increase of 2.32 units in MMR, holding other factors constant. This implies that as the average age of mothers increases, MMR tends to increase. - <strong>Spending</strong>: The spending coefficient is 0.00093 (p = 0.015), indicating that each unit increase in healthcare spending is associated with a slight increase in MMR, but the effect is very small. It is generally expected that increasing healthcare spending would reduce maternal mortality rates (MMR). However, since maternal mortality can also be linked to chronic diseases, increased healthcare expenditure does not always directly translate to improved outcomes. Additionally, as individuals are having children later in life compared to previous generations, the probability of maternal mortality may increase, which could contribute to higher healthcare costs without necessarily improving MMR. - <strong>Regions</strong>: - <strong>Northeast</strong>: This region has a significant negative coefficient of -6.35 (p &lt; 0.001), suggesting that, compared to the baseline region, the Northeast is associated with a decrease in MMR. - <strong>South</strong>: The coefficient for the South is positive (1.64) but not statistically significant (p = 0.202). - <strong>West</strong>: The coefficient for the West is 0.91, also not statistically significant (p = 0.483).</p>
 </section>
-<section id="performance-siginifcane" class="level1">
-<h1>Performance Siginifcane</h1>
+<section id="performance-siginifcane" class="level2">
+<h2 class="anchored" data-anchor-id="performance-siginifcane">Performance Siginifcane</h2>
 <div class="cell">
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
@@ -600,22 +625,36 @@ override using the `.groups` argument.</code></pre>
 <li><p><strong>Model Significance (F-statistic and p-value)</strong>: The F-statistic of 13.44 and the associated p-value of 0 show that the overall model is statistically significant, meaning that the relationship between the predictors and the dependent variable (MMR) is unlikely to have occurred by chance. Despite the statistical significance, the low R-squared values indicate that there are likely other important factors not captured in this model that influence MMR.</p></li>
 <li><p><strong>Model Diagnostics (Sigma and Log-Likelihood)</strong>: The sigma (residual standard error) of 11.97 reflects the average deviation of the observed MMR values from the predicted values, indicating the model’s predictive accuracy. The log-likelihood of -2782.799 provides a measure of the model’s fit, with higher values indicating a better fit. The AIC (5579.599) and BIC (5611.595) values also offer measures of the model’s goodness-of-fit, helping to compare it with other models.</p></li>
 </ol>
-<p>Residual Plot</p>
+<section id="residual-plot" class="level4">
+<h4 class="anchored" data-anchor-id="residual-plot">Residual Plot</h4>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="analysis_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="analysis_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>The residual plot indicates that the multiple linear regression model generally fits the data well, as evidenced by the mostly random scatter of residuals around zero. However, the presence of slight curvature suggests potential non-linearity in the relationship, and the mild fan shape of the residuals suggests possible heteroscedasticity, meaning that the variability in MMR may increase with higher fitted values. The presence of outliers also suggests that further investigation is needed to ensure these points do not disproportionately influence the model’s results.</p>
-<p>QQ-Plot</p>
+</section>
+<section id="qq-plot" class="level4">
+<h4 class="anchored" data-anchor-id="qq-plot">QQ-Plot</h4>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="analysis_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="analysis_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>The normal Q-Q plot shows that the residuals of the model generally follow a normal distribution, as most data points align with the diagonal reference line. However, there are notable deviations at the tails, particularly at the upper end, indicating the presence of significant outliers and suggesting that the residuals are not perfectly normal. This lack of normality at the extremes suggests that certain extreme data points might be influencing the model, potentially affecting its assumptions and necessitating further investigation or alternative modeling approaches.</p>
-<section id="log-log-regression-model" class="level3">
-<h3 class="anchored" data-anchor-id="log-log-regression-model">LOG-LOG Regression Model</h3>
+</section>
+</section>
+</section>
+<section id="log-log-regression-model-1" class="level1">
+<h1>4.Log-Log Regression Model</h1>
 <p>The multiple linear regression analysis and diagnostic plots suggest potential issues with outliers and deviations from normality in the data. The residuals show some non-linearity and heteroscedasticity, indicating that the standard linear model might not be fully capturing the relationships among maternal mortality rates (MMR), age, spending, and regional effects. By applying a log-log regression model, we can linearize the relationships among variables, handle skewed data more effectively, and interpret coefficients as elasticities, which measure the percentage change in MMR in response to a 1% change in predictors. This approach can improve the model’s fit, stabilize variance, and provide more meaningful insights into the proportional changes affecting maternal mortality.</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -811,11 +850,15 @@ override using the `.groups` argument.</code></pre>
 <li><p><strong>Model Diagnostics (Sigma, Log-Likelihood, AIC, and BIC)</strong>: The sigma (residual standard error) of 0.42 reflects the average deviation of observed log-transformed MMR values from predicted values. The log-likelihood of -388.48 indicates the model’s goodness-of-fit, with higher values implying a better fit. The AIC (790.96) and BIC (822.96) values provide comparative measures of fit, penalizing for model complexity. The deviance (124.11) and residual degrees of freedom (708) give additional insight into the model’s residuals and flexibility, while the number of observations (714) reflects the sample size.</p></li>
 </ol>
 </section>
-<section id="qq-and-residual" class="level2">
-<h2 class="anchored" data-anchor-id="qq-and-residual">QQ and residual</h2>
+<section id="qq-plot-and-residual-plot-1" class="level1">
+<h1>5. QQ Plot and Residual Plot</h1>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="analysis_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="analysis_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>The residuals vs.&nbsp;fitted plot of the log-log regression model shows a more random and consistent distribution of residuals compared to the previous model, indicating a better fit to the data. The spread of residuals is more uniform, suggesting that the log-log model effectively addresses non-linearity and reduces heteroscedasticity, making the variance of residuals more constant. Additionally, there are fewer extreme outliers, which means that the log-log transformation mitigates the influence of extreme data points and provides a more accurate representation of the relationship between maternal mortality rates, age, spending, and regional factors. Despite this improvement, further refinement could enhance the model’s overall fit and predictive accuracy.</p>
@@ -824,10 +867,23 @@ override using the `.groups` argument.</code></pre>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(<span class="fu">resid</span>(log_mlr_model))</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(<span class="fu">resid</span>(log_mlr_model), <span class="at">col =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="analysis_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="analysis_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>The current normal Q-Q plot shows that the residuals from the log-log regression model generally follow a normal distribution, with most points aligning closely to the diagonal reference line. However, there are slight deviations at the extremes, which are indicative of some outliers affecting the tails. Compared to the previous Q-Q plot, which exhibited more extreme deviations from normality at the upper end, the log-log model demonstrates improved normality of residuals, suggesting that the log transformation helps to mitigate the influence of outliers and enhances the overall fit. Nonetheless, the presence of outliers in both models indicates potential factors influencing the data that are not fully captured in either model.</p>
+<section id="flaws-and-limitations" class="level2">
+<h2 class="anchored" data-anchor-id="flaws-and-limitations">Flaws and Limitations</h2>
+<p>While we were looking at the relationship between healthcare spending and maternal mortality rate, we found out that there may be other factors that influence the mortality rate as their correlation is not strong. In addition, our pregnancy rate data in each state didn’t include specific ethnic groups, thus we cannot correlate them in a detailed way to distinguish the effects of pregnancy rate in each ethnic group on the maternal mortality rate.</p>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>1.As time passes, the maternal mortality rate increases across the U.S. Non-Hispanic American Indian, Alaska Native and Non-Hispanic Black are the three most vulnerable ethnic groups.</p>
+<p>2.Increasing spending on healthcare would decrease the maternal mortality rate.</p>
+<p>3.As the age of pregnant women increases, the maternal mortality rate also increases.</p>
 
 
 </section>
@@ -913,10 +969,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -926,8 +981,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -940,6 +1004,125 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -983,6 +1166,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1008,6 +1192,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1068,6 +1278,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+
 
 
 
