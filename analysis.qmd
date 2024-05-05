@@ -6,35 +6,32 @@ draft: false
 ---
 ![](images/MMRpics.jpeg)
 
+# Motivation and Research Question
 
-### Introduction
-# Motivation
-- Variable
-- Question to answer 
-- Objectives
-- Outline of models (This will include figures/tables that illustrate aspects of the data of your question.)
-
-# Explain the flaws and limitations of your analysis
+## Motivation
+The main purpose of our study is to explore the differences in maternal mortality rates(mmr) among different ethnic groups from 1999 to 2019 across the U.S., and the impact of healthcare spending and average age of pregnancy on maternal mortality rates. By comparing the average maternal mortality rate in each state with other variables,  we can identify the factors that affect maternal mortality rates, thereby enhancing the understanding and protection of women.
 
 
 
-### Conclusion
+We collected and cleaned the average spending of healthcare data and the average pregnancy age data. During the analyzing process, we notice a clear increasing trend in both the line plot of spending vs mmr and avergae age vs mmr. Thus, we predict that a linear regression may provide a fit model for the deduction.
+
+
+## Outline
+
+#### 1.General Information Analysis
+
+#### 2.Model Findings
+
+#### 3.Multiplie Linear Regression Model
+
+#### 4.Log-Log Regression Model
+
+#### 5.QQ Plot and Residual Plot
 
 
 
 
-As shown in the data page, we find out the unexpected positive growth of the maternal mortality rate over the States. In effort to figure out the possible reasons that has statistical significance causing this increasing trend, our group seek to explore if the annual spending on healthcare and the average age of pregnancy could contribute to the phenomenon. 
-
-Our team focus on the following variables:
-
-  - Demographic factors : race group, year, location
-  - Other factors : spending on healthcare, average age of pregnancy.
-
-We collected and cleaned the average spending of healthcare data and the average pregnancy age data. During the analyzing process, we notice a clear increasing trend in both the line plot of spending vs mmr and avaergae age vs mmr. Thus, we predict that a linear regression may provide a fit model for the deduction.
-
-
-
-# Analysis
+# 1.General Information Analysis
 ```{r load in the data, echo=FALSE}
 suppressPackageStartupMessages(library(tidyverse))
 load(here::here("dataset/mmr.RData"))
@@ -130,7 +127,7 @@ ggplot(data, aes(x = spending, y = AverageAge, color = Region)) +
 ```
 
 
-# Model Findings
+# 2.Model Findings
 
 ### Simple Linear Regression for MMR-AGE
 ```{r, echo=FALSE, warning = FALSE}
@@ -192,10 +189,12 @@ kable(
 
 
 
-### Multiplie Linear Regression for MMR-AGE with Healthcare Spending and Region
+
+
+# 3.Multiplie Linear Regression for MMR-AGE with Healthcare Spending and Region
 To accurately understand maternal mortality rates (MMR) in relation to age, it's essential to consider other influential factors such as healthcare spending and regional differences. Multiple linear regression allows us to assess the combined impact of these factors, providing a more nuanced analysis of how each variable influences MMR while controlling for others.
 
-# Correlation Matrix
+## Correlation Matrix
 ```{r, echo=FALSE, warning = FALSE}
 
 # Load the dataset from the uploaded file
@@ -227,7 +226,7 @@ kable(correlation_matrix, caption = "Correlation Matrix")
 
 · The regional dummy variables have low or negative correlations with most other variables, indicating that regional effects might be distinct and not directly correlated with the continuous variables in the matrix.
 
-# Regression 
+## Regression 
 ```{r, echo=FALSE, warning = FALSE, null = FALSE}
 # Load necessary libraries
 library(readr)
@@ -270,7 +269,7 @@ kable(coef_table, caption = "Multiple Linear Regression Coefficients")
      - **South**: The coefficient for the South is positive (1.64) but not statistically significant (p = 0.202).
      - **West**: The coefficient for the West is 0.91, also not statistically significant (p = 0.483).
 
-# Performance Siginifcane
+## Performance Siginifcane
 ```{r, echo=FALSE, warning = FALSE}
 # Load the data
 data <- read_csv("dataset/phc_mmr_with_age.csv", show_col_types = FALSE)
@@ -336,7 +335,7 @@ kable(model_stats, caption = "Multiple Linear Regression Model Statistics")
 
 3. **Model Diagnostics (Sigma and Log-Likelihood)**: The sigma (residual standard error) of 11.97 reflects the average deviation of the observed MMR values from the predicted values, indicating the model's predictive accuracy. The log-likelihood of -2782.799 provides a measure of the model's fit, with higher values indicating a better fit. The AIC (5579.599) and BIC (5611.595) values also offer measures of the model's goodness-of-fit, helping to compare it with other models.
 
-Residual Plot
+#### Residual Plot
 ```{r, echo=FALSE, warning = FALSE}
 # Load the data
 data <- read_csv("dataset/phc_mmr_with_age.csv", show_col_types = FALSE)
@@ -367,7 +366,7 @@ plot(mlr_model, which = 1)  # Residuals vs Fitted
 ```
 The residual plot indicates that the multiple linear regression model generally fits the data well, as evidenced by the mostly random scatter of residuals around zero. However, the presence of slight curvature suggests potential non-linearity in the relationship, and the mild fan shape of the residuals suggests possible heteroscedasticity, meaning that the variability in MMR may increase with higher fitted values. The presence of outliers also suggests that further investigation is needed to ensure these points do not disproportionately influence the model's results.
 
-QQ-Plot
+#### QQ-Plot
 ```{r, echo=FALSE, warning = FALSE}
 # Load the data
 data <- read_csv("dataset/phc_mmr_with_age.csv", show_col_types = FALSE)
@@ -396,7 +395,9 @@ qqline(resid(mlr_model), col = "red")
 ```
 The normal Q-Q plot shows that the residuals of the model generally follow a normal distribution, as most data points align with the diagonal reference line. However, there are notable deviations at the tails, particularly at the upper end, indicating the presence of significant outliers and suggesting that the residuals are not perfectly normal. This lack of normality at the extremes suggests that certain extreme data points might be influencing the model, potentially affecting its assumptions and necessitating further investigation or alternative modeling approaches.
 
-### LOG-LOG Regression Model
+
+
+# 4.Log-Log Regression Model
 The multiple linear regression analysis and diagnostic plots suggest potential issues with outliers and deviations from normality in the data. The residuals show some non-linearity and heteroscedasticity, indicating that the standard linear model might not be fully capturing the relationships among maternal mortality rates (MMR), age, spending, and regional effects. By applying a log-log regression model, we can linearize the relationships among variables, handle skewed data more effectively, and interpret coefficients as elasticities, which measure the percentage change in MMR in response to a 1% change in predictors. This approach can improve the model's fit, stabilize variance, and provide more meaningful insights into the proportional changes affecting maternal mortality.
 
 ```{r, echo=FALSE, warning = FALSE}
@@ -507,7 +508,7 @@ kable(model_stats, caption = "Log-Log Multiple Linear Regression Model Statistic
 
 3. **Model Diagnostics (Sigma, Log-Likelihood, AIC, and BIC)**: The sigma (residual standard error) of 0.42 reflects the average deviation of observed log-transformed MMR values from predicted values. The log-likelihood of -388.48 indicates the model's goodness-of-fit, with higher values implying a better fit. The AIC (790.96) and BIC (822.96) values provide comparative measures of fit, penalizing for model complexity. The deviance (124.11) and residual degrees of freedom (708) give additional insight into the model's residuals and flexibility, while the number of observations (714) reflects the sample size.
 
-## QQ and residual
+# 5. QQ Plot and Residual Plot
 ```{r, echo=FALSE, warning = FALSE}
 # Load necessary libraries
 library(readr)
@@ -556,3 +557,16 @@ qqnorm(resid(log_mlr_model))
 qqline(resid(log_mlr_model), col = "red")
 ```
 The current normal Q-Q plot shows that the residuals from the log-log regression model generally follow a normal distribution, with most points aligning closely to the diagonal reference line. However, there are slight deviations at the extremes, which are indicative of some outliers affecting the tails. Compared to the previous Q-Q plot, which exhibited more extreme deviations from normality at the upper end, the log-log model demonstrates improved normality of residuals, suggesting that the log transformation helps to mitigate the influence of outliers and enhances the overall fit. Nonetheless, the presence of outliers in both models indicates potential factors influencing the data that are not fully captured in either model.
+
+
+## Flaws and Limitations
+While we were looking at the relationship between healthcare spending and maternal mortality rate, we found out that there may be other factors that influence the mortality rate as their correlation is not strong. In addition, our pregnancy rate data in each state didn’t include specific ethnic groups, thus we cannot correlate them in a detailed way to distinguish the effects of pregnancy rate in each ethnic group on the maternal mortality rate. 
+
+
+## Conclusion
+1.As time passes, the maternal mortality rate increases across the U.S. Non-Hispanic American Indian, Alaska Native and Non-Hispanic Black are the three most vulnerable ethnic groups.
+
+2.Increasing spending on healthcare would decrease the
+maternal mortality rate.
+
+3.As the age of pregnant women increases, the maternal mortality rate also increases.
