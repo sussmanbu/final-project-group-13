@@ -1,5 +1,5 @@
 ---
-title: ""Beyond Birth Rates: Prioritizing Maternal Mortality for Holistic Health Outcomes""
+title: Beyond Birth Rates: Prioritizing Maternal Mortality for Holistic Health Outcomes
 description: "Explore the Maternal Morality Ratio"
 toc: true
 draft: FALSE
