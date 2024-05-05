@@ -69,5 +69,33 @@ Your about page is up to date and clean.
 You have removed the generic posts from the initial site template.
 
 
+#More people are dying giving birth over last few decades, even with better medical equipment…?
+
+With the educational guess of having a decreasing trend in the maternal mortality rate in the past 20 years, our team’s original purpose was to see how the healthcare policy and the economic reasons can affect the MMR in each racial group. However, with the reveal of the unexpected increasing trend in the death rate, we decided to look into other environmental factors that could possibly give reasonable explanations for the growing trend of mortality rate. 
+
+##Why does the investigation on MMR matter?
+
+The maternal mortality rate is a comprehensive dataset that gives insight into the trends and disparities of public health resources, the guiding formulation of the related policy, and the overall societal welfare. This research matters not only because it reflects the effectiveness of the healthcare system, but the increasing tendency also highlight the broader socioeconomic causes behind the scenes. 
+
+
+##Rich Girl Young Age?
+In the exploration of the possible environmental factors, the scholar articles give us the idea to take a close look at the healthcare spending and the average age of pregnancy. Both the datasets show the trend over time which offers us two solid facts: 1. People are having babies at an older age over time. 2. The spending on healthcare is increasing over time. We predict that the MMR will not be statistically noticeable in groups of the younger age of pregnancy and higher spending on healthcare. So, a rich girl at a young age should be a satisfying answer, but is it?
+
+##Thesis statement
+The increase in the maternal mortality rate is significantly influenced by a combination of environmental factors —- spending on healthcare, and the average age of pregnancy. 
+
+##Younger Age is preferred, but
+Though as mentioned in a lot of bio medical research, there does not seem to exist such an age range as “the golden year of giving birth”, the statistical results show that the average age of pregnancy is a strong indicator of the MMR trend. This trend supports the idea that the growing average age is contributing to the increasing maternal mortality rate across the country. Considering that fact that the MMR can also linked to the chronic disease and other maternal diseases that leads to fatal situations, it is fair to consider the probability that the increasing age of pregnancy also link to these factors. 
+
+##Spending needs a second thought…
+In the analysis of spending in healthcare however, the correlation coefficient does show a moderate correlation between the spending and the MMR. This contradicts the original hypothesis of “rich girl at young age”. With the support of the multiple linear regression analysis, the r squared value reveals the fact that the spending factor is correlated with many other variables that might influence the MMR result. For example, since people tend to have kids later in life, the spending on health care may increase according to the fact that the income level of the age group is different. From another perspective, this moderate increasing trend can also be owing to the fact that the spending does not always directly translate into the positive result in MMR. 
+
+##Conclusion
+Despite the advanced medical technology and healthcare practices, the Maternal Mortality Rate(MMR) unexpectedly grows in the recent decades. The sharp increase of MMR in all race groups and regional groups reveal the crucial fact that the resource allocation and socioeconomic factors are drastically influencing the data performance. The further investigation of our reasearch explore two key factors: the rising average age of pregnancy and healthcare spending. While the increasing maternal age is strongly linked to a higher MMR, healthcare spending alone does not consistently lead to better outcomes due to its complex relationships with other socioeconomic variables. 
+By understanding the complex potential causes, the research underscores the the need for comprehensive strategies addressing broader determinants of health, economic resources, and healthcare practices to reverse this troubling trend in maternal mortality.
+
+
+
+
 
 
