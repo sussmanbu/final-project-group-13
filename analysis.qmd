@@ -9,12 +9,9 @@ draft: false
 # Motivation and Research Question
 
 ## Motivation
-The main purpose of our study is to explore the differences in maternal mortality rates(mmr) among different ethnic groups from 1999 to 2019 across the U.S., and the impact of healthcare spending and average age of pregnancy on maternal mortality rates. By comparing the average maternal mortality rate in each state with other variables,  we can identify the factors that affect maternal mortality rates, thereby enhancing the understanding and protection of women.
+The main purpose of the study is to explore the differences in maternal mortality rates(mmr) among different ethnic groups from 1999 to 2019 across the U.S., and the impact of healthcare spending and average age of pregnancy on maternal mortality rates. By comparing the average maternal mortality rate in each state with other variables,  the result can help to identify the factors that affect maternal mortality rates, thereby enhancing the understanding and protection of women.
 
-
-
-We collected and cleaned the average spending of healthcare data and the average pregnancy age data. During the analyzing process, we notice a clear increasing trend in both the line plot of spending vs mmr and avergae age vs mmr. Thus, we predict that a linear regression may provide a fit model for the deduction.
-
+Through the following analysis, a clear trend of spending vs mmr and avergae age vs mmr can be identified. T
 
 ## Outline
 
