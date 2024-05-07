@@ -11,10 +11,12 @@ draft: false
 ## Motivation
 The main purpose of the study is to explore the differences in maternal mortality rates(mmr) among different ethnic groups from 1999 to 2019 across the U.S., and the impact of healthcare spending and average age of pregnancy on maternal mortality rates. By comparing the average maternal mortality rate in each state with other variables,  the result can help to identify the factors that affect maternal mortality rates, thereby enhancing the understanding and protection of women.
 
-Through the following analysis, a clear trend of spending vs mmr and avergae age vs mmr can be identified. T
 
-
-research question????????
+## Research Question
+1. What are the distributions of maternal mortality rates (MMR) in different regions among different racial groups?
+2. How is healthcare spending distributed across different regions?
+3. What is the relationship between healthcare spending and maternal mortality rates over time?
+4. What are the effects of pregnancy age on maternal mortality rates?
 
 ## Outline
 
@@ -574,9 +576,9 @@ While we were looking at the relationship between healthcare spending and matern
 
 
 ## Conclusion
-1.As time passes, the maternal mortality rate increases across the U.S. Non-Hispanic American Indian, Alaska Native and Non-Hispanic Black are the three most vulnerable ethnic groups.
+1. As time passes, the maternal mortality rate increases across the U.S. Non-Hispanic American Indian, Alaska Native and Non-Hispanic Black are the three most vulnerable ethnic groups.
 
-2.Increasing spending on healthcare would decrease the
+2. Increasing spending on healthcare would decrease the
 maternal mortality rate.
 
-3.As the age of pregnant women increases, the maternal mortality rate also increases.
+3. As the age of pregnant women increases, the maternal mortality rate also increases.
