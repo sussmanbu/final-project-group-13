@@ -1,6 +1,6 @@
 ---
-title: Beyond Birth Rates-- Prioritizing Maternal Mortality for Holistic Health Outcomes
-description: "Explore the Maternal Morality Ratio"
+title: From Cash to Coffins-- Unraveling the Mystery of Rising Maternal Mortality Rates in the U.S.
+description: "Exploring the Maternal Morality Ratio"
 toc: true
 draft: FALSE
 ---
