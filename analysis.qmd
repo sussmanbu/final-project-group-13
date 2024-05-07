@@ -303,7 +303,7 @@ data <- read_csv("dataset/phc_mmr_with_age.csv", show_col_types = FALSE)
 data <- na.omit(data)
 
 data$AverageAge <- as.integer(data$AverageAge)
-data$mean_val <- data$mean_val / 100
+data$mean_val <- data$mean_val / 1000
 
 data$Region <- as.factor(data$Region)
 data$race_group <- as.factor(data$Region)
@@ -332,7 +332,7 @@ data <- data[complete.cases(data[c("AverageAge", "spending", "mean_val", "Region
 data$AverageAge <- as.integer(as.numeric(data$AverageAge))
 
 data$Region <- factor(data$Region)
-data$mean_val <- data$mean_val / 100
+data$mean_val <- data$mean_val / 1000
 
 region_dummies <- model.matrix(~ Region, data)[, -1]
 
@@ -348,9 +348,9 @@ kable(coef_table, caption = "Multiple Linear Regression Coefficients")
 ```
 **Effect of Predictors**: 
 
-   - **AverageAge**: With a coefficient of 0.023 (p < 0.001), a unit increase in average age is associated with an estimated increase of 0.023 units in MMR, holding other factors constant. This implies that as the average age of mothers increases, MMR tends to increase which also fits with precious simple regression result.
+   - **AverageAge**: With a coefficient of 0.0023 (p < 0.001), a unit increase in average age is associated with an estimated increase of 0.023 units in MMR, holding other factors constant. In other words, as the average age increases by a year, the predicted maternal mortality in this model increases by 0.0023 percent. This implies that as the average age of mothers increases, MMR tends to increase which also fits with precious simple regression result.
    
-   - **Spending**: The spending coefficient is 0.0000093 (p = 0.015), indicating that each unit increase in healthcare spending is associated with a slight increase in MMR, but the effect is very small. Intuitively, it is generally expected that increasing healthcare spending would reduce maternal mortality rates (MMR). However, since maternal mortality can also be linked to chronic diseases, increased healthcare expenditure does not always directly translate to improved outcomes.  Additionally, as individuals are having children later in life compared to previous generations, the probability of maternal mortality may increase, which could contribute to higher healthcare costs without necessarily improving MMR.
+   - **Spending**: The spending coefficient is 0.00000093 (p = 0.015), indicating that each unit increase in healthcare spending is associated with a slight increase in MMR, but the effect is very small. Intuitively, it is generally expected that increasing healthcare spending would reduce maternal mortality rates (MMR). However, since maternal mortality can also be linked to chronic diseases, increased healthcare expenditure does not always directly translate to improved outcomes.  Additionally, as individuals are having children later in life compared to previous generations, the probability of maternal mortality may increase, which could contribute to higher healthcare costs without necessarily improving MMR.
    
    
    ??? attribution
