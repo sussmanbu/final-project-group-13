@@ -21,40 +21,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -160,7 +126,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#maternal-mortality-vs.-healthcare-spending-by-year" id="toc-maternal-mortality-vs.-healthcare-spending-by-year" class="nav-link" data-scroll-target="#maternal-mortality-vs.-healthcare-spending-by-year">Maternal Mortality vs.&nbsp;Healthcare Spending by Year</a></li>
   <li><a href="#healtcare-spending-by-census-region" id="toc-healtcare-spending-by-census-region" class="nav-link" data-scroll-target="#healtcare-spending-by-census-region">Healtcare Spending by Census Region</a></li>
   </ul></li>
-  <li><a href="#model-findings-1" id="toc-model-findings-1" class="nav-link" data-scroll-target="#model-findings-1">2. Model Findings</a>
+  <li><a href="#simple-linear-regression-models-1" id="toc-simple-linear-regression-models-1" class="nav-link" data-scroll-target="#simple-linear-regression-models-1">2. Simple Linear Regression Models</a>
   <ul class="collapse">
   <li><a href="#simple-linear-regression-for-mmr-race_group" id="toc-simple-linear-regression-for-mmr-race_group" class="nav-link" data-scroll-target="#simple-linear-regression-for-mmr-race_group">Simple Linear Regression for MMR-Race_Group</a></li>
   <li><a href="#simple-linear-regression-for-mmr-age" id="toc-simple-linear-regression-for-mmr-age" class="nav-link" data-scroll-target="#simple-linear-regression-for-mmr-age">Simple Linear Regression for MMR-AGE</a></li>
@@ -173,8 +139,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#model-discussion" id="toc-model-discussion" class="nav-link" data-scroll-target="#model-discussion">Model Discussion</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#multiplie-linear-regression-for-mmr-age-with-healthcare-spending-and-race" id="toc-multiplie-linear-regression-for-mmr-age-with-healthcare-spending-and-race" class="nav-link" data-scroll-target="#multiplie-linear-regression-for-mmr-age-with-healthcare-spending-and-race">4.Multiplie Linear Regression for MMR-AGE with Healthcare Spending and Race</a></li>
-  <li><a href="#log-log-regression-model-1" id="toc-log-log-regression-model-1" class="nav-link" data-scroll-target="#log-log-regression-model-1">5. Log-Log Regression Model</a>
+  <li><a href="#log-log-regression-model-1" id="toc-log-log-regression-model-1" class="nav-link" data-scroll-target="#log-log-regression-model-1">4. Log-Log Regression Model</a>
   <ul class="collapse">
   <li><a href="#model-discussion-1" id="toc-model-discussion-1" class="nav-link" data-scroll-target="#model-discussion-1">Model Discussion</a></li>
   <li><a href="#flaws-and-limitations" id="toc-flaws-and-limitations" class="nav-link" data-scroll-target="#flaws-and-limitations">Flaws and Limitations</a></li>
@@ -229,8 +194,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="general-information-analysis" class="level4">
 <h4 class="anchored" data-anchor-id="general-information-analysis">1. General Information Analysis</h4>
 </section>
-<section id="model-findings" class="level4">
-<h4 class="anchored" data-anchor-id="model-findings">2. Model Findings</h4>
+<section id="simple-linear-regression-models" class="level4">
+<h4 class="anchored" data-anchor-id="simple-linear-regression-models">2. Simple Linear Regression Models</h4>
 </section>
 <section id="multiplie-linear-regression-model" class="level4">
 <h4 class="anchored" data-anchor-id="multiplie-linear-regression-model">3. Multiplie Linear Regression Model</h4>
@@ -293,8 +258,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>• <strong>Overall Analysis</strong>: Regions with higher healthcare investments might provide better support for women to plan their pregnancies later in life, possibly due to better healthcare services and access to family planning.</p>
 </section>
 </section>
-<section id="model-findings-1" class="level1">
-<h1>2. Model Findings</h1>
+<section id="simple-linear-regression-models-1" class="level1">
+<h1>2. Simple Linear Regression Models</h1>
 <p>Building on the insights derived from the graphical analysis, the application of a regression model can enhance the robustness of the findings by quantifying the extent of the relationship between healthcare spending and the average age of pregnancy through statistical measures.</p>
 <section id="simple-linear-regression-for-mmr-race_group" class="level3">
 <h3 class="anchored" data-anchor-id="simple-linear-regression-for-mmr-race_group">Simple Linear Regression for MMR-Race_Group</h3>
@@ -376,7 +341,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
-<caption>Fit Statistics of the Single Linear Regression Model</caption>
+<caption>Fit Statistics of the Simple Linear Regression Model</caption>
 <colgroup>
 <col style="width: 9%">
 <col style="width: 13%">
@@ -804,99 +769,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 </section>
 </section>
-<section id="multiplie-linear-regression-for-mmr-age-with-healthcare-spending-and-race" class="level1">
-<h1>4.Multiplie Linear Regression for MMR-AGE with Healthcare Spending and Race</h1>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load necessary libraries</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"dataset/new_phc_mmr_combine.csv"</span>, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>AverageAge <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(data<span class="sc">$</span>AverageAge)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: NAs introduced by coercion</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data[<span class="fu">complete.cases</span>(data<span class="sc">$</span>AverageAge), ]</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>race_group <span class="ot">&lt;-</span> <span class="fu">factor</span>(data<span class="sc">$</span>race_group)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>mlr_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(mean_val <span class="sc">~</span> spending <span class="sc">+</span> race_group, <span class="at">data =</span> data)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>summary_model <span class="ot">&lt;-</span> <span class="fu">summary</span>(mlr_model)</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>coef_table <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(summary_model<span class="sc">$</span>coefficients)</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(coef_table, <span class="at">caption =</span> <span class="st">"Multiple Linear Regression Coefficients"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="table table-sm table-striped small">
-<caption>Multiple Linear Regression Coefficients</caption>
-<colgroup>
-<col style="width: 59%">
-<col style="width: 8%">
-<col style="width: 8%">
-<col style="width: 7%">
-<col style="width: 15%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;"></th>
-<th style="text-align: right;">Estimate</th>
-<th style="text-align: right;">Std. Error</th>
-<th style="text-align: right;">t value</th>
-<th style="text-align: right;">Pr(&gt;|t|)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">(Intercept)</td>
-<td style="text-align: right;">17.2634005</td>
-<td style="text-align: right;">0.9899825</td>
-<td style="text-align: right;">17.43809</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">spending</td>
-<td style="text-align: right;">0.0013975</td>
-<td style="text-align: right;">0.0001205</td>
-<td style="text-align: right;">11.60036</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">race_groupNon-Hispanic American Indian and Alaska Native</td>
-<td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0.6487582</td>
-<td style="text-align: right;">0.00000</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">race_groupNon-Hispanic Asian, Native Hawaiian, or Other Pacific Islander</td>
-<td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0.6487582</td>
-<td style="text-align: right;">0.00000</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">race_groupNon-Hispanic Black</td>
-<td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0.6487582</td>
-<td style="text-align: right;">0.00000</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">race_groupNon-Hispanic White</td>
-<td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0.6487582</td>
-<td style="text-align: right;">0.00000</td>
-<td style="text-align: right;">1</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</section>
 <section id="log-log-regression-model-1" class="level1">
-<h1>5. Log-Log Regression Model</h1>
+<h1>4. Log-Log Regression Model</h1>
 <p>The multiple linear regression analysis and plots suggest potential issues with outliers and deviations from normality in the data. The residuals show some non-linearity and heteroscedasticity, indicating that the standard linear model might not be fully capturing the relationships among maternal mortality rates (MMR), age, spending, and regional effects. Applying a log-log regression model can linearize the relationships among variables, handle skewed data more effectively, and interpret coefficients as elasticities, which measure the percentage change in MMR in response to a 1% change in predictors. This approach can improve the model’s fit, stabilize variance, and provide more meaningful insights into the proportional changes affecting maternal mortality.</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -1044,14 +918,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="model-discussion-1">Model Discussion</h3>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="analysis_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>• The model shows a more random and consistent distribution of residuals compared to the previous model, indicating a <strong>better fit to the data</strong>. The spread of residuals is more uniform, suggesting that the log-log model effectively <strong>addresses non-linearity and reduces heteroscedasticity</strong>, making the variance of residuals more constant.</p>
 <p>• There are <strong>fewer extreme outliers</strong>, which means that the log-log transformation mitigates the influence of extreme data points and provides a more accurate representation of the relationship between maternal mortality rates, age, spending, and regional factors. Despite this improvement, further refinement could enhance the model’s overall fit and predictive accuracy.</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="analysis_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>• The plot shows that the residuals from the log-log regression model follow a <strong>normal distribution</strong>, with most points aligning closely to the diagonal reference line.</p>
