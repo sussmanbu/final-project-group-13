@@ -355,8 +355,8 @@ kable(coef_table, caption = "Multiple Linear Regression Coefficients")
   
    - **Regions**: 
    
-     - **Northeast**: This region has a **significant negative** coefficient of -6.35 (p < 0.001), suggesting that, compared to the baseline region, the Northeast is associated with a decrease in MMR.
-     - **Others**: However, the result for other is not statistical siginificant.
+     - **Northeast**: This region has a **significant negative** coefficient of -6.35 (p < 0.001), suggesting that, compared to the baseline region, the Northeast is associated with a lower level of MMR.
+     - **Others**: However, the result for other is not statistical significant.
      
 
 ```{r, echo=FALSE, warning = FALSE}
@@ -579,7 +579,6 @@ kable(model_stats, caption = "Log-Log Multiple Linear Regression Model Statistic
 
 ### Model Discussion
 ```{r, echo=FALSE, warning = FALSE}
-# Load necessary libraries
 library(readr)
 library(knitr)
 library(ggplot2)
