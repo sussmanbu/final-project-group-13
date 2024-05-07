@@ -9,11 +9,11 @@ draft: false
 # Motivation and Research Question
 
 ## Motivation
-The main purpose of the study is to explore the differences in maternal mortality rates(mmr) among different ethnic groups from 1999 to 2019 across the U.S., and the impact of healthcare spending and average age of pregnancy on maternal mortality rates. By comparing the average maternal mortality rate in each state with other variables,  the result can help to identify the factors that affect maternal mortality rates, thereby enhancing the understanding and protection of women.
+The main purpose of the study is to explore the differences in maternal mortality rates (MMR) among different ethnic groups from 1999 to 2019 across the U.S., and the impact of healthcare spending and average age of pregnancy on these maternal mortality rates. By comparing the average maternal mortality rate in each state with other variables,  the result can help to identify the factors that most affect maternal mortality rates, thereby enhancing the understanding and protection of women.
 
 
-## Research Question
-1. What are the distributions of maternal mortality rates (MMR) in different regions among different racial groups?
+## Research Questions
+1. What are the trends of maternal mortality rates (MMR) in different regions among different racial groups over time?
 2. How is healthcare spending distributed across different regions?
 3. What is the relationship between healthcare spending and maternal mortality rates over time?
 4. What are the effects of pregnancy age on maternal mortality rates?
@@ -21,18 +21,18 @@ The main purpose of the study is to explore the differences in maternal mortalit
 
 ## Outline
 
-#### 1.General Information Analysis
+#### 1. General Information Analysis
 
-#### 2.Model Findings
+#### 2. Model Findings
 
-#### 3.Multiplie Linear Regression Model
+#### 3. Multiplie Linear Regression Model
 
-#### 4.Log-Log Regression Model
+#### 4. Log-Log Regression Model
 
 
-# 1.General Information Analysis
+# 1. General Information Analysis
 
-### Maternal Mortality by Census Region over Time, Faceted by Race
+### Study of Maternal Mortality Trends Across Race and Location
 ```{r load in the data, echo=FALSE}
 suppressPackageStartupMessages(library(tidyverse))
 load(here::here("dataset/mmr.RData"))
@@ -55,17 +55,18 @@ mmr_data_clean |>
 
 ```
 • **Regional Trends**:
-  - **Midwest Region (Red Line)**: Generally, a rising trend in maternal mortality rates is visible across most racial groups, especially pronounced in Non-Hispanic Black populations.
+
+  - **Midwest Region (Orange Line)**: Generally, a rising trend in maternal mortality rates is visible across most racial groups, especially pronounced in Non-Hispanic American Indian and Alaska Native and Non-Hispanic Black populations.
   
-  - **Northeast Region (Green Line)**: This region shows relatively stable or slightly rising rates among all groups, with significant increases visible in the Non-Hispanic Black and Native American groups around 2015.
+  - **Northeast Region (Green Line)**: This region shows relatively stable or slightly rising rates among all groups, with significant increases visible in the Non-Hispanic Black and Non-Hispanic American Indian and Alaska Native groups around 2015.
   
   - **South Region (Blue Line)**: This region exhibits the highest maternal mortality rates, particularly among Non-Hispanic Black women, where rates have sharply increased since around 2010.
   
   - **West Region (Purple Line)**: Displays relatively lower and more stable rates across most groups, except for a sharp increase in mortality among Non-Hispanic American Indian and Alaska Native groups after 2015.
 
-• **Interpretation of Racial Disparities**: Across all regions, **Non-Hispanic Black women** consistently have higher maternal mortality ratios compared to other racial groups, indicating significant racial disparities in maternal healthcare outcomes.
+• **Interpretation of Racial Disparities**: Across all regions, **Non-Hispanic Black women** and **Non-Hispanic American Indian and Alaska Native women** consistently have higher maternal mortality ratios compared to other racial groups, indicating significant racial disparities in maternal healthcare outcomes.
 
-• **Temporal Trends**: A general increase in maternal mortality ratios is observed from 2000 to 2020 across most racial and regional breakdowns, with some fluctuations and sharp increases in specific years and regions. 
+• **Temporal Trends**: A general increase in maternal mortality ratios is observed from 1999 to 2019 across most racial and regional breakdowns, with some fluctuations and sharp increases in specific years and regions. 
 
 
 
