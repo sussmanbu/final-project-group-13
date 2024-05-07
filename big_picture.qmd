@@ -86,7 +86,7 @@ ggplot(grouped, aes(x = mean_spending, y = mean_mmr)) +  # Line graph
   geom_smooth(method = "lm", se = FALSE, color = "blue") +  
   labs(title = "Maternal Mortality v.s. Spending",
        subtitle = "Averages for Each State",
-       x = "Spending ($)",
+       x = "Healthcare Spending ($)",
        y = "MMR") +
   theme_minimal()
 
