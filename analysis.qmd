@@ -56,7 +56,7 @@ mmr_data_clean |>
 ```
 • **Regional Trends**:
 
-  - **Midwest Region (Orange Line)**: Generally, a rising trend in maternal mortality rates is visible across most racial groups, especially pronounced in Non-Hispanic American Indian and Alaska Native and Non-Hispanic Black populations.
+  - **Midwest Region (Red Line)**: Generally, a rising trend in maternal mortality rates is visible across most racial groups, especially pronounced in Non-Hispanic American Indian and Alaska Native and Non-Hispanic Black populations.
   
   - **Northeast Region (Green Line)**: This region shows relatively stable or slightly rising rates among all groups, with significant increases visible in the Non-Hispanic Black and Non-Hispanic American Indian and Alaska Native groups around 2015.
   
@@ -160,8 +160,78 @@ ggplot(data, aes(x = spending, y = AverageAge, color = Region)) +
   
   
 
-# 2.Model Findings
+# 2. Model Findings
 Building on the insights derived from the graphical analysis, the application of a regression model can enhance the robustness of the findings by quantifying the extent of the relationship between healthcare spending and the average age of pregnancy through statistical measures.
+
+
+### Simple Linear Regression for MMR-Race_Group
+```{r,echo=FALSE, warning = FALSE}
+
+library(readr)
+library(knitr)
+
+data <- read_csv("dataset/mmr_clean.csv", show_col_types = FALSE)
+
+data <- data[complete.cases(data[c("val", "race_group")]), ]
+
+data$race_group <- factor(data$race_group)
+
+race_group_dummies <- model.matrix(~ race_group - 1, data)[, -1]  
+
+mlr_data <- cbind(data["val"], race_group_dummies)
+
+mlr_model <- lm(val ~ ., data = mlr_data)
+
+summary_model <- summary(mlr_model)
+coef_table <- as.data.frame(summary_model$coefficients)
+
+kable(coef_table, caption = "Linear Regression Coefficients with Race Group")
+```
+1. **Hispanic and any race**: This group has a coefficient of -9.25, which suggests that being from the "Hispanic and any race" group is associated with a decrease of approximately 9.25 in the dependent variable `val` compared to the reference group. The p-value of 0.0579473 indicates that this result is marginally significant (just above the usual 0.05 threshold).
+
+2. **Non-Hispanic American Indian and Alaska Native**: The coefficient of 9.70 indicates that being from this race group is associated with an increase of approximately 9.70 in MMR compared to the reference group, and this result is statistically significant (p-value = 0.0466873).
+
+3. **Non-Hispanic Asian, Native Hawaiian, or Other Pacific Islander**: This group has a coefficient of -7.30, suggesting a decrease in MMR by about 7.30 compared to the reference group. However, the p-value of 0.1347347 suggests that this association is not statistically significant.
+
+4. **Non-Hispanic Black**: This group has a positive coefficient of 20.09, indicating that being from this race group is associated with an increase in MMR by about 20.09 compared to the reference group. This effect is statistically significant with a p-value of 0.0000385.
+
+5. **Non-Hispanic White**: The coefficient of -4.13 suggests that being from the Non-Hispanic White group is associated with a decrease of about 4.13 in MMR compared to the reference group. The association is not statistically significant (p-value = 0.3969998).
+
+The analysis underscores the existence of racial disparities in maternal mortality, with significant differences particularly affecting Non-Hispanic Black and American Indian/Alaska Native populations. These findings highlight the need for targeted interventions and policies to address the disproportionately higher risks faced by these groups.
+
+
+```{r,echo=FALSE, warning = FALSE}
+
+library(readr)
+library(knitr)
+library(broom)  
+
+data <- read_csv("dataset/mmr_clean.csv", show_col_types = FALSE)
+
+data <- data[complete.cases(data[c("val", "race_group")]), ]
+
+data$race_group <- factor(data$race_group)
+
+race_group_dummies <- model.matrix(~ race_group - 1, data)[, -1]  
+
+mlr_data <- cbind(data["val"], race_group_dummies)
+
+mlr_model <- lm(val ~ ., data = mlr_data)
+
+coef_table <- tidy(mlr_model)
+
+fit_stats <- glance(mlr_model)
+
+kable(fit_stats, caption = "Fit Statistics of the Multiple Linear Regression Model")
+
+```
+• **Model Fit (R-squared and Adjusted R-squared)**: The R-squared value of 0.2057 suggests that about 20.57% of the variability in the MMR is explained by the model. The adjusted R-squared value, slightly lower at 0.2050, adjusts for the number of predictors in the model and confirms that about 20.50% of the variability is explained after accounting for the number of predictors.
+
+• **Model Significance (F-statistic and p-value)**: The F-statistic of 305.34 and a p-value near zero indicate that the model is statistically significant. This means the effects observed in the model are unlikely to be due to random chance, suggesting a strong relationship between the predictors (`race_group`, possibly along with other factors) and the response variable.
+
+• **Residuals and Model Adequacy (Sigma and Deviance)**: The sigma value of 22.1562, representing the standard error of the residuals, suggests that the typical deviation of the observed values from the fitted values is about 22.16. The large deviance value of 2893838 also indicates substantial variability around the fitted values, which might suggest potential model underfitting or the presence of outliers.
+
+
 
 ### Simple Linear Regression for MMR-AGE
 ```{r, echo=FALSE, warning = FALSE}
@@ -171,7 +241,12 @@ library(knitr)
 data <- read_csv("dataset/phc_mmr_with_age.csv", show_col_types = FALSE)
 data$AverageAge <- as.integer(data$AverageAge)
 
+<<<<<<< HEAD
 data$mean_val <- data$mean_val / 100
+=======
+data$mean_val <- data$mean_val / 1000
+# Fit the simple linear regression model with AverageAge as the predictor
+>>>>>>> 42faa39bcd0311025cd974a251cb9314d04c93b4
 model <- lm(mean_val ~ AverageAge, data = data)
 
 coefficients_table <- tidy(model)
@@ -196,7 +271,7 @@ kable(
 )
 
 ```
-1. **Coefficient for AverageAge**: The coefficient estimate for `AverageAge` is 0.0216. This indicates that for each additional year increase in the average age, the MMR increases by approximately 0.0216 units on average, assuming a linear relationship.This also aligns with the intuition that as people age, the risk of mortality increases.
+1. **Coefficient for AverageAge**: The coefficient estimate for `AverageAge` is 0.00216. This indicates that for each additional year increase in the average age, the MMR increases by approximately 0.00216 percent on average, assuming a linear relationship. This also aligns with the intuition that as people age, the risk of mortality increases.
 
 2. **Statistical Significance**: The p-value for `AverageAge` is extremely low (0.0000001), indicating strong statistical significance. This suggests that there is a very low probability that the observed association is due to random chance, implying that `AverageAge` is a significant predictor of MMR.
   
@@ -393,8 +468,40 @@ qqline(resid(mlr_model), col = "red")
 • However, there are notable deviations at the tails, particularly at the upper end, indicating the presence of significant **outliers** and suggesting that the residuals are not perfectly normal. This lack of normality at the extremes suggests that certain extreme data points might be influencing the model, potentially affecting its assumptions and necessitating further investigation or alternative modeling approaches.
 
 
+# 4.Multiplie Linear Regression for MMR-AGE with Healthcare Spending and Race
+```{r}
+# Load necessary libraries
+library(readr)
+library(dplyr)
+library(knitr)
 
-# 4.Log-Log Regression Model
+# Load the dataset
+data <- read_csv("dataset/new_phc_mmr_combine.csv", show_col_types = FALSE)
+
+# Convert Age to integer
+data$AverageAge <- as.integer(data$AverageAge)
+
+# Ensure Age conversion didn't result in unexpected NAs
+data <- data[complete.cases(data$AverageAge), ]
+
+# Convert race_group to a factor
+data$race_group <- factor(data$race_group)
+
+# Fit the multiple linear regression model
+mlr_model <- lm(mean_val ~ spending + race_group, data = data)
+
+# Get the summary of the model and convert it to a data frame
+summary_model <- summary(mlr_model)
+coef_table <- as.data.frame(summary_model$coefficients)
+
+# Display the coefficients in a Kable table
+kable(coef_table, caption = "Multiple Linear Regression Coefficients")
+
+```
+
+
+
+# 5.Log-Log Regression Model
 The multiple linear regression analysis and  plots suggest potential issues with outliers and deviations from normality in the data. The residuals show some non-linearity and heteroscedasticity, indicating that the standard linear model might not be fully capturing the relationships among maternal mortality rates (MMR), age, spending, and regional effects. Applying a log-log regression model can linearize the relationships among variables, handle skewed data more effectively, and interpret coefficients as elasticities, which measure the percentage change in MMR in response to a 1% change in predictors. This approach can improve the model's fit, stabilize variance, and provide more meaningful insights into the proportional changes affecting maternal mortality.
 
 ```{r, echo=FALSE, warning = FALSE}
@@ -543,4 +650,36 @@ qqline(resid(log_mlr_model), col = "red")
 
 4. **Correlation Between Maternal Age and Mortality Rates**: Evidence points to a correlation between the age of pregnancy and maternal mortality rates, with an increase in age associated with higher mortality risks. This trend underscores the need for enhanced prenatal and postnatal care tailored to older pregnant women, highlighting age as a significant factor in maternal health risk assessments.
 
+
+
+```{r}
+# Load necessary libraries
+library(readr)
+library(knitr)
+
+# Load the dataset
+data <- read_csv("dataset/mmr_clean.csv", show_col_types = FALSE)
+
+# Remove rows with missing or non-numeric values in critical columns
+data <- data[complete.cases(data[c("val", "race_group")]), ]
+
+# Convert race_group to a factor and exclude one level to avoid singularities
+data$race_group <- factor(data$race_group)
+
+# Generate dummy variables for race_group, excluding the first level to avoid singularities
+race_group_dummies <- model.matrix(~ race_group - 1, data)[, -1]  # -1 to include all levels, excluding intercept
+
+# Combine the val data with the dummy variables
+mlr_data <- cbind(data["val"], race_group_dummies)
+
+# Fit the multiple linear regression model
+mlr_model <- lm(val ~ ., data = mlr_data)
+
+# Get the summary and convert it to a data frame
+summary_model <- summary(mlr_model)
+coef_table <- as.data.frame(summary_model$coefficients)
+
+# Display the coefficients in a Kable table
+kable(coef_table, caption = "Multiple Linear Regression Coefficients with Race Group")
+```
 
