@@ -471,26 +471,19 @@ library(readr)
 library(dplyr)
 library(knitr)
 
-# Load the dataset
 data <- read_csv("dataset/new_phc_mmr_combine.csv", show_col_types = FALSE)
 
-# Convert Age to integer
 data$AverageAge <- as.integer(data$AverageAge)
 
-# Ensure Age conversion didn't result in unexpected NAs
 data <- data[complete.cases(data$AverageAge), ]
 
-# Convert race_group to a factor
 data$race_group <- factor(data$race_group)
 
-# Fit the multiple linear regression model
 mlr_model <- lm(mean_val ~ spending + race_group, data = data)
 
-# Get the summary of the model and convert it to a data frame
 summary_model <- summary(mlr_model)
 coef_table <- as.data.frame(summary_model$coefficients)
 
-# Display the coefficients in a Kable table
 kable(coef_table, caption = "Multiple Linear Regression Coefficients")
 
 ```
