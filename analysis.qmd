@@ -1,6 +1,6 @@
 ---
 title: Analysis
-description: Provide a detailed analysis using more sophisticated statistics techniques.
+description: A statistical analysis of maternal mortality rates. 
 toc: true
 draft: false
 ---
