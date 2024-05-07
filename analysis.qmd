@@ -617,6 +617,7 @@ qqline(resid(log_mlr_model), col = "red")
 
 ## Flaws and Limitations
   During the examination of the relationship between healthcare spending and maternal mortality rates, it was determined that the correlation between these variables is not robust, suggesting the influence of additional factors on the mortality rates. Furthermore, the data on pregnancy rates in each state lacks detailed ethnic group categorizations, precluding a nuanced correlation analysis that would distinguish the effects of pregnancy rates across different ethnic groups on the maternal mortality rate.
+  The healthcare spending data did not consider the inflation rate across the years, which would lead to an obvious increasing trend, and make the later investigation and conclusion less accurate.
 
 
 ## Conclusion
