@@ -48,21 +48,22 @@ ggplot(national_mmr, aes(x = year_id, y = mean_mmr)) +
 
 
 ### Why does this investigation into MMR matter?
-The maternal mortality rate is a comprehensive dataset that gives insight into the trends and disparities of public health resources, the guiding formulation of the related policy, and the overall societal welfare. This research matters not only because it reflects the effectiveness of the healthcare system, but the increasing tendency also highlight the broader socioeconomic causes behind the scenes. 
+The maternal mortality rate gives insight into the trends and disparities of public health resources, how healthcare policy is formed and informed, and overall societal welfare in the United States. This research matters not only because it reflects the effectiveness of the healthcare system, but the increasing tendency also highlight the broader socioeconomic causes of outcome disparities behind the scenes. 
 
+### Interactive Maps
 Here is the trend of MMR and Healthcare Spending for each state from 1999 to 2019:
 
 [Maternal Mortality Interactive Map](https://ma415-group13.shinyapps.io/MMR_Map_by_year/)
 
 [Health Care Spending Interactive Map](https://ma415-group13.shinyapps.io/spending/)
 
-### Rich Girl Young Age?
-In the exploration of the possible environmental factors, the scholar articles give us the idea to take a close look at the healthcare spending and the average age of pregnancy. Both the datasets show the trend over time which offers us two solid facts: 1. People are having babies at an older age over time. 2. The spending on healthcare is increasing over time. We predict that the MMR will not be statistically noticeable in groups of the younger age of pregnancy and higher spending on healthcare. So, a rich girl at a young age should be a satisfying answer, but is it?
+### Young Woman - Rich Woman?
+In the exploration of the possible environmental factors to cause this increase in mortality, the scholarly articles that examine the same data gave us the idea to take a close look at the healthcare spending and the average age of pregnancy. The data we found for these variables display these trends: 1. People are having babies later and later in life. 2. People are spending more and more on healthcare. We predict that the maternal mortality ratios will be lower in groups with lower age of pregnancy and higher spending on healthcare. So, a rich and young woman should be a satisfying answer, but is it?
 
 # Thesis statement
 The increase in the maternal mortality rate is significantly influenced by a combination of environmental factors —- spending on healthcare, and the average age of pregnancy. 
 
-# Thoughts form Findings 
+# Thoughts from Findings 
 ### Younger Age is preferred, but
 Though as mentioned in a lot of bio medical research, there does not seem to exist such an age range as “the golden year of giving birth”, the statistical results show that the average age of pregnancy is a strong indicator of the MMR trend. This trend supports the idea that the growing average age is contributing to the increasing maternal mortality rate across the country. Considering that fact that the MMR can also linked to the chronic disease and other maternal diseases that leads to fatal situations, it is fair to consider the probability that the increasing age of pregnancy also link to these factors. 
 
