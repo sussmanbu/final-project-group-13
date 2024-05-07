@@ -1,6 +1,6 @@
 ---
 title: Analysis
-description: Provide a detailed analysis using more sophisticated statistics techniques.
+description: A statistical analysis of maternal mortality rates. 
 toc: true
 draft: false
 ---
@@ -91,7 +91,7 @@ ggplot(combined_data, aes(x = spending, y = mean_val)) +
   theme_minimal() +
   labs(
     title = "Maternal Mortality vs. Healthcare Spending by Year",
-    x = "Spending",
+    x = "Healthcare Spending ($)",
     y = "MMR"
   ) +
   theme(legend.position = "none")
@@ -141,7 +141,7 @@ ggplot(data, aes(x = spending, y = AverageAge, color = Region)) +
   geom_smooth(method = "lm", se = FALSE, aes(group = Region)) +  
   scale_size_identity() +  
   labs(title = "Healtcare Spending by Census Region",
-       x = "Healthcare Spending",
+       x = "Healthcare Spending ($)",
        y = "Average Age of Pregnancy",
        color = "Region") +
   theme_minimal() +
