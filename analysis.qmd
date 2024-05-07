@@ -9,11 +9,11 @@ draft: false
 # Motivation and Research Question
 
 ## Motivation
-The main purpose of the study is to explore the differences in maternal mortality rates(mmr) among different ethnic groups from 1999 to 2019 across the U.S., and the impact of healthcare spending and average age of pregnancy on maternal mortality rates. By comparing the average maternal mortality rate in each state with other variables,  the result can help to identify the factors that affect maternal mortality rates, thereby enhancing the understanding and protection of women.
+The main purpose of the study is to explore the differences in maternal mortality rates (MMR) among different ethnic groups from 1999 to 2019 across the U.S., and the impact of healthcare spending and average age of pregnancy on these maternal mortality rates. By comparing the average maternal mortality rate in each state with other variables,  the result can help to identify the factors that most affect maternal mortality rates, thereby enhancing the understanding and protection of women.
 
 
-## Research Question
-1. What are the distributions of maternal mortality rates (MMR) in different regions among different racial groups?
+## Research Questions
+1. What are the trends of maternal mortality rates (MMR) in different regions among different racial groups over time?
 2. How is healthcare spending distributed across different regions?
 3. What is the relationship between healthcare spending and maternal mortality rates over time?
 4. What are the effects of pregnancy age on maternal mortality rates?
@@ -21,18 +21,18 @@ The main purpose of the study is to explore the differences in maternal mortalit
 
 ## Outline
 
-#### 1.General Information Analysis
+#### 1. General Information Analysis
 
-#### 2.Model Findings
+#### 2. Model Findings
 
-#### 3.Multiplie Linear Regression Model
+#### 3. Multiplie Linear Regression Model
 
-#### 4.Log-Log Regression Model
+#### 4. Log-Log Regression Model
 
 
-# 1.General Information Analysis
+# 1. General Information Analysis
 
-### Maternal Mortality by Census Region over Time, Faceted by Race
+### Study of Maternal Mortality Trends Across Race and Location
 ```{r load in the data, echo=FALSE}
 suppressPackageStartupMessages(library(tidyverse))
 load(here::here("dataset/mmr.RData"))
@@ -55,17 +55,18 @@ mmr_data_clean |>
 
 ```
 • **Regional Trends**:
-  - **Midwest Region (Red Line)**: Generally, a rising trend in maternal mortality rates is visible across most racial groups, especially pronounced in Non-Hispanic Black populations.
+
+  - **Midwest Region (Red Line)**: Generally, a rising trend in maternal mortality rates is visible across most racial groups, especially pronounced in Non-Hispanic American Indian and Alaska Native and Non-Hispanic Black populations.
   
-  - **Northeast Region (Green Line)**: This region shows relatively stable or slightly rising rates among all groups, with significant increases visible in the Non-Hispanic Black and Native American groups around 2015.
+  - **Northeast Region (Green Line)**: This region shows relatively stable or slightly rising rates among all groups, with significant increases visible in the Non-Hispanic Black and Non-Hispanic American Indian and Alaska Native groups around 2015.
   
   - **South Region (Blue Line)**: This region exhibits the highest maternal mortality rates, particularly among Non-Hispanic Black women, where rates have sharply increased since around 2010.
   
   - **West Region (Purple Line)**: Displays relatively lower and more stable rates across most groups, except for a sharp increase in mortality among Non-Hispanic American Indian and Alaska Native groups after 2015.
 
-• **Interpretation of Racial Disparities**: Across all regions, **Non-Hispanic Black women** consistently have higher maternal mortality ratios compared to other racial groups, indicating significant racial disparities in maternal healthcare outcomes.
+• **Interpretation of Racial Disparities**: Across all regions, **Non-Hispanic Black women** and **Non-Hispanic American Indian and Alaska Native women** consistently have higher maternal mortality ratios compared to other racial groups, indicating significant racial disparities in maternal healthcare outcomes.
 
-• **Temporal Trends**: A general increase in maternal mortality ratios is observed from 2000 to 2020 across most racial and regional breakdowns, with some fluctuations and sharp increases in specific years and regions. 
+• **Temporal Trends**: A general increase in maternal mortality ratios is observed from 1999 to 2019 across most racial and regional breakdowns, with some fluctuations and sharp increases in specific years and regions. 
 
 
 
@@ -168,7 +169,7 @@ ggplot(data, aes(x = spending, y = AverageAge, color = Region)) +
   
   
 
-# 2.Model Findings
+# 2. Model Findings
 Building on the insights derived from the graphical analysis, the application of a regression model can enhance the robustness of the findings by quantifying the extent of the relationship between healthcare spending and the average age of pregnancy through statistical measures.
 
 
@@ -250,7 +251,7 @@ library(knitr)
 data <- read_csv("dataset/phc_mmr_with_age.csv", show_col_types = FALSE)
 data$AverageAge <- as.integer(data$AverageAge)
 
-data$mean_val <- data$mean_val / 100
+data$mean_val <- data$mean_val / 1000
 # Fit the simple linear regression model with AverageAge as the predictor
 model <- lm(mean_val ~ AverageAge, data = data)
 
@@ -279,7 +280,7 @@ kable(
 )
 
 ```
-1. **Coefficient for AverageAge**: The coefficient estimate for `AverageAge` is 0.0216. This indicates that for each additional year increase in the average age, the MMR increases by approximately 0.0216 units on average, assuming a linear relationship.This also aligns with the intuition that as people age, the risk of mortality increases.
+1. **Coefficient for AverageAge**: The coefficient estimate for `AverageAge` is 0.00216. This indicates that for each additional year increase in the average age, the MMR increases by approximately 0.00216 percent on average, assuming a linear relationship. This also aligns with the intuition that as people age, the risk of mortality increases.
 
 2. **Statistical Significance**: The p-value for `AverageAge` is extremely low (0.0000001), indicating strong statistical significance. This suggests that there is a very low probability that the observed association is due to random chance, implying that `AverageAge` is a significant predictor of MMR.
   
@@ -315,6 +316,7 @@ data <- na.omit(data)
 
 # Convert AverageAge to integer
 data$AverageAge <- as.integer(data$AverageAge)
+data$mean_val <- data$mean_val / 100
 
 # Convert Region to a factor (if it's not already)
 data$Region <- as.factor(data$Region)
@@ -332,9 +334,9 @@ correlation_matrix <- cor(numeric_data, use = "pairwise.complete.obs")
 # Create a formal table using kable
 kable(correlation_matrix, caption = "Correlation Matrix")
 ```
-•  The correlation matrix shows a strong positive correlation between year and healthcare spending (0.855), suggesting that healthcare spending has generally increased over time. It also highlights a moderate positive correlation between `mean_val` (MMR) and `year` (0.573), implying that the extent of MMR have increased over time, though other factors are also influencing it. 
+•  The correlation matrix shows a **strong positive correlation** between year and healthcare spending (0.855), suggesting that healthcare spending has generally increased over time. It also highlights a **moderate positive correlation** between `mean_val` (MMR) and `year` (0.573), implying that the extent of MMR have increased over time, though other factors are also influencing it. 
 
-•  The regional dummy variables have low or negative correlations with most other variables, indicating that regional effects might be distinct and not directly correlated with the continuous variables in the matrix.
+•  The regional dummy variables have **low or negative correlations** with most other variables, indicating that regional effects might be **distinct and not directly** correlated with the continuous variables in the matrix.
 
 ## Multiplie Linear Regression 
 ```{r, echo=FALSE, warning = FALSE, null = FALSE}
@@ -353,6 +355,7 @@ data$AverageAge <- as.integer(as.numeric(data$AverageAge))
 
 # Convert Region to a factor and exclude one level to avoid singularities
 data$Region <- factor(data$Region)
+data$mean_val <- data$mean_val / 100
 
 # Generate dummy variables for Region, excluding the first level to avoid singularities
 region_dummies <- model.matrix(~ Region, data)[, -1]
@@ -373,9 +376,9 @@ kable(coef_table, caption = "Multiple Linear Regression Coefficients")
 ```
 **Effect of Predictors**: 
 
-   - **AverageAge**: With a coefficient of 2.32 (p < 0.001), a unit increase in average age is associated with an estimated increase of 2.32 units in MMR, holding other factors constant. This implies that as the average age of mothers increases, MMR tends to increase which also fits with precious simple regression result.
+   - **AverageAge**: With a coefficient of 0.023 (p < 0.001), a unit increase in average age is associated with an estimated increase of 0.023 units in MMR, holding other factors constant. This implies that as the average age of mothers increases, MMR tends to increase which also fits with precious simple regression result.
    
-   - **Spending**: The spending coefficient is 0.00093 (p = 0.015), indicating that each unit increase in healthcare spending is associated with a slight increase in MMR, but the effect is very small. Intuitively, it is generally expected that increasing healthcare spending would reduce maternal mortality rates (MMR). However, since maternal mortality can also be linked to chronic diseases, increased healthcare expenditure does not always directly translate to improved outcomes.  Additionally, as individuals are having children later in life compared to previous generations, the probability of maternal mortality may increase, which could contribute to higher healthcare costs without necessarily improving MMR.
+   - **Spending**: The spending coefficient is 0.0000093 (p = 0.015), indicating that each unit increase in healthcare spending is associated with a slight increase in MMR, but the effect is very small. Intuitively, it is generally expected that increasing healthcare spending would reduce maternal mortality rates (MMR). However, since maternal mortality can also be linked to chronic diseases, increased healthcare expenditure does not always directly translate to improved outcomes.  Additionally, as individuals are having children later in life compared to previous generations, the probability of maternal mortality may increase, which could contribute to higher healthcare costs without necessarily improving MMR.
    
    
    ??? attribution
@@ -386,7 +389,7 @@ kable(coef_table, caption = "Multiple Linear Regression Coefficients")
   
    - **Regions**: 
    
-     - **Northeast**: This region has a significant negative coefficient of -6.35 (p < 0.001), suggesting that, compared to the baseline region, the Northeast is associated with a decrease in MMR.
+     - **Northeast**: This region has a **significant negative** coefficient of -6.35 (p < 0.001), suggesting that, compared to the baseline region, the Northeast is associated with a decrease in MMR.
      - **Others**: However, the result for other is not statistical siginificant.
      
 
@@ -449,9 +452,9 @@ model_stats <- data.frame(
 kable(model_stats, caption = "Multiple Linear Regression Model Statistics")
 
 ```
-1. **Model Fit (R-squared and Adjusted R-squared)**: The R-squared value of 0.087 suggests that the model explains approximately 8.7% of the variability in maternal mortality rates. The adjusted R-squared, at 0.080, adjusts for the number of predictors in the model and shows a similar low explanatory power. This indicates that the predictors included in the model explain only a small portion of the variation in MMR. The process of pregnancy involves everything from social circumstances to self-conditioning, so it makes sense that MMR can be influenced by many more factors.
+1. **Model Fit (R-squared and Adjusted R-squared)**: The R-squared value of 0.087 suggests that the model explains approximately 8.7% of the variability in maternal mortality rates. The adjusted R-squared, at 0.080, adjusts for the number of predictors in the model and shows a similar **low explanatory power**. This indicates that the predictors included in the model explain only a small portion of the variation in MMR. The process of pregnancy involves everything from social circumstances to self-conditioning, so it makes sense that MMR can be influenced by many more factors.
 
-2. **Model Significance (F-statistic and p-value)**: The F-statistic of 13.44 and the associated p-value of 0 show that the overall model is statistically significant, meaning that the relationship between the independent variable and MMR is unlikely to have occurred by chance. 
+2. **Model Significance (F-statistic and p-value)**: The F-statistic of 13.44 and the associated p-value of 0 show that the overall model is **statistically significant**, meaning that the relationship between the independent variable and MMR is unlikely to have occurred by chance. 
 
 The MLR reveals that while the model is statistically significant in predicting maternal mortality rates, as evidenced by the F-statistic and p-value. Meanwhile, othe indicators suggest that many additional factors, beyond the predictors used, contribute to variations in maternal mortality. Further research is necessary to identify these influencing factors to improve model accuracy.
 
@@ -596,11 +599,11 @@ kable(log_coef_table, caption = "Log-Log Multiple Linear Regression Coefficients
 
 ```
 1.  **Significant Predictors**: 
-   - **log_AverageAge**: With a coefficient of 1.74 and a p-value of 0.005, this predictor is statistically significant, indicating that a 1% increase in the average age is associated with an approximate 1.74% increase in MMR.
-   - **log_spending**: The coefficient of 0.52 (p < 0.001) indicates that a 1% increase in spending correlates with an approximate 0.52% increase in MMR, suggesting a positive relationship, possibly reflecting increased healthcare spending without directly reducing mortality rates.
+   - **log_AverageAge**: With a coefficient of 1.74 and a p-value of 0.005, this predictor is **statistically significant**, indicating that a 1% increase in the average age is associated with an approximate 1.74% increase in MMR.
+   - **log_spending**: The coefficient of 0.52 (p < 0.001) indicates that a 1% increase in spending correlates with an approximate 0.52% increase in MMR, suggesting a **positive relationship**, possibly reflecting increased healthcare spending without directly reducing mortality rates.
 
 2. **Regional Effects**:
-   - **RegionNortheast**: This region has a significant negative coefficient of -0.35 (p < 0.001), suggesting that it is associated with approximately a 35% decrease in MMR compared to the baseline region.
+   - **RegionNortheast**: This region has a significant **negative coefficient** of -0.35 (p < 0.001), suggesting that it is associated with approximately a 35% decrease in MMR compared to the baseline region.
    - **Others**: Both regions have positive coefficients (0.04 and 0.05, respectively), but their p-values are not significant, indicating no statistically significant difference in MMR compared to the baseline region.
    
    
@@ -657,11 +660,11 @@ model_stats <- data.frame(
 kable(model_stats, caption = "Log-Log Multiple Linear Regression Model Statistics")
 
 ```
-1. **Model Fit (R-squared and Adjusted R-squared)**: The R-squared value of 0.16 indicates that the model explains approximately 16% of the variability in maternal mortality rates (MMR). The adjusted R-squared value of 0.15, which adjusts for the number of predictors in the model, suggests a slightly reduced explanatory power. This implies that while the model includes some significant predictors, a substantial portion of the variability in MMR remains unexplained, likely due to other factors not included in the model.
+1. **Model Fit (R-squared and Adjusted R-squared)**: The R-squared value of 0.16 indicates that the model explains approximately 16% of the variability in maternal mortality rates (MMR). The adjusted R-squared value of 0.15, which adjusts for the number of predictors in the model, suggests a slightly **reduced explanatory power**. This implies that while the model includes some significant predictors, a substantial portion of the variability in MMR remains unexplained, likely due to other factors not included in the model.
 
-2. **Model Significance (F-statistic and p-value)**: The F-statistic of 26.93 and its p-value of zero show that the overall model is statistically significant, meaning that the combined predictors significantly contribute to explaining variations in MMR. However, the relatively low R-squared values still suggest that there are additional important factors influencing MMR that are not captured by this model.
+2. **Model Significance (F-statistic and p-value)**: The F-statistic of 26.93 and its p-value of zero show that the overall model is statistically significant, meaning that the combined predictors significantly contribute to explaining variations in MMR. However, the relatively low R-squared values still suggest that there are **additional important factors** influencing MMR that are not captured by this model.
 
-3. **Model Diagnostics (Sigma, Log-Likelihood, AIC, and BIC)**: The sigma (residual standard error) of 0.42 reflects the average deviation of observed log-transformed MMR values from predicted values. The log-likelihood of -388.48 indicates the model's goodness-of-fit, with higher values implying a better fit. The AIC (790.96) and BIC (822.96) values provide comparative measures of fit, penalizing for model complexity. The deviance (124.11) and residual degrees of freedom (708) give additional insight into the model's residuals and flexibility, while the number of observations (714) reflects the sample size.
+3. **Model Diagnostics (Sigma, Log-Likelihood, AIC, and BIC)**: The sigma (residual standard error) of 0.42 reflects the average deviation of observed log-transformed MMR values from predicted values. The log-likelihood of -388.48 indicates the model's goodness-of-fit, with higher values implying a **better fit**. The AIC (790.96) and BIC (822.96) values provide comparative measures of fit, penalizing for model complexity. The deviance (124.11) and residual degrees of freedom (708) give additional insight into the model's residuals and flexibility, while the number of observations (714) reflects the sample size.
 
 ### Model Discussion
 ```{r, echo=FALSE, warning = FALSE}
@@ -718,8 +721,9 @@ qqline(resid(log_mlr_model), col = "red")
 • There are slight deviations at the extremes, which are indicative of some outliers affecting the tails. Compared to the previous Q-Q plot, which exhibited more extreme deviations from normality at the upper end, the log-log model demonstrates **improved normality of residuals**, suggesting that the log transformation helps to mitigate the influence of outliers and enhances the overall fit. 
 
 ## Flaws and Limitations
-  During the examination of the relationship between healthcare spending and maternal mortality rates, it was determined that the correlation between these variables is not robust, suggesting the influence of additional factors on the mortality rates. Furthermore, the data on pregnancy rates in each state lacks detailed ethnic group categorizations, precluding a nuanced correlation analysis that would distinguish the effects of pregnancy rates across different ethnic groups on the maternal mortality rate.
-  The healthcare spending data did not consider the inflation rate across the years, which would lead to an obvious increasing trend, and make the later investigation and conclusion less accurate.
+  During the examination of the relationship between healthcare spending and maternal mortality rates, it was determined that the correlation between these variables is not robust, suggesting the influence of additional factors on the mortality rates. Additionally, the available data on pregnancy rates across various states lacks comprehensive categorization by ethnic groups, thereby hindering a more refined analysis that could reveal differential effects of pregnancy rates among distinct ethnic demographics on maternal mortality rates.
+  
+  The healthcare spending data did not account for variations in the inflation rate over the years. This oversight could result in a misleading upward trend in healthcare expenditure over time, potentially compromising the validity of subsequent analyses and conclusions derived from this data.It is therefore recommended that future studies adjust for inflation to provide a more accurate depiction of real changes in healthcare spending, ensuring a more reliable investigation into its effects on maternal mortality rates.
 
 
 ## Conclusion
