@@ -6,6 +6,8 @@ draft: FALSE
 ---
 
 ![](images/bigpic.jpg)
+
+
 # More people are dying giving birth over last few decades, even with better medical equipment…?
 
 While one may have expected maternal mortality to have decreased in the last two decades due to innovations in and better access to natal care, the opposite is true. The original goal of this team was to investigate how healthcare policy and economic factors contributed to maternal mortality. However, once this increasing death rate trend was uncovered, the team pivoted to looking at other environmental factors such as location, spending, and age to hopefully shed some light on this scary trend. 
