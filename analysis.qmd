@@ -288,7 +288,7 @@ kable(
 
 
 
-# 3.Multiplie Linear Regression for MMR-AGE with Healthcare Spending and Region
+# 3. Multiplie Linear Regression for MMR-AGE with Healthcare Spending and Region
 To accurately understand maternal mortality rates (MMR) in relation to age, it's essential to consider other influential factors such as healthcare spending and regional differences. Multiple linear regression allows us to assess the combined impact of these factors, providing a more nuanced analysis of how each variable influences MMR while controlling for others.
 
 ## Correlation Matrix
@@ -407,11 +407,11 @@ model_stats <- data.frame(
 kable(model_stats, caption = "Multiple Linear Regression Model Statistics")
 
 ```
-1. **Model Fit (R-squared and Adjusted R-squared)**: The R-squared value of 0.087 suggests that the model explains approximately 8.7% of the variability in maternal mortality rates. The adjusted R-squared, at 0.080, adjusts for the number of predictors in the model and shows a similar **low explanatory power**. This indicates that the predictors included in the model explain only a small portion of the variation in MMR. The process of pregnancy involves everything from social circumstances to self-conditioning, so it makes sense that MMR can be influenced by many more factors.
+1. **Model Fit (R-squared and Adjusted R-squared)**: The R-squared value of 0.087 suggests that the model explains approximately 8.7% of the variability in maternal mortality rates. The adjusted R-squared, at 0.080, adjusts for the number of predictors in the model and shows a similar **low explanatory power**. This indicates that the predictors included in the model explain only a small portion of the variation in MMR. The process of pregnancy involves everything from social circumstances to self-conditioning, so it makes sense that MMR can be influenced by many more factors. This however represents an increase from the R-squared value of only 3.7% in the previous single regression model.
 
 2. **Model Significance (F-statistic and p-value)**: The F-statistic of 13.44 and the associated p-value of 0 show that the overall model is **statistically significant**, meaning that the relationship between the independent variable and MMR is unlikely to have occurred by chance. 
 
-The MLR reveals that while the model is statistically significant in predicting maternal mortality rates, as evidenced by the F-statistic and p-value. Meanwhile, othe indicators suggest that many additional factors, beyond the predictors used, contribute to variations in maternal mortality. Further research is necessary to identify these influencing factors to improve model accuracy.
+The MLR reveals that while the model is statistically significant in predicting maternal mortality rates, as evidenced by the F-statistic and p-value. Meanwhile, other indicators suggest that many additional factors, beyond the predictors used, contribute to variations in maternal mortality. Further research is necessary to identify these influencing factors to improve model accuracy.
 
 ### Model Discussion
 ```{r, echo=FALSE, warning = FALSE}
@@ -488,7 +488,7 @@ kable(coef_table, caption = "Multiple Linear Regression Coefficients")
 
 
 
-# 5.Log-Log Regression Model
+# 5. Log-Log Regression Model
 The multiple linear regression analysis and  plots suggest potential issues with outliers and deviations from normality in the data. The residuals show some non-linearity and heteroscedasticity, indicating that the standard linear model might not be fully capturing the relationships among maternal mortality rates (MMR), age, spending, and regional effects. Applying a log-log regression model can linearize the relationships among variables, handle skewed data more effectively, and interpret coefficients as elasticities, which measure the percentage change in MMR in response to a 1% change in predictors. This approach can improve the model's fit, stabilize variance, and provide more meaningful insights into the proportional changes affecting maternal mortality.
 
 ```{r, echo=FALSE, warning = FALSE}
