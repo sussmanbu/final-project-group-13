@@ -76,16 +76,13 @@ mmr_data_clean |>
 library(ggplot2)
 library(readr)
 
-# Load the dataset
 data_path = "dataset/phc_mmr_with_age.csv"
 combined_data <- read_csv(data_path, show_col_types = FALSE)
 
-# Ensure spending and mean_val are numeric
 combined_data$spending <- as.numeric(combined_data$spending)
 combined_data$mean_val <- as.numeric(combined_data$mean_val)
 combined_data$year <- as.factor(combined_data$year)
 
-# Plot spending vs mean_val (MMR) faceted by year
 ggplot(combined_data, aes(x = spending, y = mean_val)) + 
   geom_point(aes(alpha = 0.5)) +
   facet_wrap(~ year) +
@@ -119,24 +116,18 @@ ggplot(combined_data, aes(x = spending, y = mean_val)) +
 
 ### Healtcare Spending by Census Region
 ```{r figure 9, echo=FALSE, null = FALSE, message=FALSE}
-# Load the necessary libraries
 library(ggplot2)
 library(readr)
 
-# Load the dataset
 data_path <- "dataset/phc_mmr_with_age.csv"
 data <- read_csv(data_path, show_col_types = FALSE)
 
-# Check for non-numeric values in the AverageAge column
 data$AverageAge <- suppressWarnings(as.numeric(data$AverageAge))
 
-# Filter out rows with NA values in critical columns
 data <- data[!is.na(data$AverageAge) & !is.na(data$spending) & !is.na(data$Region), ]
 
-# Ensure spending is numeric
 data$spending <- suppressWarnings(as.numeric(data$spending))
 
-# Create a bubble chart with fitted lines by Region
 ggplot(data, aes(x = spending, y = AverageAge, color = Region)) +
   geom_point(aes(size = 3), alpha = 0.6) +  
   geom_smooth(method = "lm", se = FALSE, aes(group = Region)) +  
@@ -174,7 +165,6 @@ Building on the insights derived from the graphical analysis, the application of
 
 ### Simple Linear Regression for MMR-AGE
 ```{r, echo=FALSE, warning = FALSE}
-# Load necessary packages
 library(broom)
 library(knitr)
 
@@ -182,13 +172,10 @@ data <- read_csv("dataset/phc_mmr_with_age.csv", show_col_types = FALSE)
 data$AverageAge <- as.integer(data$AverageAge)
 
 data$mean_val <- data$mean_val / 100
-# Fit the simple linear regression model with AverageAge as the predictor
 model <- lm(mean_val ~ AverageAge, data = data)
 
-# Tidy the regression coefficients
 coefficients_table <- tidy(model)
 
-# Gather model statistics
 model_summary <- summary(model)
 fit_statistics <- data.frame(
   Metric = c("R-squared", "Adjusted R-squared", "Sigma", "F-statistic", "p-value", "Degrees of Freedom"),
@@ -202,7 +189,6 @@ fit_statistics <- data.frame(
   )
 )
 
-# Output the coefficients table
 kable(
   coefficients_table,
   col.names = c("Term", "Estimate", "Standard Error", "t-Statistic", "p-Value"),
@@ -216,7 +202,6 @@ kable(
   
 ```{r, echo=FALSE, warning = FALSE}
 
-# Output the model fit statistics table
 kable(
   fit_statistics,
   col.names = c("Metric", "Value"),
@@ -238,30 +223,22 @@ To accurately understand maternal mortality rates (MMR) in relation to age, it's
 ## Correlation Matrix
 ```{r, echo=FALSE, warning = FALSE}
 
-# Load the dataset from the uploaded file
 data <- read_csv("dataset/phc_mmr_with_age.csv", show_col_types = FALSE)
 
-# Remove rows with missing values in important columns
 data <- na.omit(data)
 
-# Convert AverageAge to integer
 data$AverageAge <- as.integer(data$AverageAge)
 data$mean_val <- data$mean_val / 100
 
-# Convert Region to a factor (if it's not already)
 data$Region <- as.factor(data$Region)
 data$race_group <- as.factor(data$Region)
 
-# Generate dummy variables for Region
 region_dummies <- model.matrix(~ Region - 1, data)
 
-# Combine the numeric data with the dummy variables
 numeric_data <- cbind(data[, sapply(data, is.numeric)], region_dummies)
 
-# Compute the correlation matrix
 correlation_matrix <- cor(numeric_data, use = "pairwise.complete.obs")
 
-# Create a formal table using kable
 kable(correlation_matrix, caption = "Correlation Matrix")
 ```
 •  The correlation matrix shows a **strong positive correlation** between year and healthcare spending (0.855), suggesting that healthcare spending has generally increased over time. It also highlights a **moderate positive correlation** between `mean_val` (MMR) and `year` (0.573), implying that the extent of MMR have increased over time, though other factors are also influencing it. 
@@ -270,37 +247,27 @@ kable(correlation_matrix, caption = "Correlation Matrix")
 
 ## Multiplie Linear Regression 
 ```{r, echo=FALSE, warning = FALSE, null = FALSE}
-# Load necessary libraries
 library(readr)
 library(knitr)
 
-# Load the dataset
 data <- read_csv("dataset/phc_mmr_with_age.csv", show_col_types = FALSE)
 
-# Remove rows with missing or non-numeric values in critical columns
 data <- data[complete.cases(data[c("AverageAge", "spending", "mean_val", "Region")]), ]
 
-# Convert AverageAge to integer
 data$AverageAge <- as.integer(as.numeric(data$AverageAge))
 
-# Convert Region to a factor and exclude one level to avoid singularities
 data$Region <- factor(data$Region)
 data$mean_val <- data$mean_val / 100
 
-# Generate dummy variables for Region, excluding the first level to avoid singularities
 region_dummies <- model.matrix(~ Region, data)[, -1]
 
-# Combine the numeric data with the dummy variables
 mlr_data <- cbind(data[, c("AverageAge", "spending", "mean_val")], region_dummies)
 
-# Fit the multiple linear regression model
 mlr_model <- lm(mean_val ~ ., data = mlr_data)
 
-# Get the summary and convert it to a data frame
 summary_model <- summary(mlr_model)
 coef_table <- as.data.frame(summary_model$coefficients)
 
-# Display the coefficients in a Kable table
 kable(coef_table, caption = "Multiple Linear Regression Coefficients")
 
 ```
@@ -324,32 +291,23 @@ kable(coef_table, caption = "Multiple Linear Regression Coefficients")
      
 
 ```{r, echo=FALSE, warning = FALSE}
-# Load the data
 data <- read_csv("dataset/phc_mmr_with_age.csv", show_col_types = FALSE)
 
-# Remove rows with missing values in critical columns
 data <- na.omit(data)
 
-# Convert AverageAge to integer
 data$AverageAge <- as.integer(data$AverageAge)
 
-# Convert Region to a factor and exclude one level to avoid singularities
 data$Region <- factor(data$Region)
 
-# Generate dummy variables for Region excluding one level
 region_dummies <- model.matrix(~ Region, data)[, -1]
 
-# Combine the numeric data with the dummy variables
 mlr_data <- cbind(data[, c("AverageAge", "spending", "mean_val")], region_dummies)
 
-# Fit the multiple linear regression model
 mlr_model <- lm(mean_val ~ ., data = mlr_data)
 
-# Get the summary and coefficients table
 summary_model <- summary(mlr_model)
 coef_table <- as.data.frame(summary_model$coefficients)
 
-# Extract additional statistics
 r_squared <- summary_model$r.squared
 adj_r_squared <- summary_model$adj.r.squared
 sigma <- summary_model$sigma
@@ -363,7 +321,6 @@ deviance <- deviance(mlr_model)
 df_residual <- df.residual(mlr_model)
 nobs <- nobs(mlr_model)
 
-# Create a summary table
 model_stats <- data.frame(
   r.squared = r_squared,
   adj.r.squared = adj_r_squared,
@@ -378,7 +335,6 @@ model_stats <- data.frame(
   df.residual = df_residual,
   nobs = nobs
 )
-# Display the model statistics in a Kable table
 kable(model_stats, caption = "Multiple Linear Regression Model Statistics")
 
 ```
@@ -390,29 +346,20 @@ The MLR reveals that while the model is statistically significant in predicting 
 
 ### Model Discussion
 ```{r, echo=FALSE, warning = FALSE}
-# Load the data
 data <- read_csv("dataset/phc_mmr_with_age.csv", show_col_types = FALSE)
 
-# Remove rows with missing values in critical columns
 data <- na.omit(data)
 
-# Convert AverageAge to integer
 data$AverageAge <- as.integer(data$AverageAge)
 
-# Convert Region to a factor and exclude one level to avoid singularities
 data$Region <- factor(data$Region)
 
-# Generate dummy variables for Region excluding one level
 region_dummies <- model.matrix(~ Region, data)[, -1]
 
-# Combine the numeric data with the dummy variables
 mlr_data <- cbind(data[, c("AverageAge", "spending", "mean_val")], region_dummies)
 
-# Fit the multiple linear regression model
 mlr_model <- lm(mean_val ~ ., data = mlr_data)
 
-# Create residual plots
-# Plot Residuals vs Fitted Values
 par(mfrow = c(1, 1))  # Single plot layout
 plot(mlr_model, which = 1)  # Residuals vs Fitted
 
@@ -423,28 +370,21 @@ plot(mlr_model, which = 1)  # Residuals vs Fitted
 
 
 ```{r, echo=FALSE, warning = FALSE}
-# Load the data
+
 data <- read_csv("dataset/phc_mmr_with_age.csv", show_col_types = FALSE)
 
-# Remove rows with missing values in critical columns
 data <- data[complete.cases(data[c("AverageAge", "spending", "mean_val", "Region")]), ]
 
-# Convert AverageAge to numeric and handle missing or non-numeric values
 data$AverageAge <- as.numeric(data$AverageAge)
 
-# Convert Region to a factor, ensuring all values are present
 data$Region <- factor(data$Region)
 
-# Generate dummy variables for Region, excluding the first level to avoid singularities
 region_dummies <- model.matrix(~ Region, data)[, -1]
 
-# Combine the numeric data with the dummy variables
 mlr_data <- cbind(data[, c("AverageAge", "spending", "mean_val")], region_dummies)
 
-# Fit the multiple linear regression model
 mlr_model <- lm(mean_val ~ ., data = mlr_data)
 
-# Generate QQ plot
 qqnorm(resid(mlr_model))
 qqline(resid(mlr_model), col = "red")
 ```
@@ -458,41 +398,31 @@ qqline(resid(mlr_model), col = "red")
 The multiple linear regression analysis and  plots suggest potential issues with outliers and deviations from normality in the data. The residuals show some non-linearity and heteroscedasticity, indicating that the standard linear model might not be fully capturing the relationships among maternal mortality rates (MMR), age, spending, and regional effects. Applying a log-log regression model can linearize the relationships among variables, handle skewed data more effectively, and interpret coefficients as elasticities, which measure the percentage change in MMR in response to a 1% change in predictors. This approach can improve the model's fit, stabilize variance, and provide more meaningful insights into the proportional changes affecting maternal mortality.
 
 ```{r, echo=FALSE, warning = FALSE}
-# Load necessary libraries
 library(readr)
 library(knitr)
 
-# Load the dataset
 data <- read_csv("dataset/phc_mmr_with_age.csv", show_col_types = FALSE)
 
-# Remove rows with missing or invalid values in critical columns
 data <- data[data$AverageAge > 0 & data$spending > 0 & data$mean_val > 0 & !is.na(data$Region), ]
 
-# Convert AverageAge to numeric for log transformation
 data$AverageAge <- as.numeric(data$AverageAge)
 
-# Apply log transformation to the variables
 data$log_AverageAge <- log(data$AverageAge)
 data$log_spending <- log(data$spending)
 data$log_mean_val <- log(data$mean_val)
 
-# Convert Region to a factor
 data$Region <- factor(data$Region)
 
-# Generate dummy variables for Region, excluding the first level to avoid singularities
 region_dummies <- model.matrix(~ Region, data)[, -1]
 
-# Combine the log-transformed data with the dummy variables
 log_mlr_data <- cbind(data[, c("log_AverageAge", "log_spending", "log_mean_val")], region_dummies)
 
-# Fit the log-log regression model
 log_mlr_model <- lm(log_mean_val ~ ., data = log_mlr_data)
 
-# Get the summary and convert it to a data frame
 log_summary_model <- summary(log_mlr_model)
+
 log_coef_table <- as.data.frame(log_summary_model$coefficients)
 
-# Display the coefficients in a Kable table
 kable(log_coef_table, caption = "Log-Log Multiple Linear Regression Coefficients")
 
 ```
@@ -507,37 +437,27 @@ kable(log_coef_table, caption = "Log-Log Multiple Linear Regression Coefficients
    
    
 ```{r, echo=FALSE, message=FALSE, warning = FALSE}
-# Load necessary libraries
 library(readr)
 library(knitr)
 
-# Load the dataset
 data <- read_csv("dataset/phc_mmr_with_age.csv", show_col_types = FALSE)
 
-# Remove rows with missing or invalid values in critical columns
 data <- data[data$AverageAge > 0 & data$spending > 0 & data$mean_val > 0 & !is.na(data$Region), ]
 
-# Convert AverageAge to numeric for log transformation
 data$AverageAge <- as.numeric(data$AverageAge)
 
-# Apply log transformation to the variables
 data$log_AverageAge <- log(data$AverageAge)
 data$log_spending <- log(data$spending)
 data$log_mean_val <- log(data$mean_val)
 
-# Convert Region to a factor
 data$Region <- factor(data$Region)
 
-# Generate dummy variables for Region, excluding the first level to avoid singularities
 region_dummies <- model.matrix(~ Region, data)[, -1]
 
-# Combine the log-transformed data with the dummy variables
 log_mlr_data <- cbind(data[, c("log_AverageAge", "log_spending", "log_mean_val")], region_dummies)
 
-# Fit the log-log regression model
 log_mlr_model <- lm(log_mean_val ~ ., data = log_mlr_data)
 
-# Extract model summary statistics
 log_summary_model <- summary(log_mlr_model)
 model_stats <- data.frame(
   R_squared = log_summary_model$r.squared,
@@ -554,7 +474,6 @@ model_stats <- data.frame(
   Nobs = nobs(log_mlr_model)
 )
 
-# Display the model statistics in a Kable table
 kable(model_stats, caption = "Log-Log Multiple Linear Regression Model Statistics")
 
 ```
@@ -571,33 +490,24 @@ library(readr)
 library(knitr)
 library(ggplot2)
 
-# Load the dataset
 data <- read_csv("dataset/phc_mmr_with_age.csv", show_col_types = FALSE)
 
-# Remove rows with missing or invalid values in critical columns
 data <- data[data$AverageAge > 0 & data$spending > 0 & data$mean_val > 0 & !is.na(data$Region), ]
 
-# Convert AverageAge to numeric for log transformation
 data$AverageAge <- as.numeric(data$AverageAge)
 
-# Apply log transformation to the variables
 data$log_AverageAge <- log(data$AverageAge)
 data$log_spending <- log(data$spending)
 data$log_mean_val <- log(data$mean_val)
 
-# Convert Region to a factor
 data$Region <- factor(data$Region)
 
-# Generate dummy variables for Region, excluding the first level to avoid singularities
 region_dummies <- model.matrix(~ Region, data)[, -1]
 
-# Combine the log-transformed data with the dummy variables
 log_mlr_data <- cbind(data[, c("log_AverageAge", "log_spending", "log_mean_val")], region_dummies)
 
-# Fit the log-log regression model
 log_mlr_model <- lm(log_mean_val ~ ., data = log_mlr_data)
 
-# Residuals vs Fitted plot
 ggplot(data.frame(fitted = fitted(log_mlr_model), residuals = resid(log_mlr_model)), aes(fitted, residuals)) +
   geom_point() +
   geom_hline(yintercept = 0, color = "red", linetype = "dashed") +
@@ -610,7 +520,6 @@ ggplot(data.frame(fitted = fitted(log_mlr_model), residuals = resid(log_mlr_mode
 • There are **fewer extreme outliers**, which means that the log-log transformation mitigates the influence of extreme data points and provides a more accurate representation of the relationship between maternal mortality rates, age, spending, and regional factors. Despite this improvement, further refinement could enhance the model's overall fit and predictive accuracy.
 
 ```{r, echo=FALSE, message=FALSE, warning = FALSE}
-# QQ plot
 qqnorm(resid(log_mlr_model))
 qqline(resid(log_mlr_model), col = "red")
 ```
