@@ -38,7 +38,7 @@ national_mmr <- data %>%
 ggplot(national_mmr, aes(x = year_id, y = mean_mmr)) +
   geom_line(color = "blue", size = 1) +  # Line graph
   geom_point(color = "red", size = 2) +  # Points on line graph
-  labs(title = "Trend of Maternal Mortality Rates Over Years",
+  labs(title = "Trend of Maternal Mortality Rates (MMR) Over Years",
        x = "Year",
        y = "MMR") +
   theme_minimal()
@@ -58,14 +58,14 @@ Here is the trend of MMR and Healthcare Spending for each state from 1999 to 201
 [Health Care Spending Interactive Map](https://ma415-group13.shinyapps.io/spending/)
 
 ### Young Woman - Rich Woman?
-In the exploration of the possible environmental factors to cause this increase in mortality, the scholarly articles that examine the same data gave us the idea to take a close look at the healthcare spending and the average age of pregnancy. The data we found for these variables display these trends: 1. People are having babies later and later in life. 2. People are spending more and more on healthcare. We predict that the maternal mortality ratios will be lower in groups with lower age of pregnancy and higher spending on healthcare. So, a rich and young woman should be a satisfying answer, but is it?
+In the exploration of the possible environmental factors to cause this increase in mortality, the scholarly articles that examine the same data gave us the idea to take a close look at the healthcare spending and the average age of pregnancy. The data we found for these variables display these trends: 1. People are having babies later and later in life. 2. People are spending more and more on healthcare. We predict that the maternal mortality ratios will be lower in groups with lower age of pregnancy and higher spending on healthcare. So, being a rich and young woman should be the solution to this emerging problem -- but is it?
 
 # Thesis statement
-The increase in the maternal mortality rate is significantly influenced by a combination of environmental factors —- spending on healthcare, and the average age of pregnancy. 
+The increase in the maternal mortality rate is significantly influenced by a combination of environmental factors such as spending on healthcare and the average age of pregnancy. 
 
 # Thoughts from Findings 
-### Younger Age is preferred, but
-Though as mentioned in a lot of bio medical research, there does not seem to exist such an age range as “the golden year of giving birth”, the statistical results show that the average age of pregnancy is a strong indicator of the MMR trend. This trend supports the idea that the growing average age is contributing to the increasing maternal mortality rate across the country. Considering that fact that the MMR can also linked to the chronic disease and other maternal diseases that leads to fatal situations, it is fair to consider the probability that the increasing age of pregnancy also link to these factors. 
+### Younger Age is Preferred, but ...
+Existing biology research into best habits and behaviors for pregnancy indicates that there does not seem to be a “golden year of giving birth” However, the statistical results show that the average age of pregnancy is a strong predictor of the MMR trend. This trend supports the idea that the growing average age is contributing to the increasing maternal mortality rate across the country. While MMR is also a result of chronic illness and other disease that leads to fatal situations, it is important to consider that the increasing age leads to these higher risk scenarios and this contributes to mortality overall. 
 
 Here are two links to relevant bio-medical research:
 
@@ -74,13 +74,13 @@ Here are two links to relevant bio-medical research:
 2. [Article on Disease duing Pregancy](https://www.sciencedirect.com/science/article/pii/S0002937821000338?casa_token=2qxLz9KCi2IAAAAA:Xg_mBf5Y_UEGQ4ZFRHR_HFFFoEgcfPr3Afb0YyJmyjAPAl2zvlGqo2SWVgxVzvMwsq3RuOsDGLA)
 
 ### Spending needs a second thought…
-In the analysis of healthcare spending, the data shows a moderate link between spending and maternal mortality rates (MMR). This contradicts the common sense that more money spent on healthcare would lead to better outcomes for younger mothers. There are other many other factors that can affect MMR. 
+In the analysis of healthcare spending, the data shows a moderate link between spending and maternal mortality rates. This contradicts the common sense that more money spent on healthcare would lead to better outcomes for younger mothers. There are other many other factors that can affect MMR. 
 
 
 # Future Action
-Despite the advanced medical technology and healthcare practices, the Maternal Mortality Rate(MMR) unexpectedly grows in the recent decades. The sharp increase of MMR in all race groups and regional groups reveal the crucial fact that the resource allocation and socioeconomic factors are drastically influencing the data performance. 
+Despite the advances in medical technology and healthcare practices, the maternal mortality rate unexpectedly has grown in the recent decades. The sharp increase of MMR in all race groups and regional groups reveal the crucial fact that the resource allocation and socioeconomic factors are drastically influencing the data performance. 
 
-By understanding the complex potential causes, the research underscores the the need for comprehensive strategies addressing broader determinants of health, economic resources, and healthcare practices to reverse this troubling trend in maternal mortality.
+By understanding the complex potential causes, the research underscores the need for comprehensive strategies addressing broader determinants of health, economic resources, and healthcare practices to reverse this troubling trend in maternal mortality.
 
 
 
