@@ -34,9 +34,9 @@ variables_df <- data.frame(
   Data_Types = c("number", "text", "text", "number", "number", "number", "number"),
   Description = c( 
                   "A unique numeric identifier for the location generated and stored in an IHME database of data dimensions.",
-    "The location for the estimate.",
-    "The racial and ethnic group for the estimate.",
-    "The time period for the estimate.",
+    "Location for the estimate.",
+    "Racial and ethnic group for the estimate.",
+    "Time period for the estimate.",
     "Mean estimate.",
     "97.5% percentile estimate.",
     "2.5% percentile estimate.")
@@ -61,7 +61,7 @@ mmr_data_clean |>
       title = "Distribution of Maternal Mortality Ratio Variable",
       subtitle = "Data from 1999 to 2019",
       x = "MMR (Maternal Mortality Ratio)",
-      y = "Count"
+      y = "Frequency"
     ) +
     theme_minimal() +  # Cleaner theme
     theme(
@@ -91,9 +91,9 @@ Figure 1: Distribution of Maternal Motality Ratio
 ### Data Loading and Cleaning
 [Data Loading and Cleaning Script](scripts/load_healthcare_spending_data.R)
 
-  These data come with multiple data sets, however for our analysis we chose to work with the file US_PER_CAPITA20.CSV in order to view from a summary perspective. The file initially comes with variables Code, Item, Group, Region Number, Region Name, Years 1991-2020, and Average Annual Percent Growth. It has 600 observations, one for each of the states and region groups for ten different spending breakdowns. We chose to look at the spending item "Personal Healthcare" which represents a summary of all the other items. Since no item in particular connected with natal care, we chose to look at the summary as a overall indicator of spending in order to generally represent natal care. We also chose to only look at the years 1999-2019 in order to match our initial data set. 
+  These data come with multiple data sets, however for our analysis we chose to work with the file US_PER_CAPITA20.CSV in order to view it from a summary perspective. The file initially comes with variables Code, Item, Group, Region Number, Region Name, Year 1991 through Year 2020, and Average Annual Percent Growth. It has 600 observations, one for each of the states and region groups for ten different spending breakdowns. We chose to look at the spending item "Personal Healthcare" which represents a summary of all the other items. Since no item in particular connected with natal care, we chose to look at the summary as a overall indicator of spending in order to generally represent natal care. We also chose to only look at the years 1999-2019 in order to match our initial data set. 
 
-  This data set went through an extensive cleaning process because although it was very clean and easy to use upon initial loading, it's format did not match our existing data. We had to reclassify the region to match official United States census regions and create new summaries for the new region breakdowns. We then pivoted the table longer to maintain only three columns (year, state, and spending) where previously the values for each year were in a new column. The dimensions now matched our maternal mortality data so we were able to merge them into one clean data frame. 
+  This data set went through an extensive loading and cleaning process because although it was very clean and easy to use upon initial loading, its format did not match our existing data. We had to reclassify the region to match official United States census regions and create new summaries for the new region breakdowns. We then pivoted the table longer to maintain only three columns (year, state, and spending) where previously the values for each year were in a new column. The dimensions now matched our maternal mortality data so we were able to merge them into one clean data frame. 
 
 ### Variable Descriptions
 ```{r, echo=FALSE}
@@ -102,9 +102,9 @@ variable_info <- data.frame(
   Variable = c("location_name", "year_id", "spending"),
   Data_Types = c("text", "number", "number"),
   Description = c(
-    "Name of the location",
-    "ID representing the year of the data collected.",
-    "The average healthcare spending of each location each year."
+    "Name of the location.",
+    "Year the data was collected.",
+    "Average healthcare spending of each location each year."
   ),
   stringsAsFactors = FALSE
 )
@@ -113,7 +113,7 @@ kable(variable_info, format = "html")
 ```
 
 ### Distribution Analysis
-```{r, echo=FALSE}
+```{r, echo=FALSE, warning=FALSE}
 df <- read.csv("dataset/phc_mmr_combined.csv")  
 
 ggplot(df, aes(x = spending)) +
@@ -132,22 +132,22 @@ Figure 2: Distribution of Healthcare Spending
   The histogram reveals that the distribution of healthcare spending is right-skewed, with most data points clustered in the lower and middle ranges of spending. The distribution peaks around spending values of 5000 to 8000, indicating that this is the most frequent spending range. The data shows a gradual decline towards the higher spending values, reflecting the decreasing frequency of such values. Overall, healthcare spending predominantly occurs at the lower end of the spectrum, with a long tail extending towards higher values.
 
 
-# Average age of Pregnancy data
+# Average age of Pregnancy Data
 ### Data Background
-  These dataset is collected by the Guttmacher Institute. It provides a detailed compilation of statistics related to pregnancy outcomes across the U.S. The primary goal of collecting this data was to inform the public health policy and enhance the understanding of the reproduction health situation across the country. [Source](https://osf.io/kthnf/)
+  This dataset was collected by the Guttmacher Institute. It provides a detailed compilation of statistics related to pregnancy outcomes across the U.S. The primary goal of collecting thes data was to inform the public health policy and enhance the understanding of the reproduction health situation across the country. [Source](https://osf.io/kthnf/)
 
-  This data is a combined data relied on the public resource,  National Center for Health Statistics (NCHS) National Vital, Statistics System (NVSS), the original data also contains the abortion data and the population data. In consideration of the various original resources, we performed data cleaning to keep the reliability of the dataset. This data provides both regional and aggregate data that illustrate the potential problem of the uneven distribution of healthcare resources and other problems. This dataset comprises the statistics over 5 decades, which allows the researchers to perform the longitudinal studies. 
+  The original dataset is a collaboration between the National Center for Health Statistics (NCHS) and the National Vital Statistics System (NVSS). It contained information about ages, abortions, and populations, however we chose to only look at the data on age of pregnancy. In consideration of the various original resources, we performed data cleaning to keep the reliability of the dataset. This data provides both regional and aggregate data that illustrate the potential problem of the uneven distribution of healthcare resources and other problems. This dataset comprises the statistics over 5 decades, which allows the researchers to perform the longitudinal studies. 
 
-  However, As this data relies on multiple sources, including state health departments, the CDC, and direct survey which creates inconsistencies in the format of the dataset. Some states might have more rigorous data collection than others. In response to this potential problem, we regenerate a category of region to group the adjacent states together. With this performance, we see a clearer distribution trend. 
+  However, as this data relies on multiple sources, including state health departments, the CDC, and direct survey which creates inconsistencies in the format of the dataset. Some states might have more rigorous data collection than others. In response to this potential problem, we regenerate a category of region to group the adjacent states together. With this performance, we see a clearer distribution trend. 
 
-  To be noticed, the data collected and reported might vary a lot between states due to different laws, health care coverage and reporting standards. And for years where data wasn't collected, it might result in error in predictions if there are atypical fluctuation of the data in that year. 
+  It is important to mention that the data collected and reported might vary a lot between states due to different laws, health care coverage, and reporting standards. For years where data wasn't collected, it might cause error in predictions if there are atypical fluctuation of the data in that year. 
 
 ### Data Loading and Cleaning
 [Data Loading and Cleaning Script](scriptcombine_pregnancy.R)
 
-  In our research, we first found an unexpected trend of increasing trend of the maternal mortality rate, we then want to take a further step to look at if the average age of pregnancy could give us a positive correlation in analysis. 
-  In order to minimize the influence of the reporting biases during the process of data collection, we add a new category called region using the same framework of the mmr data. We removes the abortions and birth data in purpose of minimizing the number of resource this data depends on. In order to generate a more efficient graph, we calculated the average age of pregnancy in a single year using age group data.
-  As our first intention was to see if the increasing average age of pregnancy could give a reasonable explanation on the growing trend of maternal mortality rate, we combine the average age data to the previous one.
+  In our research, we first found an unexpected increasing trend of the maternal mortality rate. This prompted us to take a further step to look at if the average age of pregnancy could help explain this increase in mortality. 
+  In order to minimize the influence of the reporting biases during the process of data collection, we add a new category called region using the same framework of the MMR data. We removes the abortions and birth data in order to minimize the number of different resources on which this data depends. In order to generate a more efficient graph, we calculated the average age of pregnancy in a single year using age group data.
+  As our initial motivation was to see if the increasing average age of pregnancy could help explain the growing trend of maternal mortality rate, we combined the average age data with the previous data.
 
 
 ## Variables Description
@@ -157,12 +157,12 @@ variable_info <- data.frame(
   Variable = c("state", "year", "spending", "mean_val", "AverageAge", "region"),
   Data_Types = c("text", "number", "number", "number", "number", "text"),
   Description = c(
-    "state name",
+    "State name.",
     "Year of the data collected.",
-    "the average healthcare spending of each state each year.",
-    "Mean estimate of the mmr",
-    "the average age of pregnancy for each state each year",
-    "The regional category for the state."
+    "Average healthcare spending of each state each year.",
+    "Mean estimate of the MMR.",
+    "Average age of pregnancy for each state each year",
+    "Regional category for the state."
   ),
   stringsAsFactors = FALSE
 )
@@ -187,10 +187,10 @@ ggplot(data, aes(x = AverageAge)) +
   geom_histogram(binwidth = 1,fill = "#69b3a2", color = "white", ) +  
   labs(title = "Histogram of Average Age of Pregnancy",
        x = "Average Age of Pregnancy",
-       y = "Region") +
+       y = "Frequency") +
   theme_minimal()
 ```
 <p align="center">
 Figure 3: Distribution of Average Age of Pregnancy
 </p>
-  The histogram illustrates the distribution of the average age of pregnancy across various regions, with the most common age range being 25 to 27 years, as indicated by the tallest bar. This suggests that in most regions, the average age at which women are pregnant falls within this bracket. The histogram also shows that as the average age of pregnancy increases, fewer regions report these higher ages, with the 27 to 29 age range being less common and below 25 being the least common. This data can be valuable for designing region-specific healthcare policies and programs that address the reproductive health needs of women according to their predominant age groups.
+  The histogram illustrates the distribution of the average age of pregnancy across various regions, with the most common age being 27 years, as indicated by the tallest bar. This suggests that in most regions, the average age at which women are pregnant falls within this bracket. The histogram also shows that as the average age of pregnancy increases, fewer regions report these higher ages, with the 28 to 29 age range being less common and below 25 being the least common. This data can be valuable for designing region-specific healthcare policies and programs that address the reproductive health needs of women according to their predominant age groups.
