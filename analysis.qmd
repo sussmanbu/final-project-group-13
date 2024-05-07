@@ -11,18 +11,13 @@ draft: false
 ## Motivation
 The main purpose of the study is to explore the differences in maternal mortality rates(mmr) among different ethnic groups from 1999 to 2019 across the U.S., and the impact of healthcare spending and average age of pregnancy on maternal mortality rates. By comparing the average maternal mortality rate in each state with other variables,  the result can help to identify the factors that affect maternal mortality rates, thereby enhancing the understanding and protection of women.
 
-<<<<<<< HEAD
 
 ## Research Question
 1. What are the distributions of maternal mortality rates (MMR) in different regions among different racial groups?
 2. How is healthcare spending distributed across different regions?
 3. What is the relationship between healthcare spending and maternal mortality rates over time?
 4. What are the effects of pregnancy age on maternal mortality rates?
-=======
-Through the following analysis, a clear trend of spending vs mmr and avergae age vs mmr can be identified. 
-111
 
->>>>>>> 0876dd9f8660c25f48077c7a64b0ed86fafc40d4
 
 ## Outline
 
@@ -625,9 +620,13 @@ qqline(resid(log_mlr_model), col = "red")
 
 
 ## Conclusion
-1. As time passes, the maternal mortality rate increases across the U.S. Non-Hispanic American Indian, Alaska Native and Non-Hispanic Black are the three most vulnerable ethnic groups.
 
-2. Increasing spending on healthcare would decrease the
-maternal mortality rate.
+1. **Temporal Trends in Maternal Mortality**: Observational data indicates a progressive increase in maternal mortality rates across the United States over time. Particularly vulnerable to this trend are Non-Hispanic American Indian, Alaska Native, and Non-Hispanic Black populations, which exhibit disproportionately higher rates of maternal mortality.
 
-3. As the age of pregnant women increases, the maternal mortality rate also increases.
+2. **Healthcare Spending Distribution**: Analyses reveal that the allocation of healthcare spending is relatively consistent across various U.S. regions. This uniformity suggests that regional disparities in maternal outcomes may be influenced by factors other than the mere level of financial investment in healthcare.
+
+3. **Impact of Healthcare Expenditure on Maternal Mortality**: There is a prevailing assumption that increasing healthcare spending will lead to a reduction in maternal mortality rates. However, the data suggests a complex relationship that may require a multifaceted approach, addressing quality and accessibility of maternal care, alongside increased financial investment.
+
+4. **Correlation Between Maternal Age and Mortality Rates**: Evidence points to a correlation between the age of pregnancy and maternal mortality rates, with an increase in age associated with higher mortality risks. This trend underscores the need for enhanced prenatal and postnatal care tailored to older pregnant women, highlighting age as a significant factor in maternal health risk assessments.
+
+
