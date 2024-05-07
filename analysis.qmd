@@ -222,7 +222,7 @@ coef_table <- tidy(mlr_model)
 
 fit_stats <- glance(mlr_model)
 
-kable(fit_stats, caption = "Fit Statistics of the Multiple Linear Regression Model")
+kable(fit_stats, caption = "Fit Statistics of the Single Linear Regression Model")
 
 ```
 • **Model Fit (R-squared and Adjusted R-squared)**: The R-squared value of 0.2057 suggests that about 20.57% of the variability in the MMR is explained by the model. The adjusted R-squared value, slightly lower at 0.2050, adjusts for the number of predictors in the model and confirms that about 20.50% of the variability is explained after accounting for the number of predictors.
@@ -623,7 +623,7 @@ qqline(resid(log_mlr_model), col = "red")
 ## Flaws and Limitations
   During the examination of the relationship between healthcare spending and maternal mortality rates, it was determined that the correlation between these variables is not robust, suggesting the influence of additional factors on the mortality rates. Additionally, the available data on pregnancy rates across various states lacks comprehensive categorization by ethnic groups, thereby hindering a more refined analysis that could reveal differential effects of pregnancy rates among distinct ethnic demographics on maternal mortality rates.
   
-  The healthcare spending data did not account for variations in the inflation rate over the years. This oversight could result in a misleading upward trend in healthcare expenditure over time, potentially compromising the validity of subsequent analyses and conclusions derived from this data.It is therefore recommended that future studies adjust for inflation to provide a more accurate depiction of real changes in healthcare spending, ensuring a more reliable investigation into its effects on maternal mortality rates.
+  The healthcare spending data did not account for variations in the inflation rate over the years. This oversight could result in a misleading upward trend in healthcare expenditure over time, potentially compromising the validity of subsequent analyses and conclusions derived from this data. It is therefore recommended that future studies adjust for inflation to provide a more accurate depiction of real changes in healthcare spending, ensuring a more reliable investigation into its effects on maternal mortality rates.
 
 
 ## Conclusion
@@ -635,37 +635,3 @@ qqline(resid(log_mlr_model), col = "red")
 3. **Impact of Healthcare Expenditure on Maternal Mortality**: There is a prevailing assumption that increasing healthcare spending will lead to a reduction in maternal mortality rates. However, the data suggests a complex relationship that may require a multifaceted approach, addressing quality and accessibility of maternal care, alongside increased financial investment.
 
 4. **Correlation Between Maternal Age and Mortality Rates**: Evidence points to a correlation between the age of pregnancy and maternal mortality rates, with an increase in age associated with higher mortality risks. This trend underscores the need for enhanced prenatal and postnatal care tailored to older pregnant women, highlighting age as a significant factor in maternal health risk assessments.
-
-
-
-```{r}
-# Load necessary libraries
-library(readr)
-library(knitr)
-
-# Load the dataset
-data <- read_csv("dataset/mmr_clean.csv", show_col_types = FALSE)
-
-# Remove rows with missing or non-numeric values in critical columns
-data <- data[complete.cases(data[c("val", "race_group")]), ]
-
-# Convert race_group to a factor and exclude one level to avoid singularities
-data$race_group <- factor(data$race_group)
-
-# Generate dummy variables for race_group, excluding the first level to avoid singularities
-race_group_dummies <- model.matrix(~ race_group - 1, data)[, -1]  # -1 to include all levels, excluding intercept
-
-# Combine the val data with the dummy variables
-mlr_data <- cbind(data["val"], race_group_dummies)
-
-# Fit the multiple linear regression model
-mlr_model <- lm(val ~ ., data = mlr_data)
-
-# Get the summary and convert it to a data frame
-summary_model <- summary(mlr_model)
-coef_table <- as.data.frame(summary_model$coefficients)
-
-# Display the coefficients in a Kable table
-kable(coef_table, caption = "Multiple Linear Regression Coefficients with Race Group")
-```
-
