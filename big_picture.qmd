@@ -32,7 +32,7 @@ data <- read_csv(data_path, show_col_types = FALSE)
 # Aggregate mean_val by year
 national_mmr <- data %>%
   group_by(year_id) %>%
-  summarize(mean_mmr = sum(mean_val, na.rm = TRUE))  # Sum across states
+  summarize(mean_mmr = mean(mean_val, na.rm = TRUE))  # Sum across states
 
 # Plot the trend of mean_val over the years
 ggplot(national_mmr, aes(x = year_id, y = mean_mmr)) +
@@ -75,6 +75,22 @@ Here are two links to relevant bio-medical research:
 
 ### Spending needs a second thought…
 In the analysis of healthcare spending, the data shows a moderate link between spending and maternal mortality rates. This contradicts the common sense that more money spent on healthcare would lead to better outcomes for younger mothers. There are other many other factors that can affect MMR. 
+
+```{r, echo=FALSE, warning = FALSE, message=FALSE}
+grouped <- data %>%
+  group_by(location_name) %>%
+  summarize(mean_mmr = mean(mean_val, na.rm = TRUE), mean_spending = mean(spending, na.rm = TRUE))
+
+ggplot(grouped, aes(x = mean_spending, y = mean_mmr)) +  # Line graph
+  geom_point(color = "red", size = 1) +  # Points on line graph 
+  geom_smooth(method = "lm", se = FALSE, color = "blue") +  
+  labs(title = "Maternal Mortality v.s. Spending",
+       subtitle = "Averages for Each State",
+       x = "Spending ($)",
+       y = "MMR") +
+  theme_minimal()
+
+```
 
 
 # Future Action
