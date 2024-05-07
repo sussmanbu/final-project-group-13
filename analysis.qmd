@@ -23,7 +23,7 @@ The main purpose of the study is to explore the differences in maternal mortalit
 
 #### 1. General Information Analysis
 
-#### 2. Model Findings
+#### 2. Simple Linear Regression Models
 
 #### 3. Multiplie Linear Regression Model
 
@@ -160,7 +160,7 @@ ggplot(data, aes(x = spending, y = AverageAge, color = Region)) +
   
   
 
-# 2. Model Findings
+# 2. Simple Linear Regression Models
 Building on the insights derived from the graphical analysis, the application of a regression model can enhance the robustness of the findings by quantifying the extent of the relationship between healthcare spending and the average age of pregnancy through statistical measures.
 
 
@@ -222,7 +222,7 @@ coef_table <- tidy(mlr_model)
 
 fit_stats <- glance(mlr_model)
 
-kable(fit_stats, caption = "Fit Statistics of the Single Linear Regression Model")
+kable(fit_stats, caption = "Fit Statistics of the Simple Linear Regression Model")
 
 ```
 • **Model Fit (R-squared and Adjusted R-squared)**: The R-squared value of 0.2057 suggests that about 20.57% of the variability in the MMR is explained by the model. The adjusted R-squared value, slightly lower at 0.2050, adjusts for the number of predictors in the model and confirms that about 20.50% of the variability is explained after accounting for the number of predictors.
@@ -462,33 +462,8 @@ qqline(resid(mlr_model), col = "red")
 • However, there are notable deviations at the tails, particularly at the upper end, indicating the presence of significant **outliers** and suggesting that the residuals are not perfectly normal. This lack of normality at the extremes suggests that certain extreme data points might be influencing the model, potentially affecting its assumptions and necessitating further investigation or alternative modeling approaches.
 
 
-# 4.Multiplie Linear Regression for MMR-AGE with Healthcare Spending and Race
-```{r}
-# Load necessary libraries
-library(readr)
-library(dplyr)
-library(knitr)
 
-data <- read_csv("dataset/new_phc_mmr_combine.csv", show_col_types = FALSE)
-
-data$AverageAge <- as.integer(data$AverageAge)
-
-data <- data[complete.cases(data$AverageAge), ]
-
-data$race_group <- factor(data$race_group)
-
-mlr_model <- lm(mean_val ~ spending + race_group, data = data)
-
-summary_model <- summary(mlr_model)
-coef_table <- as.data.frame(summary_model$coefficients)
-
-kable(coef_table, caption = "Multiple Linear Regression Coefficients")
-
-```
-
-
-
-# 5. Log-Log Regression Model
+# 4. Log-Log Regression Model
 The multiple linear regression analysis and  plots suggest potential issues with outliers and deviations from normality in the data. The residuals show some non-linearity and heteroscedasticity, indicating that the standard linear model might not be fully capturing the relationships among maternal mortality rates (MMR), age, spending, and regional effects. Applying a log-log regression model can linearize the relationships among variables, handle skewed data more effectively, and interpret coefficients as elasticities, which measure the percentage change in MMR in response to a 1% change in predictors. This approach can improve the model's fit, stabilize variance, and provide more meaningful insights into the proportional changes affecting maternal mortality.
 
 ```{r, echo=FALSE, warning = FALSE}
