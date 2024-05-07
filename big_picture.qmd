@@ -1,5 +1,5 @@
 ---
-title: Beyond Birth Rates:Prioritizing Maternal Mortality for Holistic Health Outcomes
+title: Beyond Birth Rates-- Prioritizing Maternal Mortality for Holistic Health Outcomes
 description: "Explore the Maternal Morality Ratio"
 toc: true
 draft: FALSE
@@ -17,7 +17,7 @@ This can be presented by any subset of the team members.
 
 # More people are dying giving birth over last few decades, even with better medical equipment…?
 
-With the educational guess of having a decreasing trend in the maternal mortality rate in the past 20 years, the original purpose of the team was to see how the healthcare policy and the economic reasons can affect the MMR in each racial group. However, with the reveal of the unexpected increasing trend in the death rate, other environmental factors are worth to explore which could possibly give reasonable explanations for the growing trend of mortality rate. 
+While one may have expected maternal mortality to have decreased in the last two decades due to innovations in and better access to natal care, the opposite is true. The original goal of this team was to investigate how healthcare policy and economic factors contributed to maternal mortality. However, once this increasing death rate trend was uncovered, the team pivoted to looking at other environmental factors such as location, spending, and age to hopefully shed some light on this scary trend. 
 
 ```{r, echo=FALSE, warning = FALSE, message=FALSE}
 # Load necessary libraries
@@ -38,23 +38,23 @@ national_mmr <- data %>%
 ggplot(national_mmr, aes(x = year_id, y = mean_mmr)) +
   geom_line(color = "blue", size = 1) +  # Line graph
   geom_point(color = "red", size = 2) +  # Points on line graph
-  labs(title = "Trend of Mean MMR Over Years",
+  labs(title = "Trend of Maternal Mortality Rates Over Years",
        x = "Year",
-       y = "Mean MMR") +
+       y = "MMR") +
   theme_minimal()
 
 
 ```
 
 
-### Why does the investigation on MMR matter?
+### Why does this investigation into MMR matter?
 The maternal mortality rate is a comprehensive dataset that gives insight into the trends and disparities of public health resources, the guiding formulation of the related policy, and the overall societal welfare. This research matters not only because it reflects the effectiveness of the healthcare system, but the increasing tendency also highlight the broader socioeconomic causes behind the scenes. 
 
 Here is the trend of MMR and Healthcare Spending for each state from 1999 to 2019:
 
-[Maternal Mortality Map](https://ma415-group13.shinyapps.io/MMR_Map_by_year/)
+[Maternal Mortality Interactive Map](https://ma415-group13.shinyapps.io/MMR_Map_by_year/)
 
-[Health Care Spending Map](https://ma415-group13.shinyapps.io/spending/)
+[Health Care Spending Interactive Map](https://ma415-group13.shinyapps.io/spending/)
 
 ### Rich Girl Young Age?
 In the exploration of the possible environmental factors, the scholar articles give us the idea to take a close look at the healthcare spending and the average age of pregnancy. Both the datasets show the trend over time which offers us two solid facts: 1. People are having babies at an older age over time. 2. The spending on healthcare is increasing over time. We predict that the MMR will not be statistically noticeable in groups of the younger age of pregnancy and higher spending on healthcare. So, a rich girl at a young age should be a satisfying answer, but is it?

@@ -150,7 +150,7 @@ Figure 2: Distribution of Healthcare Spending
   As our initial motivation was to see if the increasing average age of pregnancy could help explain the growing trend of maternal mortality rate, we combined the average age data with the previous data.
 
 
-## Variables Description
+## Variables Descriptions
 ``` {r, echo=FALSE}
 library(knitr)
 variable_info <- data.frame(
