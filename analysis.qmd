@@ -56,7 +56,7 @@ mmr_data_clean |>
 ```
 • **Regional Trends**:
 
-  - **Midwest Region (Orange Line)**: Generally, a rising trend in maternal mortality rates is visible across most racial groups, especially pronounced in Non-Hispanic American Indian and Alaska Native and Non-Hispanic Black populations.
+  - **Midwest Region (Red Line)**: Generally, a rising trend in maternal mortality rates is visible across most racial groups, especially pronounced in Non-Hispanic American Indian and Alaska Native and Non-Hispanic Black populations.
   
   - **Northeast Region (Green Line)**: This region shows relatively stable or slightly rising rates among all groups, with significant increases visible in the Non-Hispanic Black and Non-Hispanic American Indian and Alaska Native groups around 2015.
   
@@ -169,7 +169,7 @@ ggplot(data, aes(x = spending, y = AverageAge, color = Region)) +
   
   
 
-# 2.Model Findings
+# 2. Model Findings
 Building on the insights derived from the graphical analysis, the application of a regression model can enhance the robustness of the findings by quantifying the extent of the relationship between healthcare spending and the average age of pregnancy through statistical measures.
 
 ### Simple Linear Regression for MMR-AGE
@@ -181,7 +181,7 @@ library(knitr)
 data <- read_csv("dataset/phc_mmr_with_age.csv", show_col_types = FALSE)
 data$AverageAge <- as.integer(data$AverageAge)
 
-data$mean_val <- data$mean_val / 100
+data$mean_val <- data$mean_val / 1000
 # Fit the simple linear regression model with AverageAge as the predictor
 model <- lm(mean_val ~ AverageAge, data = data)
 
@@ -210,7 +210,7 @@ kable(
 )
 
 ```
-1. **Coefficient for AverageAge**: The coefficient estimate for `AverageAge` is 0.0216. This indicates that for each additional year increase in the average age, the MMR increases by approximately 0.0216 units on average, assuming a linear relationship.This also aligns with the intuition that as people age, the risk of mortality increases.
+1. **Coefficient for AverageAge**: The coefficient estimate for `AverageAge` is 0.00216. This indicates that for each additional year increase in the average age, the MMR increases by approximately 0.00216 percent on average, assuming a linear relationship. This also aligns with the intuition that as people age, the risk of mortality increases.
 
 2. **Statistical Significance**: The p-value for `AverageAge` is extremely low (0.0000001), indicating strong statistical significance. This suggests that there is a very low probability that the observed association is due to random chance, implying that `AverageAge` is a significant predictor of MMR.
   
