@@ -19,7 +19,7 @@ This can be presented by any subset of the team members.
 
 With the educational guess of having a decreasing trend in the maternal mortality rate in the past 20 years, the original purpose of the team was to see how the healthcare policy and the economic reasons can affect the MMR in each racial group. However, with the reveal of the unexpected increasing trend in the death rate, other environmental factors are worth to explore which could possibly give reasonable explanations for the growing trend of mortality rate. 
 
-```{r, echo=FALSE, warning = FALSE}
+```{r, echo=FALSE, warning = FALSE, message=FALSE}
 # Load necessary libraries
 library(ggplot2)
 library(dplyr)
