@@ -11,10 +11,9 @@ draft: false
 ## Motivation
 The main purpose of the study is to explore the differences in maternal mortality rates(mmr) among different ethnic groups from 1999 to 2019 across the U.S., and the impact of healthcare spending and average age of pregnancy on maternal mortality rates. By comparing the average maternal mortality rate in each state with other variables,  the result can help to identify the factors that affect maternal mortality rates, thereby enhancing the understanding and protection of women.
 
-Through the following analysis, a clear trend of spending vs mmr and avergae age vs mmr can be identified. T
+Through the following analysis, a clear trend of spending vs mmr and avergae age vs mmr can be identified. 
 
 
-research question????????
 
 ## Outline
 
@@ -28,12 +27,14 @@ research question????????
 
 
 # 1.General Information Analysis
+
+### Maternal Mortality by Census Region over Time, Faceted by Race
 ```{r load in the data, echo=FALSE}
 suppressPackageStartupMessages(library(tidyverse))
 load(here::here("dataset/mmr.RData"))
 ```
 
-```{r figure 3, echo=FALSE}
+```{r figure 3, echo=FALSE, message=FALSE}
 mmr_data_clean |>
   group_by(year_id, location_name, race_group) |>
   filter(str_detect(location_name, "Census")) |> 
@@ -49,19 +50,23 @@ mmr_data_clean |>
   )
 
 ```
+• **Regional Trends**:
+  - **Midwest Region (Red Line)**: Generally, a rising trend in maternal mortality rates is visible across most racial groups, especially pronounced in Non-Hispanic Black populations.
+  
+  - **Northeast Region (Green Line)**: This region shows relatively stable or slightly rising rates among all groups, with significant increases visible in the Non-Hispanic Black and Native American groups around 2015.
+  
+  - **South Region (Blue Line)**: This region exhibits the highest maternal mortality rates, particularly among Non-Hispanic Black women, where rates have sharply increased since around 2010.
+  
+  - **West Region (Purple Line)**: Displays relatively lower and more stable rates across most groups, except for a sharp increase in mortality among Non-Hispanic American Indian and Alaska Native groups after 2015.
 
-Figure 3: The five graphs depict the trajectory of maternal mortality rates over a 20-year period, differentiated by racial categories and geographic regions in the United States.  These categories include Hispanic and any race, Non-Hispanic American Indian and Alaska Native, Non-Hispanic Asian and Native Hawaiian or Other Pacific Islander, Non-Hispanic Black, and Non-Hispanic White.  While there is an overarching increase in mortality rates across these racial demographics, the patterns of increase vary notably between them.
+• **Interpretation of Racial Disparities**: Across all regions, **Non-Hispanic Black women** consistently have higher maternal mortality ratios compared to other racial groups, indicating significant racial disparities in maternal healthcare outcomes.
 
-For the categories of Hispanic and any race, Non-Hispanic Asian and Native Hawaiian or Other Pacific Islander, and Non-Hispanic White, the mortality rates appear to be relatively stable, with slight fluctuations over the two decades.  The lines on the graph for these groups are relatively flat, suggesting less volatility in their yearly rates and possibly better outcomes when compared to the other categories.
-
-Contrastingly, the Non-Hispanic Black category exhibits a pronounced upward trend in the Northeast and South regions, indicating a concerning rise in maternal mortality rates that surpasses the other racial groups in these areas.  This suggests that Non-Hispanic Black women in these regions are disproportionately affected by factors contributing to maternal mortality.
-
-The Non-Hispanic American Indian and Alaska Native category demonstrates a significant increase in maternal mortality rates, particularly in the Midwest and West regions.  The sharp rise could be indicative of systemic health disparities or regional deficiencies in healthcare access or quality that particularly impact this demographic.
-
-The observed regional differences, such as higher rates in the South and variations in the Midwest and West, might be influenced by a multitude of factors including healthcare infrastructure, socioeconomic status, accessibility of prenatal and postnatal care, and population density.  Regions with higher population densities might face different healthcare challenges than less densely populated areas, potentially affecting the availability and quality of care.
+• **Temporal Trends**: A general increase in maternal mortality ratios is observed from 2000 to 2020 across most racial and regional breakdowns, with some fluctuations and sharp increases in specific years and regions. 
 
 
-```{r figure 5, echo=FALSE}
+
+### Maternal Mortality vs. Healthcare Spending by Year
+```{r figure 5, echo=FALSE, message=FALSE}
 # Load necessary libraries
 library(ggplot2)
 library(readr)
@@ -88,9 +93,27 @@ ggplot(combined_data, aes(x = spending, y = mean_val)) +
   theme(legend.position = "none")
 
 ```
+• **Trends by Year**:
+
+  **Early Years (1999-2008)**: Lower variability in healthcare spending, with most data points clustered around the lower end of the spending spectrum. MMR appears relatively stable across different spending levels.
+  
+  **Middle Years (2009-2014)**: Slight increase in both healthcare spending and MMR variability. Some outliers begin to appear, especially at higher spending levels without a corresponding decrease in MMR.
+  
+  **Later Years (2015-2018)**: Increased spread in healthcare spending, with MMR data points showing a wide range of outcomes at both lower and higher spending levels.
+
+• **Interpretation of Trends**:
+
+  There is **no clear correlation** visible from the graph that higher healthcare spending consistently leads to lower MMR. In fact, the variability suggests complex dynamics where **increased spending does not straightforwardly translate to better maternal health outcomes.**
+  
+  The presence of data points at high spending levels but with high MMR indicates inefficiencies or other underlying issues in healthcare systems.
+
+• **Overall Analysis**:
+  This visual suggests that while healthcare spending has increased over the years, the improvement in maternal mortality rates does not appear to be directly proportional. This underscores the need for more targeted and effective healthcare interventions specifically aimed at reducing maternal mortality.
 
 
-```{r figure 9, echo=FALSE, null = FALSE}
+
+### Healtcare Spending by Census Region
+```{r figure 9, echo=FALSE, null = FALSE, message=FALSE}
 # Load the necessary libraries
 library(ggplot2)
 library(readr)
@@ -113,7 +136,7 @@ ggplot(data, aes(x = spending, y = AverageAge, color = Region)) +
   geom_point(aes(size = 3), alpha = 0.6) +  
   geom_smooth(method = "lm", se = FALSE, aes(group = Region)) +  
   scale_size_identity() +  
-  labs(title = "Bubble Chart with Fitted Lines by Region",
+  labs(title = "Healtcare Spending by Census Region",
        x = "Healthcare Spending",
        y = "Average Age of Pregnancy",
        color = "Region") +
@@ -121,9 +144,28 @@ ggplot(data, aes(x = spending, y = AverageAge, color = Region)) +
   facet_wrap(~ Region)
 
 ```
+• **Trends and Correlations**:
 
+  **Midwest (Red)**: Displays a moderate positive correlation between increased healthcare spending and higher average age of pregnancy.
+  
+  **Northeast (Green)**: Shows a strong positive correlation, suggesting that as healthcare spending increases, the average age of pregnancy also tends to be higher.
+  
+  **South (Blue)**: Similar to the Midwest, there is a positive correlation, but with more variability in data points.
+  
+  **West (Purple)**: Exhibits a positive correlation with some variability. The trend line indicates that increased spending might be associated with a slight increase in the average age of pregnancy.
+
+• **Interpretation of Trends**:
+
+  All regions show a positive correlation between healthcare spending and the average age of pregnancy, indicating that **higher spending might be associated with older maternal ages**. This could reflect better access to healthcare, allowing women to delay pregnancy.
+  
+  The strength of correlation varies by region, with the Northeast showing the **strongest correlation and the most consistent trend**.
+
+• **Overall Analysis**: Regions with higher healthcare investments might provide better support for women to plan their pregnancies later in life, possibly due to better healthcare services and access to family planning.
+  
+  
 
 # 2.Model Findings
+Building on the insights derived from the graphical analysis, the application of a regression model can enhance the robustness of the findings by quantifying the extent of the relationship between healthcare spending and the average age of pregnancy through statistical measures.
 
 ### Simple Linear Regression for MMR-AGE
 ```{r, echo=FALSE, warning = FALSE}
@@ -457,7 +499,7 @@ kable(log_coef_table, caption = "Log-Log Multiple Linear Regression Coefficients
    
    
    
-```{r}
+```{r, echo=FALSE, message=FALSE, warning = FALSE}
 # Load necessary libraries
 library(readr)
 library(knitr)
@@ -560,7 +602,7 @@ ggplot(data.frame(fitted = fitted(log_mlr_model), residuals = resid(log_mlr_mode
 
 • There are **fewer extreme outliers**, which means that the log-log transformation mitigates the influence of extreme data points and provides a more accurate representation of the relationship between maternal mortality rates, age, spending, and regional factors. Despite this improvement, further refinement could enhance the model's overall fit and predictive accuracy.
 
-```{r}
+```{r, echo=FALSE, message=FALSE, warning = FALSE}
 # QQ plot
 qqnorm(resid(log_mlr_model))
 qqline(resid(log_mlr_model), col = "red")
