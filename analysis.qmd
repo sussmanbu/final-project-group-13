@@ -241,12 +241,8 @@ library(knitr)
 data <- read_csv("dataset/phc_mmr_with_age.csv", show_col_types = FALSE)
 data$AverageAge <- as.integer(data$AverageAge)
 
-<<<<<<< HEAD
-data$mean_val <- data$mean_val / 100
-=======
 data$mean_val <- data$mean_val / 1000
-# Fit the simple linear regression model with AverageAge as the predictor
->>>>>>> 42faa39bcd0311025cd974a251cb9314d04c93b4
+
 model <- lm(mean_val ~ AverageAge, data = data)
 
 coefficients_table <- tidy(model)
@@ -303,7 +299,7 @@ data <- read_csv("dataset/phc_mmr_with_age.csv", show_col_types = FALSE)
 data <- na.omit(data)
 
 data$AverageAge <- as.integer(data$AverageAge)
-data$mean_val <- data$mean_val / 100
+data$mean_val <- data$mean_val / 1000
 
 data$Region <- as.factor(data$Region)
 data$race_group <- as.factor(data$Region)
@@ -332,7 +328,7 @@ data <- data[complete.cases(data[c("AverageAge", "spending", "mean_val", "Region
 data$AverageAge <- as.integer(as.numeric(data$AverageAge))
 
 data$Region <- factor(data$Region)
-data$mean_val <- data$mean_val / 100
+data$mean_val <- data$mean_val / 1000
 
 region_dummies <- model.matrix(~ Region, data)[, -1]
 
