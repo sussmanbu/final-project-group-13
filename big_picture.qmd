@@ -5,7 +5,7 @@ toc: true
 draft: FALSE
 ---
 
-![](images/bigpic.jpeg)
+![](images/bigpic.jpg)
 ### Video Recording
 
 Make a video recording (probably using Zoom) demonstrating your interactive components.
@@ -51,7 +51,9 @@ ggplot(national_mmr, aes(x = year_id, y = mean_mmr)) +
 The maternal mortality rate is a comprehensive dataset that gives insight into the trends and disparities of public health resources, the guiding formulation of the related policy, and the overall societal welfare. This research matters not only because it reflects the effectiveness of the healthcare system, but the increasing tendency also highlight the broader socioeconomic causes behind the scenes. 
 
 Here is the trend of MMR and Healthcare Spending for each state from 1999 to 2019:
+
 [Maternal Mortality Map](https://ma415-group13.shinyapps.io/MMR_Map_by_year/)
+
 [Health Care Spending Map](https://ma415-group13.shinyapps.io/spending/)
 
 ### Rich Girl Young Age?
