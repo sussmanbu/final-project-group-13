@@ -380,8 +380,6 @@ kable(coef_table, caption = "Multiple Linear Regression Coefficients")
    
    - **Spending**: The spending coefficient is 0.0000093 (p = 0.015), indicating that each unit increase in healthcare spending is associated with a slight increase in MMR, but the effect is very small. Intuitively, it is generally expected that increasing healthcare spending would reduce maternal mortality rates (MMR). However, since maternal mortality can also be linked to chronic diseases, increased healthcare expenditure does not always directly translate to improved outcomes.  Additionally, as individuals are having children later in life compared to previous generations, the probability of maternal mortality may increase, which could contribute to higher healthcare costs without necessarily improving MMR.
    
-   
-   ??? attribution
 ```
 > https://www.commonwealthfund.org/publications/issue-briefs/2021/nov/high-costs-maternal-morbidity-need-investment-maternal-health
 ```
