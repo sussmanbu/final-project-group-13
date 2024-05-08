@@ -114,7 +114,7 @@ ggplot(combined_data, aes(x = spending, y = mean_val)) +
 
 
 
-### Healtcare Spending by Census Region
+### Healhtcare Spending by Census Region
 ```{r figure 9, echo=FALSE, null = FALSE, message=FALSE}
 library(ggplot2)
 library(readr)
@@ -132,8 +132,8 @@ ggplot(data, aes(x = spending, y = AverageAge, color = Region)) +
   geom_point(aes(size = 3), alpha = 0.6) +  
   geom_smooth(method = "lm", se = FALSE, aes(group = Region)) +  
   scale_size_identity() +  
-  labs(title = "Healtcare Spending by Census Region",
-       x = "Healthcare Spending ($)",
+  labs(title = "Healhtcare Spending by Census Region",
+       x = "Healhthcare Spending ($)",
        y = "Average Age of Pregnancy",
        color = "Region") +
   theme_minimal() +
